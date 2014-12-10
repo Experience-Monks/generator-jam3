@@ -35,7 +35,7 @@ var intended = {
 	}
 };
 
-test( 'testing parse', function( t ) {
+test( 'config parse', function( t ) {
 
 	t.plan( 1 );
 	t.equal( JSON.stringify( parse( JSON.stringify( testData ) ) ), JSON.stringify( intended ), 'parse converted and normalized the string' );

@@ -35,7 +35,7 @@ var intended = {
 	}
 };
 
-test( 'testing stringify', function( t ) {
+test( 'config stringify', function( t ) {
 
 	t.plan( 1 );
 	t.equal( stringify( testData ), JSON.stringify( intended, null, '\t' ), 'stringify converted and normalized the string' );
