@@ -5,7 +5,7 @@ var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
-    this.pkg = require('../package.json');
+    // this.pkg = require('../package.json');
   },
 
   prompting: function () {
