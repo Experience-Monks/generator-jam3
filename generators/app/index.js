@@ -56,7 +56,11 @@ module.exports = yeoman.generators.Base.extend({
 			
 			var copy = cp.bind( this );
 
-			copy( 'model/index.js', 'lib/model/index.js' );
+			copy( '../../../templates/model/index.js', 'lib/model/index.js' );
+		},
+
+		templates: function() {
+
 		}
 	}
 });
