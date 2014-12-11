@@ -1,62 +1,43 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
 
 module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    // this.pkg = require('../package.json');
-  },
 
-  prompting: function () {
-    var done = this.async();
+	initializing: {
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the perfect' + chalk.red('Jam3') + ' generator!'
-    ));
+	},
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+	prompting: {
+		
+	},
 
-    this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
+	writing: {
 
-      done();
-    }.bind(this));
-  },
+		root: function() {
 
-  writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
-    },
+			var copy = function( name ) {
 
-    projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
-    }
-  },
+				this.fs.copy( 
 
-  install: function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install']
-    });
-  }
+					this.templatePath( name ),
+					this.destinationPath( name )
+				);
+			}.bind( this );
+
+			// copy stuff
+			copy( '.editorconfig' );
+			copy( '.jshintrc' );
+			copy( 'bower.json' );
+			copy( 'package.json' );
+			copy( 'index.js' );
+
+			// template stuff
+			this.fs.copyTpl( 
+
+				this.templatePath( 'README.md' ),
+				this.destinationPath( 'README.md' ),
+				{ projectName: 'Special Project' }
+			);
+		}
+	}
 });
