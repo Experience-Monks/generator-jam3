@@ -12,6 +12,25 @@ function cp( source, dest ) {
 	);
 }
 
+function tpl( source, dest, data ) {
+
+	if( typeof dest == 'object' ) {
+
+		data = dest;
+		dest = source;
+	}
+
+	dest = dest || source;
+	data = data || {};
+
+	this.fs.copyTpl( 
+
+		this.templatePath( source ),
+		this.destinationPath( dest ),
+		data
+	);
+}
+
 module.exports = yeoman.generators.Base.extend({
 
 	initializing: {
@@ -26,7 +45,8 @@ module.exports = yeoman.generators.Base.extend({
 
 		root: function() {
 
-			var copy = cp.bind( this );
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
 
 			// copy stuff
 			copy( '.editorconfig' );
@@ -36,17 +56,13 @@ module.exports = yeoman.generators.Base.extend({
 			copy( 'index.js' );
 
 			// template stuff
-			this.fs.copyTpl( 
-
-				this.templatePath( 'README.md' ),
-				this.destinationPath( 'README.md' ),
-				{ projectName: 'Special Project' }
-			);
+			template( 'README.md', { projectName: 'Special Project' } );
 		},
 
 		lib: function() {
 
-			var copy = cp.bind( this );
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
 
 			copy( 'framework/index.js', 'lib/framework/index.js' );
 			copy( 'framework/routes.js', 'lib/framework/routes.js' );
@@ -54,9 +70,16 @@ module.exports = yeoman.generators.Base.extend({
 
 		model: function() {
 			
-			var copy = cp.bind( this );
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
 
-			copy( '../../../templates/model/index.js', 'lib/model/index.js' );
+			this.fs.copyTpl( 
+
+				this.templatePath( '../../../templates/model/index.js' ),
+				this.destinationPath( 'lib/model/index.js' ),
+				{ '/': {} },
+				{ variable: 'data' }
+			);
 		},
 
 		templates: function() {

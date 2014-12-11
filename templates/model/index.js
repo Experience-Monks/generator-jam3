@@ -1,6 +1,1 @@
-module.exports = {
-
-	'/': {
-		
-	}
-};
+module.exports = <%= JSON.stringify( data, null, '\t' ) %>;
