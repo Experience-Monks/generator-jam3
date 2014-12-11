@@ -50,6 +50,13 @@ module.exports = yeoman.generators.Base.extend({
 
 			copy( 'framework/index.js', 'lib/framework/index.js' );
 			copy( 'framework/routes.js', 'lib/framework/routes.js' );
+		},
+
+		model: function() {
+			
+			var copy = cp.bind( this );
+
+			copy( 'model/index.js', 'lib/model/index.js' );
 		}
 	}
 });
