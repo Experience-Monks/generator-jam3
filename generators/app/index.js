@@ -1,6 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
-	string = require( 'string' );
+	fs = require( 'fs' ),
+	sectionFromRoute = require( '../../lib/sectionFromRoute' );
 
 var INIT_SECTIONS = [ '/' ];
 
@@ -104,37 +105,9 @@ module.exports = yeoman.generators.Base.extend({
 
 		sections: function() {
 
-			INIT_SECTIONS.forEach( function( section ) {
+			INIT_SECTIONS.forEach( function( route ) {
 
-				var sectionsSplit = section.split( '/' ),
-					fileName = [], firstChar;
-
-				// grab all parts of the file name
-				for( var i = 0, len = sectionsSplit.length; i < len; i++ ) {
-
-					firstChar = sectionsSplit[ i ].charAt( 0 );
-
-					if( firstChar == ':' || firstChar == '*' ) {
-
-						break;
-					} else{
-
-						fileName.push( sectionsSplit[ i ] );
-					}
-				}
-
-				fileName.forEach( function( part, idx, fileName ) {
-
-					fileName[ idx ] = string( part ).capitalize().s;
-				});
-
-				fileName = fileName.join( '' );
-
-				if( fileName == '' )  {
-
-					fileName = 'Landing';
-				}
-
+				var fileName = sectionFromRoute( route );
 
 				this.fs.copyTpl( 
 
@@ -143,6 +116,29 @@ module.exports = yeoman.generators.Base.extend({
 					{ section: fileName }
 				);
 			}.bind( this ));
+		},
+
+		ui: function() {
+
+			if( !fs.existsSync( this.destinationPath( 'lib/' ) ) ) {
+
+				fs.mkdirSync( this.destinationPath( 'lib/' ) );
+			}
+
+			if( !fs.existsSync( this.destinationPath( 'lib/ui/' ) ) ) {
+
+				fs.mkdirSync( this.destinationPath( 'lib/ui/' ) );
+			}
+
+			INIT_SECTIONS.forEach( function( route ) {
+
+				var fileName = sectionFromRoute( route );
+
+				if( !fs.existsSync( this.destinationPath( 'lib/ui/' + fileName ) ) ) {
+
+					fs.mkdirSync( this.destinationPath( 'lib/ui/' + fileName ) );
+				}
+			}.bind( this ));						
 		}	
 	}
 });
