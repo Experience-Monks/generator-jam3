@@ -2,7 +2,8 @@
 var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
 	path = require( 'path' ),
-	sectionFromRoute = require( '../../lib/sectionFromRoute' );
+	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
+	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' );
 
 var INIT_SECTIONS = [ '/' ];
 
@@ -118,17 +119,7 @@ module.exports = yeoman.generators.Base.extend({
 
 		sections: function() {
 
-			INIT_SECTIONS.forEach( function( route ) {
-
-				var fileName = sectionFromRoute( route );
-
-				this.fs.copyTpl( 
-
-					this.templatePath( '../../../templates/sections/index.js' ),
-					this.destinationPath( 'lib/sections/' + fileName + '.js' ),
-					{ section: fileName }
-				);
-			}.bind( this ));
+			createSectionFromRoutes.call( this, INIT_SECTIONS );
 		},
 
 		ui: function() {
