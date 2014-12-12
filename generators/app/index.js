@@ -1,5 +1,6 @@
 'use strict';
-var yeoman = require('yeoman-generator');
+var yeoman = require('yeoman-generator'),
+	string = require( 'string' );
 
 var INIT_SECTIONS = [ '/' ];
 
@@ -99,6 +100,49 @@ module.exports = yeoman.generators.Base.extend({
 					templates: [ 'hbs', 'ear' ]
 				}
 			);
+		},
+
+		sections: function() {
+
+			INIT_SECTIONS.forEach( function( section ) {
+
+				var sectionsSplit = section.split( '/' ),
+					fileName = [], firstChar;
+
+				// grab all parts of the file name
+				for( var i = 0, len = sectionsSplit.length; i < len; i++ ) {
+
+					firstChar = sectionsSplit[ i ].charAt( 0 );
+
+					if( firstChar == ':' || firstChar == '*' ) {
+
+						break;
+					} else{
+
+						fileName.push( sectionsSplit[ i ] );
+					}
+				}
+
+				fileName.forEach( function( part, idx, fileName ) {
+
+					fileName[ idx ] = string( part ).capitalize().s;
+				});
+
+				fileName = fileName.join( '' );
+
+				if( fileName == '' )  {
+
+					fileName = 'Landing';
+				}
+
+
+				this.fs.copyTpl( 
+
+					this.templatePath( '../../../templates/sections/index.js' ),
+					this.destinationPath( 'lib/sections/' + fileName + '.js' ),
+					{ section: fileName }
+				);
+			}.bind( this ));
 		}	
 	}
 });
