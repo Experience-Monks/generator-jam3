@@ -6,12 +6,7 @@ module.exports = {
 
 	sections.forEach( function( section, sIdx, sArray ) {
 
-		var fileName = section.replace( '/', '' );
-
-		if( fileName == '' ) {
-
-			fileName = 'landing';
-		}  
+		var fileName = sectionFromRoute( section );
 
 		%>'<%= section %>': { <%
 
