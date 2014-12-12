@@ -1,6 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
+	path = require( 'path' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' );
 
 var INIT_SECTIONS = [ '/' ];
@@ -45,22 +46,34 @@ module.exports = yeoman.generators.Base.extend({
 		
 	},
 
+	configuring: {
+
+		readInProjectName: function() {
+
+			var pathSplit = this.destinationPath().split( path.sep ),
+				projectName = pathSplit[ pathSplit.length - 1 ];
+
+			this.config.set( 'projectName', projectName );
+		}
+	},
+
 	writing: {
 
 		root: function() {
 
 			var copy = cp.bind( this ),
-				template = tpl.bind( this );
+				template = tpl.bind( this ),
+				config = this.config.getAll();
 
 			// copy stuff
 			copy( '.editorconfig' );
 			copy( '.jshintrc' );
 			copy( 'bower.json' );
-			copy( 'package.json' );
 			copy( 'index.js' );
 
 			// template stuff
-			template( 'README.md', { projectName: 'Special Project' } );
+			template( 'package.json', config );
+			template( 'README.md', config );
 		},
 
 		lib: function() {
