@@ -1,6 +1,8 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 
+var INIT_SECTIONS = [ '/' ];
+
 function cp( source, dest ) {
 
 	dest = dest || source;
@@ -69,21 +71,34 @@ module.exports = yeoman.generators.Base.extend({
 		},
 
 		model: function() {
-			
-			var copy = cp.bind( this ),
-				template = tpl.bind( this );
 
+			var model = {};
+
+			INIT_SECTIONS.forEach( function( section ) {
+
+				model[ section ] = {};
+			});
+			
 			this.fs.copyTpl( 
 
 				this.templatePath( '../../../templates/model/index.js' ),
 				this.destinationPath( 'lib/model/index.js' ),
-				{ '/': {} },
+				model,
 				{ variable: 'data' }
 			);
 		},
 
 		templates: function() {
 
-		}
+			this.fs.copyTpl( 
+
+				this.templatePath( '../../../templates/templates/index.js' ),
+				this.destinationPath( 'lib/templates/index.js' ),
+				{ 
+					sections: INIT_SECTIONS,
+					templates: [ 'hbs', 'ear' ]
+				}
+			);
+		}	
 	}
 });
