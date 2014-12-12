@@ -17,7 +17,7 @@ module.exports = {
 
 			templates.forEach( function( template, tIdx, tArray ) {
 
-				%><%= template %>: fs.readFileSync( __dirname + '/../<%= fileName + "." + template %>' )<% 
+				%><%= template %>: fs.readFileSync( __dirname + '/<%= fileName + "." + template %>' )<% 
 
 				if( tIdx < tArray.length - 1 ) { 
 					%>, <%  
