@@ -107,10 +107,14 @@ module.exports = yeoman.generators.Base.extend({
 			// template stuff
 			template( 'package.json', config );
 			template( 'README.md', config );
-			//template( 'Gruntfile.js', config );
 
 			this.mkdir('tasks');
 			this.mkdir('test');
+		},
+
+
+		grunt: function() {
+			this.template( 'Gruntfile.js' );
 		},
 
 		app: function() {
