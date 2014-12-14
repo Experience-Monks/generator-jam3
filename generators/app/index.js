@@ -58,15 +58,18 @@ module.exports = yeoman.generators.Base.extend({
 		      this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
 		      this.config.set( 'useBower', props.useBower );
 		      this.config.set( 'useTexturePackager', props.useTexturePackager );
-		      this.config.set( 'isCanvasProject', props.isCanvasProject );
 		      this.config.set( 'templateLibrary', props.templateLibrary );
+
+		      var isDOMBased = (props.baseSelector.indexOf('dom') != -1) ? true : false;
+		      var isCanvasBased = (props.baseSelector.indexOf('canvas') != -1) ? true : false;
+
+		      this.config.set( 'isCanvasBased', isCanvasBased );
+		      this.config.set( 'isDOMBased', isDOMBased );
 
 		      var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
 		      this.config.set( 'threejs', threejs );
 		      var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
 		      this.config.set( 'pixi', pixi );
-		      var hammerjs = (props.extraLibraries.indexOf('hammerjs') != -1) ? true : false;
-		      this.config.set( 'hammerjs', hammerjs );
 		      var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
 		      this.config.set( 'gsap', gsap );
 
