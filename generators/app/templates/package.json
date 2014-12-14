@@ -35,6 +35,7 @@
     "browserify-shim": "^3.8.0",
     "clean-css": "^2.2.18",
     "fluent-ffmpeg": "^2.0.0-rc3",
+    "load-grunt-tasks": "^1.0.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.2.0",
     "grunt-contrib-concat": "^0.5.0",
@@ -43,7 +44,9 @@
     "grunt-contrib-handlebars": "^0.9.1",
     "grunt-contrib-less": "^0.12.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-newer": "^0.8.0",
     "grunt-pngmin": "^0.6.2",
+    "time-grunt": "latest",
     "handlebars": "^2.0.0"
   },
   "browserify": {
