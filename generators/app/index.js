@@ -107,6 +107,23 @@ module.exports = yeoman.generators.Base.extend({
 			// template stuff
 			template( 'package.json', config );
 			template( 'README.md', config );
+			//template( 'Gruntfile.js', config );
+
+			this.mkdir('tasks');
+			this.mkdir('test');
+		},
+
+		app: function() {
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
+
+			this.mkdir('app/assets/json');
+			this.mkdir('app/assets/images');
+			this.mkdir('app/assets/videos');
+			this.mkdir('app/assets/sounds');
+			this.mkdir('app/assets/fonts');
+
+			copy( 'app/index.html', 'app/index.html' );
 		},
 
 		lib: function() {
@@ -134,6 +151,19 @@ module.exports = yeoman.generators.Base.extend({
 				model,
 				{ variable: 'data' }
 			);
+		},
+
+		less: function() {
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
+
+			copy( 'less/normalize.less', 'lib/less/normalize.less' );
+			copy( 'less/global.less', 'lib/less/global.less' );
+			copy( 'less/fonts.less', 'lib/less/fonts.less' );
+			copy( 'less/vars.less', 'lib/less/vars.less' );
+			copy( 'less/main.less', 'lib/less/main.less' );
+
+			copy( 'less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less' );
 		},
 
 		templates: function() {
