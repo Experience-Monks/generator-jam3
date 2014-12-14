@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
 	path = require( 'path' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
+	prompts = require( '../../lib/prompts' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
 	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
 
@@ -45,7 +46,33 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	prompting: {
-		
+		askFor: function () {
+		    var done = this.async();
+
+		    this.prompt(prompts, function (props) {
+		    	
+		      this.config.set( 'projectName', props.projectName );
+		      this.config.set( 'projectDescription', props.projectDescription );
+		      this.config.set( 'projectRepository', props.projectRepository );
+		      this.config.set( 'projectAuthorName', props.projectAuthor );
+		      this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
+		      this.config.set( 'useBower', props.useBower );
+		      this.config.set( 'useTexturePackager', props.useTexturePackager );
+		      this.config.set( 'isCanvasProject', props.isCanvasProject );
+		      this.config.set( 'templateLibrary', props.templateLibrary );
+
+		      var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
+		      this.config.set( 'threejs', threejs );
+		      var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
+		      this.config.set( 'pixi', pixi );
+		      var hammerjs = (props.extraLibraries.indexOf('hammerjs') != -1) ? true : false;
+		      this.config.set( 'hammerjs', hammerjs );
+		      var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
+		      this.config.set( 'gsap', gsap );
+
+		      done();
+		    }.bind(this));
+		  }
 	},
 
 	configuring: {
@@ -70,7 +97,11 @@ module.exports = yeoman.generators.Base.extend({
 			// copy stuff
 			copy( '.editorconfig' );
 			copy( '.jshintrc' );
-			copy( 'bower.json' );
+
+			if(this.config.get('useBower')) {
+				copy( 'bower.json' );
+			}
+			
 			copy( 'index.js' );
 
 			// template stuff
