@@ -1,5 +1,3 @@
-
-
 module.exports = [
 	{
 	  type: "input",
@@ -58,14 +56,6 @@ module.exports = [
 	    // }
 	    return true;
 	  }
-	},
-	//Choose template system ('hbs', 'ear', 'vue', 'none')
-	{
-		type: "list",
-		name: "templateLibrary",
-		message: "Choose template system",
-		choices: [ "hbs", "ear", "vue", "none"],
-		filter: function( val ) { return val.toLowerCase(); }
 	},
 
 	{

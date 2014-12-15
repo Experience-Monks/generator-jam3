@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
 	path = require( 'path' ),
+	_ = require( 'lodash' ),
 	gitOrigin = require( 'git-origin-url' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
 	prompts = require( './prompts' ),
@@ -69,35 +70,104 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	prompting: {
-		askFor: function () {
-		    var done = this.async();
+		// promptProjectSettings: function () {
 
-		    this.prompt(prompts, function (props) {
-		    	
-		      this.config.set( 'projectDescription', props.projectDescription );
-		      this.config.set( 'projectRepository', props.projectRepository );
-		      this.config.set( 'projectAuthorName', props.projectAuthor );
-		      this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
-		      this.config.set( 'useBower', props.useBower );
-		      this.config.set( 'useTexturePackager', props.useTexturePackager );
-		      this.config.set( 'templateLibrary', props.templateLibrary );
+		// 	var done = this.async();
 
-		      var isDOMBased = (props.baseSelector.indexOf('dom') != -1) ? true : false;
-		      var isCanvasBased = (props.baseSelector.indexOf('canvas') != -1) ? true : false;
+		// 	this.prompt(prompts, function (props) {
 
-		      this.config.set( 'isCanvasBased', isCanvasBased );
-		      this.config.set( 'isDOMBased', isDOMBased );
+		// 		this.config.set( 'projectDescription', props.projectDescription );
+		// 		this.config.set( 'projectRepository', props.projectRepository );
+		// 		this.config.set( 'projectAuthorName', props.projectAuthor );
+		// 		this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
+		// 		this.config.set( 'useBower', props.useBower );
+		// 		this.config.set( 'useTexturePackager', props.useTexturePackager );
+			
+		// 		var isDOMBased = (props.baseSelector.indexOf('dom') != -1) ? true : false;
+		// 		var isCanvasBased = (props.baseSelector.indexOf('canvas') != -1) ? true : false;
 
-		      var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
-		      this.config.set( 'threejs', threejs );
-		      var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
-		      this.config.set( 'pixi', pixi );
-		      var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
-		      this.config.set( 'gsap', gsap );
+		// 		this.config.set( 'isCanvasBased', isCanvasBased );
+		// 		this.config.set( 'isDOMBased', isDOMBased );
 
-		      done();
-		    }.bind(this));
-		  }
+		// 		var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
+		// 		this.config.set( 'threejs', threejs );
+		// 		var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
+		// 		this.config.set( 'pixi', pixi );
+		// 		var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
+		// 		this.config.set( 'gsap', gsap );
+
+		// 		done();
+		//     }.bind(this));
+		// },
+
+		promptTemplates: function() {
+
+			var done = this.async(),
+				promptOtherTemplate, templates;
+
+			promptOtherTemplate = function() {
+
+				this.prompt( [ 
+
+					{
+						type: 'input',
+						name: 'otherTemplate',
+						message: 'Enter in a file extension you\'d like to use for this other template lib',
+						default: '',
+						filter: function( val ) { 
+
+							if( val.charAt( 0 ) == '.' ) {
+
+								val = val.substring( 1 );
+							}
+
+							return val.toLowerCase(); 
+						}
+					}
+				], function (props) {
+
+					if( props.otherTemplate != '' ) {
+
+						templates.push( props.otherTemplate );
+						promptOtherTemplate();
+					} else {
+
+						this.config.set( )
+						done();
+					}
+				});
+			}.bind( this );
+
+			this.prompt( [ 
+
+				{
+					type: 'checkbox',
+					name: 'templateLibraries',
+					message: 'Choose template system',
+					choices: [ 'hbs', 'ear', 'vue', 'other' ],
+					default: []
+				}
+			], function (props) {
+
+				var hadOther = false;
+
+				templates = props.templateLibraries;
+				templates = _.remove( templates, function ( val ) { 
+
+					hadOther = hadOther || val == 'other'; 
+					return val == 'other'
+				});
+
+				if( hadOther ) {
+
+					promptOtherTemplate();
+				} else {
+
+					this.config.set( 'templateLibraries', templates );
+					done();
+				}
+			});
+		}
 	},
 
 	configuring: {
@@ -192,7 +262,7 @@ module.exports = yeoman.generators.Base.extend({
 
 		templates: function() {
 
-			createTemplatesFromRoutes.call( this, INIT_SECTIONS, [ 'hbs', 'ear' ] );
+			createTemplatesFromRoutes.call( this, INIT_SECTIONS, this.config.get( 'templateLibraries' ); );
 		},
 
 		sections: function() {
