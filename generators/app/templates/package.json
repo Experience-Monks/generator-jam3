@@ -25,6 +25,7 @@
     <% if (isDOMBased) { %>"dom-select": "0.0.0",<% } %>
     <% if (isDOMBased) { %>"dom-style": "0.0.3",<% } %>
     <% if (isDOMBased) { %>"prepend-child": "^1.0.0",<% } %>
+    <% if (templateLibrary == 'vue') { %>"vue": "^0.11.4",<% } %>
     "bw-modelstatic": "git://github.com/bigwheel-framework/bw-modelstatic.git",
     "bw-vm": "^1.2.0",
     "howler": "^1.1.25",
@@ -52,7 +53,8 @@
     "grunt-newer": "^0.8.0",
     "grunt-pngmin": "^0.6.2",
     "time-grunt": "latest",
-    "handlebars": "^2.0.0"
+    <% if (templateLibrary == 'hbs') { %>"handlebars": "^2.0.0"<% } %>
+    
   },
   "browserify": {
     "transform": [
