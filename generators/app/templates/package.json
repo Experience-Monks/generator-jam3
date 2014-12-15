@@ -24,11 +24,11 @@
     <% if (isDOMBased) { %>"domready": "^1.0.7",<% } %>
     <% if (isDOMBased) { %>"dom-select": "0.0.0",<% } %>
     <% if (isDOMBased) { %>"dom-style": "0.0.3",<% } %>
+    <% if (isDOMBased) { %>"prepend-child": "^1.0.0",<% } %>
     "bw-modelstatic": "git://github.com/bigwheel-framework/bw-modelstatic.git",
     "bw-vm": "^1.2.0",
     "howler": "^1.1.25",
     "lodash": "^2.4.1",
-    "prepend-child": "^1.0.0",
     "promise": "^6.0.1",
     "signals": "^1.0.0",
     "watchjs": "0.0.0"
