@@ -70,41 +70,40 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	prompting: {
-		// promptProjectSettings: function () {
+		promptProjectSettings: function () {
 
-		// 	var done = this.async();
+			var done = this.async();
 
-		// 	this.prompt(prompts, function (props) {
+			this.prompt(prompts, function (props) {
 
-		// 		this.config.set( 'projectDescription', props.projectDescription );
-		// 		this.config.set( 'projectRepository', props.projectRepository );
-		// 		this.config.set( 'projectAuthorName', props.projectAuthor );
-		// 		this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
-		// 		this.config.set( 'useBower', props.useBower );
-		// 		this.config.set( 'useTexturePackager', props.useTexturePackager );
+				this.config.set( 'projectDescription', props.projectDescription );
+				this.config.set( 'projectRepository', props.projectRepository );
+				this.config.set( 'projectAuthorName', props.projectAuthor );
+				this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
+				this.config.set( 'useBower', props.useBower );
+				this.config.set( 'useTexturePackager', props.useTexturePackager );
 			
-		// 		var isDOMBased = (props.baseSelector.indexOf('dom') != -1) ? true : false;
-		// 		var isCanvasBased = (props.baseSelector.indexOf('canvas') != -1) ? true : false;
+				this.isCanvasBased = props.baseSelector.indexOf('dom') != -1;
+				this.isDOMBased = props.baseSelector.indexOf('canvas') != -1;
 
-		// 		this.config.set( 'isCanvasBased', isCanvasBased );
-		// 		this.config.set( 'isDOMBased', isDOMBased );
+				// var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
+				// this.config.set( 'threejs', threejs );
+				// var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
+				// this.config.set( 'pixi', pixi );
+				// var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
+				// this.config.set( 'gsap', gsap );
 
-		// 		var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
-		// 		this.config.set( 'threejs', threejs );
-		// 		var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
-		// 		this.config.set( 'pixi', pixi );
-		// 		var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
-		// 		this.config.set( 'gsap', gsap );
-
-		// 		done();
-		//     }.bind(this));
-		// },
+				done();
+		    }.bind(this));
+		},
 
 		promptTemplates: function() {
 
 			var done = this.async(),
+				templateChoices = [],
 				promptOtherTemplate, templates;
 
+			// This will be a recursive function based on the users answers
 			promptOtherTemplate = function() {
 
 				this.prompt( [ 
@@ -138,13 +137,27 @@ module.exports = yeoman.generators.Base.extend({
 				});
 			}.bind( this );
 
+			if( this.isDOMBased ) {
+
+				templateChoices.push( 'hbs', 'vue' );
+			}
+
+			if( this.isCanvasBased ) {
+
+				templateChoices.push( 'ear' );
+			}
+
+			templateChoices.push( 'other' );			
+			
+
+			// Ask the questions
 			this.prompt( [ 
 
 				{
 					type: 'checkbox',
 					name: 'templateLibraries',
 					message: 'Choose template system',
-					choices: [ 'hbs', 'ear', 'vue', 'other' ],
+					choices: templateChoices,
 					default: []
 				}
 			], function (props) {
