@@ -122,7 +122,8 @@ module.exports = yeoman.generators.Base.extend({
 
 		app: function() {
 			var copy = cp.bind( this ),
-				template = tpl.bind( this );
+				template = tpl.bind( this ),
+				config = this.config.getAll();
 
 			this.mkdir('app/assets/json');
 			this.mkdir('app/assets/images');
@@ -130,7 +131,8 @@ module.exports = yeoman.generators.Base.extend({
 			this.mkdir('app/assets/sounds');
 			this.mkdir('app/assets/fonts');
 
-			copy( 'app/index.html', 'app/index.html' );
+			template( 'app/index.html', config);
+			//this.template( 'app/index.html');
 		},
 
 		lib: function() {
@@ -167,7 +169,6 @@ module.exports = yeoman.generators.Base.extend({
 			copy( 'less/normalize.less', 'lib/less/normalize.less' );
 			copy( 'less/global.less', 'lib/less/global.less' );
 			copy( 'less/fonts.less', 'lib/less/fonts.less' );
-			copy( 'less/vars.less', 'lib/less/vars.less' );
 			copy( 'less/main.less', 'lib/less/main.less' );
 
 			copy( 'less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less' );
