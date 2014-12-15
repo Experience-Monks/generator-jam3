@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
 	path = require( 'path' ),
+	gitOrigin = require( 'git-origin-url' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
 	prompts = require( '../../lib/prompts' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
@@ -43,6 +44,26 @@ module.exports = yeoman.generators.Base.extend({
 
 	initializing: {
 
+		readInProjectName: function() {
+
+			var pathSplit = this.destinationPath().split( path.sep ),
+				projectName = pathSplit[ pathSplit.length - 1 ];
+
+			this.config.set( 'projectName', projectName );
+		},
+
+		readInRemote: function() {
+
+			var done = this.async();
+
+			git( function( err, url ) {
+
+				if( !err ) {
+
+					this.config.set( 'projectRepository', url );
+				} 
+			});
+		}
 	},
 
 	prompting: {
@@ -51,7 +72,6 @@ module.exports = yeoman.generators.Base.extend({
 
 		    this.prompt(prompts, function (props) {
 		    	
-		      this.config.set( 'projectName', props.projectName );
 		      this.config.set( 'projectDescription', props.projectDescription );
 		      this.config.set( 'projectRepository', props.projectRepository );
 		      this.config.set( 'projectAuthorName', props.projectAuthor );
@@ -80,13 +100,7 @@ module.exports = yeoman.generators.Base.extend({
 
 	configuring: {
 
-		readInProjectName: function() {
-
-			var pathSplit = this.destinationPath().split( path.sep ),
-				projectName = pathSplit[ pathSplit.length - 1 ];
-
-			this.config.set( 'projectName', projectName );
-		}
+		
 	},
 
 	writing: {

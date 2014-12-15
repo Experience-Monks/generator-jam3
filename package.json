@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "chalk": "^0.5.0",
+    "git-origin-url": "^0.3.0",
     "string": "^3.0.0",
     "yeoman-generator": "^0.18.3",
     "yosay": "^0.3.0"
