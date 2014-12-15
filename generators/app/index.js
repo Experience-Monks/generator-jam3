@@ -169,7 +169,7 @@ module.exports = yeoman.generators.Base.extend({
 				templates = _.remove( templates, function ( val ) { 
 
 					hadOther = hadOther || val == 'other'; 
-					return val == 'other'
+					return val != 'other'
 				});
 
 				if( hadOther ) {
