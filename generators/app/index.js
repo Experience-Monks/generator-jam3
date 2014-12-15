@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator'),
 	path = require( 'path' ),
 	gitOrigin = require( 'git-origin-url' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
-	prompts = require( '../../lib/prompts' ),
+	prompts = require( './prompts' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
 	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
 
