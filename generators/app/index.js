@@ -56,12 +56,14 @@ module.exports = yeoman.generators.Base.extend({
 
 			var done = this.async();
 
-			git( function( err, url ) {
+			gitOrigin( function( err, url ) {
 
 				if( !err ) {
 
 					this.config.set( 'projectRepository', url );
 				} 
+
+				done();
 			});
 		}
 	},
