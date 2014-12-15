@@ -2,9 +2,6 @@
 
 <%= projectDescription %>
 
-useDOM? <%= isDOMBased %>
-useCanvas? <%= isCanvasBased %>
-
 ## GIT
 
 ```

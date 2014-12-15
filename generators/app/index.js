@@ -137,6 +137,7 @@ module.exports = yeoman.generators.Base.extend({
 				});
 			}.bind( this );
 
+			// Build out what templates should be asked for
 			if( this.isDOMBased ) {
 
 				templateChoices.push( 'hbs', 'vue' );
@@ -144,7 +145,7 @@ module.exports = yeoman.generators.Base.extend({
 
 			if( this.isCanvasBased ) {
 
-				templateChoices.push( 'ear' );
+				templateChoices.push( 'pixi-ears' );
 			}
 
 			templateChoices.push( 'other' );			
@@ -179,7 +180,7 @@ module.exports = yeoman.generators.Base.extend({
 					this.config.set( 'templateLibraries', templates );
 					done();
 				}
-			});
+			}.bind( this ));
 		}
 	},
 
@@ -231,7 +232,6 @@ module.exports = yeoman.generators.Base.extend({
 			this.mkdir('app/assets/fonts');
 
 			template( 'app/index.html', config);
-			//this.template( 'app/index.html');
 		},
 
 		lib: function() {
@@ -275,7 +275,7 @@ module.exports = yeoman.generators.Base.extend({
 
 		templates: function() {
 
-			createTemplatesFromRoutes.call( this, INIT_SECTIONS, this.config.get( 'templateLibraries' ); );
+			createTemplatesFromRoutes.call(this, INIT_SECTIONS, this.config.get( 'templateLibraries' ));
 		},
 
 		sections: function() {
