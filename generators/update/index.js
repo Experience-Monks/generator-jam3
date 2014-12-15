@@ -2,7 +2,8 @@
 var yeoman = require('yeoman-generator'),
 	chalk = require( 'chalk' ),
 	fs = require( 'fs' ),
-	createSectionsFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' );
+	createSectionsFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
+	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -31,6 +32,17 @@ module.exports = yeoman.generators.Base.extend({
 			if( !this.isInited ) {
 
 				this.log( chalk.red.bold( 'It seems you haven\'t initialized the project. Call `yo jam3` to get going' ) );
+			} else {
+
+				this.routes = [];
+
+				for( var i in this.model ) {
+
+					if( i.charAt( 0 ) == '/' ) {
+
+						this.routes.push( i );
+					}
+				}
 			}
 		}
 	},
@@ -41,17 +53,15 @@ module.exports = yeoman.generators.Base.extend({
 
 			if( this.isInited ) {
 
-				var routes = [];
+				createSectionsFromRoutes.call( this, this.routes );
+			}
+		},
 
-				for( var i in this.model ) {
+		templates: function() {
 
-					if( i.charAt( 0 ) == '/' ) {
+			if( this.isInited ) {
 
-						routes.push( i );
-					}
-				}
-
-				createSectionsFromRoutes.call( this, routes );
+				createTemplatesFromRoutes.call( this, this.routes );
 			}
 		}
 	}
