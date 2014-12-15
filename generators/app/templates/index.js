@@ -1,3 +1,3 @@
-var framework = require( './framework' );
+var framework = require( './lib/framework' );
 
 framework.init();

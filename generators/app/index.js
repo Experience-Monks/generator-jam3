@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator'),
 	fs = require( 'fs' ),
 	path = require( 'path' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
+	prompts = require( '../../lib/prompts' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
 	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
 
@@ -45,7 +46,36 @@ module.exports = yeoman.generators.Base.extend({
 	},
 
 	prompting: {
-		
+		askFor: function () {
+		    var done = this.async();
+
+		    this.prompt(prompts, function (props) {
+		    	
+		      this.config.set( 'projectName', props.projectName );
+		      this.config.set( 'projectDescription', props.projectDescription );
+		      this.config.set( 'projectRepository', props.projectRepository );
+		      this.config.set( 'projectAuthorName', props.projectAuthor );
+		      this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
+		      this.config.set( 'useBower', props.useBower );
+		      this.config.set( 'useTexturePackager', props.useTexturePackager );
+		      this.config.set( 'templateLibrary', props.templateLibrary );
+
+		      var isDOMBased = (props.baseSelector.indexOf('dom') != -1) ? true : false;
+		      var isCanvasBased = (props.baseSelector.indexOf('canvas') != -1) ? true : false;
+
+		      this.config.set( 'isCanvasBased', isCanvasBased );
+		      this.config.set( 'isDOMBased', isDOMBased );
+
+		      var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
+		      this.config.set( 'threejs', threejs );
+		      var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
+		      this.config.set( 'pixi', pixi );
+		      var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
+		      this.config.set( 'gsap', gsap );
+
+		      done();
+		    }.bind(this));
+		  }
 	},
 
 	configuring: {
@@ -70,12 +100,39 @@ module.exports = yeoman.generators.Base.extend({
 			// copy stuff
 			copy( '.editorconfig' );
 			copy( '.jshintrc' );
-			copy( 'bower.json' );
+
+			if(this.config.get('useBower')) {
+				copy( 'bower.json' );
+			}
+			
 			copy( 'index.js' );
 
 			// template stuff
 			template( 'package.json', config );
 			template( 'README.md', config );
+
+			this.mkdir('tasks');
+			this.mkdir('test');
+		},
+
+
+		grunt: function() {
+			this.template( 'Gruntfile.js' );
+		},
+
+		app: function() {
+			var copy = cp.bind( this ),
+				template = tpl.bind( this ),
+				config = this.config.getAll();
+
+			this.mkdir('app/assets/json');
+			this.mkdir('app/assets/images');
+			this.mkdir('app/assets/videos');
+			this.mkdir('app/assets/sounds');
+			this.mkdir('app/assets/fonts');
+
+			template( 'app/index.html', config);
+			//this.template( 'app/index.html');
 		},
 
 		lib: function() {
@@ -103,6 +160,18 @@ module.exports = yeoman.generators.Base.extend({
 				model,
 				{ variable: 'data' }
 			);
+		},
+
+		less: function() {
+			var copy = cp.bind( this ),
+				template = tpl.bind( this );
+
+			copy( 'less/normalize.less', 'lib/less/normalize.less' );
+			copy( 'less/global.less', 'lib/less/global.less' );
+			copy( 'less/fonts.less', 'lib/less/fonts.less' );
+			copy( 'less/main.less', 'lib/less/main.less' );
+
+			copy( 'less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less' );
 		},
 
 		templates: function() {

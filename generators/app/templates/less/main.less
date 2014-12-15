@@ -1,0 +1,36 @@
+@import "normalize.less";
+@import "global.less";
+@import 'fonts.less';
+
+body, html {
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  color: red;
+  background-color: black;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 300;
+}
+
+
+
+.tp-desktop {
+  background-image: url('@{images}tp/tp-desktop.png');
+}
+
+/*  was for desktop retina displays
+.sprite {
+  background-image: url('@{images}tp/tp-desktop.png');
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+      background-image: url('@{images}tp/tp-desktop-retina.png');
+  }
+}
+*/
+
