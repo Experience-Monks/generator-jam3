@@ -8,8 +8,7 @@ useCanvas? <%= isCanvasBased %>
 ## GIT
 
 ```
-<%= projectRepository %>
-git checkout develop
+git checkout <%= projectRepository %>
 ```
 
 ## Setup
