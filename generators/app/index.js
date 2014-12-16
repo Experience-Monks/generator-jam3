@@ -76,15 +76,19 @@ module.exports = yeoman.generators.Base.extend({
 
 			this.prompt(prompts, function (props) {
 
+				var isCanvasBased = props.baseSelector.indexOf('dom') != -1,
+					isDOMBased = props.baseSelector.indexOf('canvas') != -1;
+
 				this.config.set( 'projectDescription', props.projectDescription );
 				this.config.set( 'projectRepository', props.projectRepository );
 				this.config.set( 'projectAuthorName', props.projectAuthor );
 				this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
 				this.config.set( 'useBower', props.useBower );
 				this.config.set( 'useTexturePackager', props.useTexturePackager );
+				this.config.set( 'isCanvasBased', isCanvasBased );
+				this.config.set( 'isDOMBased', isDOMBased );
 			
-				this.isCanvasBased = props.baseSelector.indexOf('dom') != -1;
-				this.isDOMBased = props.baseSelector.indexOf('canvas') != -1;
+				
 
 				// var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
 				// this.config.set( 'threejs', threejs );
@@ -100,6 +104,7 @@ module.exports = yeoman.generators.Base.extend({
 		promptTemplates: function() {
 
 			var done = this.async(),
+				config = this.config.getAll(),
 				templateChoices = [],
 				promptOtherTemplate, templates;
 
@@ -142,12 +147,12 @@ module.exports = yeoman.generators.Base.extend({
 			}.bind( this );
 
 			// Build out what templates should be asked for
-			if( this.isDOMBased ) {
+			if( config.isDOMBased ) {
 
 				templateChoices.push( 'hbs', 'vue' );
 			}
 
-			if( this.isCanvasBased ) {
+			if( config.isCanvasBased ) {
 
 				templateChoices.push( 'pixi-ears' );
 			}
@@ -210,6 +215,8 @@ module.exports = yeoman.generators.Base.extend({
 			}
 			
 			copy( 'index.js' );
+
+
 
 			// template stuff
 			template( 'package.json', config );
