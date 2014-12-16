@@ -59,9 +59,11 @@ module.exports = yeoman.generators.Base.extend({
 
 		templates: function() {
 
+			var config = this.config.getAll();
+
 			if( this.isInited ) {
 
-				createTemplatesFromRoutes.call( this, this.routes );
+				createTemplatesFromRoutes.call( this, this.routes, config.templateLibraries );
 			}
 		}
 	}
