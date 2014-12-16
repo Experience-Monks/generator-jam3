@@ -15,14 +15,14 @@ module.exports = function (grunt) {
             tmp: '.tmp',
         },
         banner: '/*!\n' +
-        ' * <%%= pkg.name %>-<%%= pkg.version %>\n' +
-        ' * <%%= pkg.author %>\n' +
-        ' * <%%= grunt.template.today("yyyy-mm-dd") %>\n' +
+        ' * <%= pkg.name %>-<%= pkg.version %>\n' +
+        ' * <%= pkg.author %>\n' +
+        ' * <%= grunt.template.today("yyyy-mm-dd") %>\n' +
         ' */\n\n',
         browserify: {
             'dev': {
                 'src': 'index.js',
-                'dest': '<%%= config.dev %>/bundle.js',
+                'dest': '<%= config.dev %>/bundle.js',
                 'options': {
                     'debug': true,
                     'watch': true,
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
             },
             'dist': {
                 'src': 'index.js',
-                'dest': '<%%= config.dist %>/bundle.js',
+                'dest': '<%= config.dist %>/bundle.js',
                 'options': {
                     'debug': false,
                     'verbose': false
@@ -45,11 +45,11 @@ module.exports = function (grunt) {
                 options: {
                     compress: true,
                     sourceMap: true,
-                    sourceMapFilename: '<%%= config.dev %>/main.css.map',
-                    sourceMapBasepath: '<%%= config.dev %>/'
+                    sourceMapFilename: '<%= config.dev %>/main.css.map',
+                    sourceMapBasepath: '<%= config.dev %>/'
                 },
                 files: {
-                    '<%%= config.dev %>/main.css': '<%%= config.src %>/less/main.less'
+                    '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
                 }
             },
             dist: {
@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                     cleancss: true
                 },
                 files: {
-                    '<%%= config.dist %>/main.css': '<%%= config.src %>/less/main.less'
+                    '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
                 }
             }
         },
@@ -74,25 +74,25 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    '<%%= config.dev %>/js/templates.js': ['<%%= config.dev %>/hbs/**/*.hbs']
+                    '<%= config.dev %>/js/templates.js': ['<%= config.dev %>/hbs/**/*.hbs']
                 }
             }
         },
         texturepacker: {
-            src: '<%%= config.src %>/assets/tp',
+            src: '<%= config.src %>/assets/tp',
             options: {
                 multipack: true,
                 stdout: true,
                 texturepath: '../images/tp',
-                model: '<%%= config.src %>/model/desktopSprite'
+                model: '<%= config.src %>/model/desktopSprite'
             }
         },
         audio: {
-            src: '<%%= config.src %>/assets/audio/',
+            src: '<%= config.src %>/assets/audio/',
             options: {
-                dest: '<%%= config.dev %>/audio/',
+                dest: '<%= config.dev %>/audio/',
                 path: '/audio/',
-                model: '<%%= config.src %>/model/soundModel.js',
+                model: '<%= config.src %>/model/soundModel.js',
                 types: ['mp3','m4a','ogg'],
                 stdout: true
             }
@@ -105,9 +105,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%%= config.dist %>/assets/images/',
+                    cwd: '<%= config.dist %>/assets/images/',
                     src: ['*.png','tp/*.png'],
-                    dest: '<%%= config.dist %>/assets/images/'
+                    dest: '<%= config.dist %>/assets/images/'
                 }]
             }
         },
@@ -115,24 +115,24 @@ module.exports = function (grunt) {
             json: {
                 files: [{
                     expand: true,
-                    cwd: '<%%= config.dev %>/assets/json/',
+                    cwd: '<%= config.dev %>/assets/json/',
                     src: '**',
-                    dest: '<%%= config.dist %>/assets/json/'
+                    dest: '<%= config.dist %>/assets/json/'
                 }]
             },
             images: {
                 files: [{
                     expand: true,
-                    cwd: '<%%= config.dev %>/assets/images/',
+                    cwd: '<%= config.dev %>/assets/images/',
                     src: ['**'],
-                    dest: '<%%= config.dist %>/assets/images/'
+                    dest: '<%= config.dist %>/assets/images/'
                 }]
             }
         },
         connect: {
             'dev': {
                 'options': {
-                    'base': '<%%= config.dev %>/',
+                    'base': '<%= config.dev %>/',
                     'keepalive': false,
                     'hostname': '0.0.0.0'
                 }
@@ -144,12 +144,12 @@ module.exports = function (grunt) {
                 sourceMap: false
             },
             dev: {
-                src: '<%%= config.libs %>',
-                dest: '<%%= config.dev %>/libs.js'
+                src: '<%= config.libs %>',
+                dest: '<%= config.dev %>/libs.js'
             },
             dist: {
-                src: '<%%= config.libs %>',
-                dest: '<%%= config.dist %>/libs.js'
+                src: '<%= config.libs %>',
+                dest: '<%= config.dist %>/libs.js'
             }
         },
         watch: {
@@ -157,11 +157,11 @@ module.exports = function (grunt) {
                 livereload: true
             },
             less: {
-                files: ['<%%= config.src %>/less/**/*.less'],
+                files: ['<%= config.src %>/less/**/*.less'],
                 tasks: ['less:dev']
             },
             browserify: {
-                files: ['<%%= config.src %>/**/*.js'],
+                files: ['<%= config.src %>/**/*.js'],
                 tasks: ['browserify:dev']
             }
         }
