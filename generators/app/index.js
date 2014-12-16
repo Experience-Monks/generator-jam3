@@ -309,5 +309,10 @@ module.exports = yeoman.generators.Base.extend({
 				}
 			}.bind( this ));						
 		}	
+	},
+
+	install: function() {
+
+		this.installDependencies();
 	}
 });
