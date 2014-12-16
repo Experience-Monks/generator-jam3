@@ -127,14 +127,18 @@ module.exports = yeoman.generators.Base.extend({
 
 					if( props.otherTemplate != '' ) {
 
-						templates.push( props.otherTemplate );
+						if( !_.contains(templates, props.otherTemplate) ) {
+
+							templates.push( props.otherTemplate );	
+						}
+						
 						promptOtherTemplate();
 					} else {
 
-						this.config.set( )
+						this.config.set( 'templateLibraries', templates );
 						done();
 					}
-				});
+				}.bind( this ));
 			}.bind( this );
 
 			// Build out what templates should be asked for
