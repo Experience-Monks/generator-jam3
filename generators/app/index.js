@@ -228,7 +228,9 @@ module.exports = yeoman.generators.Base.extend({
 
 
 		grunt: function() {
-			this.template( 'Gruntfile.js' );
+			var copy = cp.bind( this );
+
+			copy( 'Gruntfile.js' );
 		},
 
 		app: function() {

@@ -1,18 +1,6 @@
 module.exports = [
 	{
 		type: "input",
-		name: "projectDescription",
-		message: "What is your quest? (Project description)",
-		default: "A Jam3 project"
-	},
-	{
-		type: "input",
-		name: "projectRepository",
-		message: "What is your git repository? (GitHub Repository)",
-		default: ""
-	},
-	{
-		type: "input",
 		name: "projectAuthor",
 		message: "What is your name? (Author)",
 		default: "Jam3"
@@ -22,6 +10,18 @@ module.exports = [
 		name: "projectAuthorEmail",
 		message: "What is your email? (Author Email)",
 		default: "info@jam3.com"
+	},
+	{
+		type: "input",
+		name: "projectDescription",
+		message: "What is your quest? (Project description)",
+		default: "A Jam3 project"
+	},
+	{
+		type: "input",
+		name: "projectRepository",
+		message: "What is your git repository? (GitHub Repository)",
+		default: ""
 	},
 	{
 		type: "confirm",
@@ -51,34 +51,4 @@ module.exports = [
 			}
 		]
 	}
-
-	// I THINK THE BELOW SHOULD BE BROUGHT BASED ON THE OTHER PROMPTS
-	// GSAP SHOULD BE BROUGHT IN NO MATTER WHAT
-	// 
-	// {
-	//   type: "checkbox",
-	//   message: "Select additional libraries to include",
-	//   name: "extraLibraries",
-	//   choices: [
-	//     {
-	//       name: "Three.js",
-	//       value: "threejs"
-	//     },
-	//     {
-	//       name: "PIXI",
-	//       value: "pixi"
-	//     },
-	//     {
-	//       name: "GSAP",
-	//       value: "gsap",
-	//       checked: true
-	//     }
-	//   ],
-	//   validate: function( answer ) {
-	//     // if ( answer.length < 1 ) {
-	//     //   return "You must choose at least one topping.";
-	//     // }
-	//     return true;
-	//   }
-	// }
 ];
