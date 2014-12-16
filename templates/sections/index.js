@@ -1,9 +1,6 @@
 <%
 	var useVue = _.contains( templateTypes, 'vue' );
-%>
-
-
-var fs = require( 'fs' );
+%>var fs = require( 'fs' );
 var promise = require( 'bluebird' );
 <% if (useVue) { %>var vue = require( 'vue' );<% } %>
 var model = require( '../../model' );
@@ -14,8 +11,7 @@ function <%= section %>() {}
 
 	init: function( req, done ) {
 
-		promise.resolve()
-		<% if (useVue) { %>		
+		promise.resolve()<% if (useVue) { %>		
 		.then( function() {
 
 			return new promise( function( resolve, reject ) {
