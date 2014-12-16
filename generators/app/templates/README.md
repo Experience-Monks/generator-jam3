@@ -12,6 +12,7 @@ git checkout <%= projectRepository %>
 
 ```
 $ npm install
+<% if( useBower ) { %>$ bower install<%  } %>
 ```
 
 ## Run
