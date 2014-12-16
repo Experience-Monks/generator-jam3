@@ -11,6 +11,7 @@
   "repository": "<%= projectRepository %>",
   "dependencies": {
     "bigwheel": "^1.1.2",
+    "bluebird": "^2.3.11",
     "gsap": "^1.15.0"<% if (_.contains( templateLibraries, 'vue' )) { %>,
     "vue": "^0.11.4"<% } %><% if (_.contains( templateLibraries, 'hbs' )) { %>,
     "handlebars": "^2.0.0"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,

@@ -76,8 +76,8 @@ module.exports = yeoman.generators.Base.extend({
 
 			this.prompt(prompts, function (props) {
 
-				var isCanvasBased = props.baseSelector.indexOf('dom') != -1,
-					isDOMBased = props.baseSelector.indexOf('canvas') != -1;
+				var isDOMBased = props.baseSelector.indexOf('dom') != -1,
+					isCanvasBased = props.baseSelector.indexOf('canvas') != -1;
 
 				this.config.set( 'projectDescription', props.projectDescription );
 				this.config.set( 'projectRepository', props.projectRepository );
@@ -293,7 +293,7 @@ module.exports = yeoman.generators.Base.extend({
 
 		sections: function() {
 
-			createSectionFromRoutes.call( this, INIT_SECTIONS );
+			createSectionFromRoutes.call( this, INIT_SECTIONS, this.config.get( 'templateLibraries' ));
 		},
 
 		ui: function() {
