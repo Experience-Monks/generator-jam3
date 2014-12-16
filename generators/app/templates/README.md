@@ -2,6 +2,9 @@
 
 <%= projectDescription %>
 
+# Developers
+<%= projectAuthorName %>
+
 ## GIT
 
 ```
