@@ -175,7 +175,7 @@ module.exports = yeoman.generators.Base.extend({
 
 				var hadOther = false;
 
-				templates = props.templateLibraries;
+				templates = props.templateLibraries || [];
 				templates = _.remove( templates, function ( val ) { 
 
 					hadOther = hadOther || val == 'other'; 
