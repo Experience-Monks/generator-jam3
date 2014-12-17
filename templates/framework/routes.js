@@ -4,6 +4,6 @@ module.exports = {
 
 		var section = sectionFromRoute( route );
 
-%>	'<%= route %>': require( '../sections/<%= section %>' )<%= idx < arr.length - 1 ? ',' : '' %>
+%>	'<%= route %>': require( '../sections/<%= section %>/' )<%= idx < arr.length - 1 ? ',' : '' %>
 <% });
 %>};
