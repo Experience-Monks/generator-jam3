@@ -1,4 +1,5 @@
 module.exports = {
-
-	'/': require( '../sections/Landing' )
-};
+<% routes.forEach( function( route ) {
+	%><%= route %>: require( '../sections/Landing' )
+<% });
+%>};

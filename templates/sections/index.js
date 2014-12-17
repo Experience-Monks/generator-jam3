@@ -26,8 +26,8 @@ function <%= section %>() {}
 					template: fs.readFileSync( __dirname + '/<%= section %>.vue', 'utf8' ),
 					ready: resolve
 				});
-			});
-		})<% } %>
+			}.bind( this ));
+		}.bind( this ))<% } %>		
 		.then( done );
 	},
 
@@ -43,10 +43,8 @@ function <%= section %>() {}
 
 	destroy: function( req, done ) {
 
-		<% if (useVue) { %>
-		this.vue.$destroy( true );
-		<% } %>
-
+		<% if (useVue) { %>this.vue.$destroy( true );<% } %>
+	
 		done();
 	}
 };

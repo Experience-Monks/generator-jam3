@@ -3,7 +3,8 @@ var yeoman = require('yeoman-generator'),
 	chalk = require( 'chalk' ),
 	fs = require( 'fs' ),
 	createSectionsFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
-	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
+	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
+	createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' );
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -49,11 +50,21 @@ module.exports = yeoman.generators.Base.extend({
 
 	writing: {
 
-		sections: function() {
+		routes: function() {
 
 			if( this.isInited ) {
 
-				createSectionsFromRoutes.call( this, this.routes );
+				createRoutesFromRoutes.call( this, this.routes );
+			}
+		},
+
+		sections: function() {
+
+			var config = this.config.getAll();
+
+			if( this.isInited ) {
+
+				createSectionsFromRoutes.call( this, this.routes, config.templateLibraries );
 			}
 		},
 

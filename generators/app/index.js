@@ -7,7 +7,8 @@ var yeoman = require('yeoman-generator'),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
 	prompts = require( './prompts' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
-	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' );
+	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
+	createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' );
 
 var INIT_SECTIONS = [ '/' ];
 
@@ -253,7 +254,7 @@ module.exports = yeoman.generators.Base.extend({
 				template = tpl.bind( this );
 
 			copy( 'framework/index.js', 'lib/framework/index.js' );
-			copy( 'framework/routes.js', 'lib/framework/routes.js' );
+			createRoutesFromRoutes.call( this, INIT_SECTIONS );
 		},
 
 		model: function() {
