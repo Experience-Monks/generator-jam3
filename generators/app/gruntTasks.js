@@ -2,10 +2,9 @@ module.exports = {
         config: {
             assets: 'assets',
             src: 'lib',
-            dev: 'app',
-            dist: 'dist',
+            dev: '.tmp',
+            dist: 'app',
             libs: '',
-            tmp: '.tmp',
         },
         licensechecker: {
 			options: {

@@ -301,6 +301,23 @@ module.exports = yeoman.generators.Base.extend({
 			template( 'app/index.html', config);
 		},
 
+		temp: function() {
+			var copy = cp.bind( this ),
+				template = tpl.bind( this ),
+				config = this.config.getAll();
+
+			this.mkdir('.tmp/assets/json');
+			this.mkdir('.tmp/assets/images');
+			this.mkdir('.tmp/assets/videos');
+			this.mkdir('.tmp/assets/sounds');
+			this.mkdir('.tmp/assets/fonts');
+			// if(this.config.get('useTexturePackager') === true) {
+			// 	this.mkdir('app/assets/tp');
+			// }
+
+			template( 'app/index.html', '.tmp/index.html', config);
+		},
+
 		assets: function() {
 			this.mkdir('assets/json');
 			this.mkdir('assets/images');
