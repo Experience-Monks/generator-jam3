@@ -1,24 +1,20 @@
-'use strict';
-
-module.exports = function (grunt) {
-
-    require('time-grunt')(grunt);
-    require('load-grunt-tasks')(grunt);
-
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+module.exports = {
         config: {
+            assets: 'assets',
             src: 'lib',
             dev: 'app',
             dist: 'dist',
             libs: '',
             tmp: '.tmp',
         },
-        banner: '/*!\n' +
-        ' * <%= pkg.name %>-<%= pkg.version %>\n' +
-        ' * <%= pkg.author %>\n' +
-        ' * <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        ' */\n\n',
+        licensechecker: {
+			options: {
+				warn: true,
+				outFile: null,
+				acceptable: [ 'MIT', 'MIT/X11', 'BSD', 'ISC' ],
+				include: ['dependencies', 'devDependencies', 'peerDependencies']
+			}
+		},
         browserify: {
             'dev': {
                 'src': 'index.js',
@@ -62,24 +58,8 @@ module.exports = function (grunt) {
                 }
             }
         },
-        handlebars: {
-            compile: {
-                options: {
-                    namespace: 'JST',
-                    commonjs: true,
-                    processName: function(filename) {
-                        var regex = /^(.+\/)*(.+)\.(.+)$/g;
-                        var matches = regex.exec(filename);
-                        return matches[2];
-                    }
-                },
-                files: {
-                    '<%= config.dev %>/js/templates.js': ['<%= config.dev %>/hbs/**/*.hbs']
-                }
-            }
-        },
         texturepacker: {
-            src: '<%= config.src %>/assets/tp',
+            src: '<%= config.assets %>/tp',
             options: {
                 multipack: true,
                 stdout: true,
@@ -88,10 +68,10 @@ module.exports = function (grunt) {
             }
         },
         audio: {
-            src: '<%= config.src %>/assets/audio/',
+            src: '<%= config.dev %>/assets/sounds/',
             options: {
-                dest: '<%= config.dev %>/audio/',
-                path: '/audio/',
+                dest: '<%= config.dev %>/assets/',
+                path: '/sounds/',
                 model: '<%= config.src %>/model/soundModel.js',
                 types: ['mp3','m4a','ogg'],
                 stdout: true
@@ -105,7 +85,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= config.dist %>/assets/images/',
+                    cwd: '<%= config.assets %>/images/',
                     src: ['*.png','tp/*.png'],
                     dest: '<%= config.dist %>/assets/images/'
                 }]
@@ -165,40 +145,4 @@ module.exports = function (grunt) {
                 tasks: ['browserify:dev']
             }
         }
-    });
-
-    // grunt.loadNpmTasks('grunt-contrib-connect');
-    // grunt.loadNpmTasks('grunt-browserify');
-    // grunt.loadNpmTasks('grunt-contrib-concat');
-    // grunt.loadNpmTasks('grunt-contrib-less');
-    // grunt.loadNpmTasks('grunt-contrib-watch');
-    // grunt.loadNpmTasks('grunt-contrib-handlebars');
-    // grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-newer');
-    // grunt.loadNpmTasks('grunt-pngmin');
-    grunt.loadTasks('tasks');
-
-    grunt.registerTask('tp', ['texturepacker']);
-    grunt.registerTask('images', ['copy:images','pngmin']);
-
-    grunt.registerTask('default', [
-        //'handlebars',
-        // 'tp',
-        // 'audio',
-        // 'concat:dev',
-        'newer:browserify:dev',
-        'newer:less:dev',
-        'connect',
-        'watch'
-    ]);
-    grunt.registerTask('release', [
-        //'tp',
-        'browserify:dist',
-        // 'concat:dist',
-        'images',
-        'copy:json',
-        'copy:html',
-        'less:dist',
-        'pngmin'
-    ]);
-};
+    };

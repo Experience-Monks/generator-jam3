@@ -6,6 +6,7 @@ var yeoman = require('yeoman-generator'),
 	gitOrigin = require( 'git-origin-url' ),
 	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
 	prompts = require( './prompts' ),
+	gruntTasks = require( './gruntTasks' ),
 	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
 	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
 	createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' );
@@ -231,7 +232,56 @@ module.exports = yeoman.generators.Base.extend({
 		grunt: function() {
 			var copy = cp.bind( this );
 
-			copy( 'Gruntfile.js' );
+			this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
+
+		    var defaultTasks = [
+		        'licensechecker',
+		        'newer:browserify:dev',
+		        'newer:less:dev',
+		        'connect',
+		        'watch'
+		    ];
+
+		    var distTasks = [
+		        'browserify:dist',
+		        'images',
+		        'copy:json',
+		        'copy:html',
+		        'less:dist',
+		        'pngmin'
+		    ];
+
+			this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
+			this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
+			this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less));
+			this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify));
+			this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
+			this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
+			this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
+			this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
+
+			if(this.config.get('useBower') === true) {
+				this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
+				this.gruntfile.loadNpmTasks( 'grunt-contrib-concat' );
+				defaultTasks.splice(defaultTasks.indexOf('newer:browserify:dev'), 0, 'concat:dev');
+				distTasks.splice(distTasks.indexOf('browserify:dist'), 0, 'concat:dist');
+			}
+
+			if(this.config.get('useTexturePackager') === true) {
+				copy('tasks/texturepacker-animation.js');
+				copy('tasks/texturepacker.js');
+				this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
+				this.gruntfile.registerTask('tp', ['texturepacker']);
+				defaultTasks.unshift('tp');
+				distTasks.unshift('tp');
+
+				this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
+			}
+
+		    this.gruntfile.registerTask('images', ['copy:images','pngmin']);
+
+		    this.gruntfile.registerTask('default', defaultTasks);
+		    this.gruntfile.registerTask('release', distTasks);
 		},
 
 		app: function() {
@@ -244,8 +294,23 @@ module.exports = yeoman.generators.Base.extend({
 			this.mkdir('app/assets/videos');
 			this.mkdir('app/assets/sounds');
 			this.mkdir('app/assets/fonts');
+			if(this.config.get('useTexturePackager') === true) {
+				this.mkdir('app/assets/tp');
+			}
 
 			template( 'app/index.html', config);
+		},
+
+		assets: function() {
+			this.mkdir('assets/json');
+			this.mkdir('assets/images');
+			this.mkdir('assets/videos');
+			this.mkdir('assets/sounds');
+			this.mkdir('assets/fonts');
+
+			if(this.config.get('useTexturePackager') === true) {
+				this.mkdir('assets/tp');
+			}
 		},
 
 		lib: function() {
