@@ -267,16 +267,16 @@ module.exports = yeoman.generators.Base.extend({
 				distTasks.splice(distTasks.indexOf('browserify:dist'), 0, 'concat:dist');
 			}
 
-			if(this.config.get('useTexturePackager') === true) {
-				copy('tasks/texturepacker-animation.js');
-				copy('tasks/texturepacker.js');
-				this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
-				this.gruntfile.registerTask('tp', ['texturepacker']);
-				defaultTasks.unshift('tp');
-				distTasks.unshift('tp');
+			// if(this.config.get('useTexturePackager') === true) {
+			// 	copy('tasks/texturepacker-animation.js');
+			// 	copy('tasks/texturepacker.js');
+			// 	this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
+			// 	this.gruntfile.registerTask('tp', ['texturepacker']);
+			// 	defaultTasks.unshift('tp');
+			// 	distTasks.unshift('tp');
 
-				this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
-			}
+			// 	this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
+			// }
 
 		    this.gruntfile.registerTask('images', ['copy:images','pngmin']);
 
@@ -294,9 +294,9 @@ module.exports = yeoman.generators.Base.extend({
 			this.mkdir('app/assets/videos');
 			this.mkdir('app/assets/sounds');
 			this.mkdir('app/assets/fonts');
-			if(this.config.get('useTexturePackager') === true) {
-				this.mkdir('app/assets/tp');
-			}
+			// if(this.config.get('useTexturePackager') === true) {
+			// 	this.mkdir('app/assets/tp');
+			// }
 
 			template( 'app/index.html', config);
 		},
@@ -308,9 +308,9 @@ module.exports = yeoman.generators.Base.extend({
 			this.mkdir('assets/sounds');
 			this.mkdir('assets/fonts');
 
-			if(this.config.get('useTexturePackager') === true) {
-				this.mkdir('assets/tp');
-			}
+			// if(this.config.get('useTexturePackager') === true) {
+			// 	this.mkdir('assets/tp');
+			// }
 		},
 
 		lib: function() {
@@ -388,6 +388,6 @@ module.exports = yeoman.generators.Base.extend({
 
 	install: function() {
 
-		this.installDependencies();
+		// this.installDependencies();
 	}
 });
