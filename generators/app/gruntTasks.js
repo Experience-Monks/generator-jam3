@@ -91,25 +91,39 @@ module.exports = {
             }
         },
         copy: {
-            json: {
+            dev: {
                 files: [{
-                    expand: true,
-                    cwd: '<%= config.dev %>/assets/json/',
-                    src: '**',
-                    dest: '<%= config.dist %>/assets/json/'
-                }]
+                        expand: true,
+                        cwd: '<%= config.assets %>/json/',
+                        src: '**',
+                        dest: '<%= config.dev %>/assets/json/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= config.assets %>/images/',
+                        src: ['**'],
+                        dest: '<%= config.dev %>/assets/images/'
+                    }
+                ]
             },
-            images: {
+            dist: {
                 files: [{
-                    expand: true,
-                    cwd: '<%= config.dev %>/assets/images/',
-                    src: ['**'],
-                    dest: '<%= config.dist %>/assets/images/'
-                }]
+                        expand: true,
+                        cwd: '<%= config.dev %>/assets/json/',
+                        src: '**',
+                        dest: '<%= config.dist %>/assets/json/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= config.dev %>assets/images/',
+                        src: ['**'],
+                        dest: '<%= config.dist %>/assets/images/'
+                    }
+                ]
             }
         },
         connect: {
-            'dev': {
+            dev: {
                 'options': {
                     'base': '<%= config.dev %>/',
                     'keepalive': false,

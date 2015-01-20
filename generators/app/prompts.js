@@ -32,7 +32,7 @@ module.exports = [
 	{
 		type: "confirm",
 		name: "useTexturePackager",
-		message: "Would you like to use TextutePackager",
+		message: "Would you like to use TextutePackager? (Beta)",
 		default: false
 	},
 	{

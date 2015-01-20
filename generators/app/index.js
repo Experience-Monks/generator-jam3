@@ -235,6 +235,7 @@ module.exports = yeoman.generators.Base.extend({
 			this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
 
 		    var defaultTasks = [
+		    	'copy:dev',
 		        'licensechecker',
 		        'newer:browserify:dev',
 		        'newer:less:dev',
@@ -244,11 +245,9 @@ module.exports = yeoman.generators.Base.extend({
 
 		    var distTasks = [
 		        'browserify:dist',
-		        'images',
-		        'copy:json',
-		        'copy:html',
-		        'less:dist',
-		        'pngmin'
+		        'pngmin',
+		        'copy:dist',
+		        'less:dist'
 		    ];
 
 			this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
@@ -277,8 +276,6 @@ module.exports = yeoman.generators.Base.extend({
 
 				this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
 			}
-
-		    this.gruntfile.registerTask('images', ['copy:images','pngmin']);
 
 		    this.gruntfile.registerTask('default', defaultTasks);
 		    this.gruntfile.registerTask('release', distTasks);
@@ -332,7 +329,8 @@ module.exports = yeoman.generators.Base.extend({
 
 				var copy = cp.bind( this );
 				copy('assets/tp/global.tps');
-				this.mkdir('assets/tp/global');
+				copy('assets/tp/global/dummy-image.png');
+				// this.mkdir('assets/tp/global');
 			}
 		},
 
