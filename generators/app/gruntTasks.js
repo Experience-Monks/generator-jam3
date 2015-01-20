@@ -62,7 +62,7 @@ module.exports = {
             options: {
                 multipack: true,
                 stdout: true,
-                texturepath: '../images/tp',
+                texturepath: '../assets/images/tp',
                 model: '<%= config.src %>/model/desktopSprite'
             }
         },
