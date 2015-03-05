@@ -2,29 +2,29 @@ var fs = require( 'fs' );
 
 module.exports = {
 
-	<% 
+  <%
 
-	sections.forEach( function( section, sIdx, sArray ) {
+  sections.forEach( function( section, sIdx, sArray ) {
 
-		var fileName = sectionFromRoute( section );
+    var fileName = sectionFromRoute( section );
 
-		%>'<%= section %>': { <%
+    %>'<%= section %>': { <%
 
-			templates.forEach( function( template, tIdx, tArray ) {
+      templates.forEach( function( template, tIdx, tArray ) {
 
-				%><%= template %>: fs.readFileSync( __dirname + '/<%= fileName + "." + template %>' )<% 
+        %><%= template %>: fs.readFileSync( __dirname + '/<%= fileName + "." + template %>' )<%
 
-				if( tIdx < tArray.length - 1 ) { 
-					%>, <%  
-				}
-			});
-		%> }<%
+        if( tIdx < tArray.length - 1 ) {
+          %>, <%
+        }
+      });
+    %> }<%
 
-		if( sIdx < sArray.length - 1 ) {
+    if( sIdx < sArray.length - 1 ) {
 
-			%>, 
-	<%
-		}
-	});
-	%>
+      %>,
+  <%
+    }
+  });
+  %>
 };

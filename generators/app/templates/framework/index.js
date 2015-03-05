@@ -2,10 +2,10 @@ var bigwheel = require( 'bigwheel' );
 
 module.exports = bigwheel( function( done ) {
 
-	done( {
+  done( {
 
-		initSection: null,
-		
-		routes: require( './routes' )
-	});
+    initSection: null,
+
+    routes: require( './routes' )
+  });
 });

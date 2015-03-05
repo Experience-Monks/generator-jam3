@@ -7,13 +7,13 @@ module.exports = {
             libs: '',
         },
         licensechecker: {
-			options: {
-				warn: true,
-				outFile: null,
-				acceptable: [ 'MIT', 'MIT/X11', 'BSD', 'ISC' ],
-				include: ['dependencies', 'devDependencies', 'peerDependencies']
-			}
-		},
+      options: {
+        warn: true,
+        outFile: null,
+        acceptable: [ 'MIT', 'MIT/X11', 'BSD', 'ISC' ],
+        include: ['dependencies', 'devDependencies', 'peerDependencies']
+      }
+    },
         browserify: {
             'dev': {
                 'src': 'index.js',
