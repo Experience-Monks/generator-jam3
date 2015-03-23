@@ -23,15 +23,19 @@ npm install -g yo
 
 Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
-To install generator-jam3 from npm, run:
+To install generator-jam3, run:
 
 ```bash
-npm install -g generator-jam3
+git clone https://github.com/Jam3/generator-jam3
+cd generator-jam3
+npm link
 ```
 
 Finally, initiate the generator:
 
 ```bash
+mkdir testProject
+cd testProject
 yo jam3
 ```
 
