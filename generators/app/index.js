@@ -48,7 +48,6 @@ module.exports = yeoman.generators.Base.extend({
 	initializing: {
 
 		readInProjectName: function() {
-
 			var pathSplit = this.destinationPath().split( path.sep ),
 				projectName = pathSplit[ pathSplit.length - 1 ];
 
@@ -69,6 +68,7 @@ module.exports = yeoman.generators.Base.extend({
 				done();
 			}.bind(this));
 		}
+
 	},
 
 	prompting: {
@@ -89,8 +89,6 @@ module.exports = yeoman.generators.Base.extend({
 				this.config.set( 'useTexturePackager', props.useTexturePackager );
 				this.config.set( 'isCanvasBased', isCanvasBased );
 				this.config.set( 'isDOMBased', isDOMBased );
-			
-				
 
 				// var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
 				// this.config.set( 'threejs', threejs );
@@ -218,7 +216,7 @@ module.exports = yeoman.generators.Base.extend({
 			
 			copy( 'index.js' );
 
-
+			copy( '_Gruntfile.js', 'Gruntfile.js' );
 
 			// template stuff
 			template( 'package.json', config );
@@ -316,8 +314,6 @@ module.exports = yeoman.generators.Base.extend({
 		},
 
 		assets: function() {
-			
-
 			this.mkdir('assets/json');
 			this.mkdir('assets/images');
 			this.mkdir('assets/videos');
@@ -411,4 +407,5 @@ module.exports = yeoman.generators.Base.extend({
 
 		this.installDependencies();
 	}
+
 });
