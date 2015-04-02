@@ -1,411 +1,411 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
-	fs = require( 'fs' ),
-	path = require( 'path' ),
-	_ = require( 'lodash' ),
-	gitOrigin = require( 'git-origin-url' ),
-	sectionFromRoute = require( '../../lib/sectionFromRoute' ),
-	prompts = require( './prompts' ),
-	gruntTasks = require( './gruntTasks' ),
-	createSectionFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
-	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
-	createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' );
+  fs = require('fs'),
+  path = require('path'),
+  _ = require('lodash'),
+  gitOrigin = require('git-origin-url'),
+  sectionFromRoute = require('../../lib/sectionFromRoute'),
+  prompts = require('./prompts'),
+  gruntTasks = require('./gruntTasks'),
+  createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
+  createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
+  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes');
 
-var INIT_SECTIONS = [ '/' ];
+var INIT_SECTIONS = ['/'];
 
-function cp( source, dest ) {
+function cp(source, dest) {
 
-	dest = dest || source;
+  dest = dest || source;
 
-	this.fs.copy( 
+  this.fs.copy(
 
-		this.templatePath( source ),
-		this.destinationPath( dest )
-	);
+    this.templatePath(source),
+    this.destinationPath(dest)
+  );
 }
 
-function tpl( source, dest, data ) {
+function tpl(source, dest, data) {
 
-	if( typeof dest == 'object' ) {
+  if (typeof dest == 'object') {
+    data = dest;
+    dest = source;
+  }
 
-		data = dest;
-		dest = source;
-	}
+  dest = dest || source;
+  data = data || {};
 
-	dest = dest || source;
-	data = data || {};
+  this.fs.copyTpl(
 
-	this.fs.copyTpl( 
-
-		this.templatePath( source ),
-		this.destinationPath( dest ),
-		data
-	);
+    this.templatePath(source),
+    this.destinationPath(dest),
+    data
+  );
 }
 
 module.exports = yeoman.generators.Base.extend({
 
-	initializing: {
+  initializing: {
 
-		readInProjectName: function() {
-			var pathSplit = this.destinationPath().split( path.sep ),
-				projectName = pathSplit[ pathSplit.length - 1 ];
+    readInProjectName: function() {
+      var pathSplit = this.destinationPath().split(path.sep),
+        projectName = pathSplit[pathSplit.length - 1];
 
-			this.config.set( 'projectName', projectName );
-		},
+      this.config.set('projectName', projectName);
+    },
 
-		readInRemote: function() {
+    readInRemote: function() {
 
-			var done = this.async();
+      var done = this.async();
 
-			gitOrigin( function( err, url ) {
+      gitOrigin(function(err, url) {
 
-				if( !err ) {
+        if (!err) {
 
-					this.config.set( 'projectRepository', url );
-				} 
+          this.config.set('projectRepository', url);
+        }
 
-				done();
-			}.bind(this));
-		}
+        done();
+      }.bind(this));
+    }
 
-	},
+  },
 
-	prompting: {
-		promptProjectSettings: function () {
+  prompting: {
+    promptProjectSettings: function() {
 
-			var done = this.async();
+      var done = this.async();
 
-			this.prompt(prompts, function (props) {
+      this.prompt(prompts, function(props) {
 
-				var isDOMBased = props.baseSelector.indexOf('dom') != -1,
-					isCanvasBased = props.baseSelector.indexOf('canvas') != -1;
+        var isDOMBased = props.baseSelector.indexOf('dom') != -1,
+          isCanvasBased = props.baseSelector.indexOf('canvas') != -1;
 
-				this.config.set( 'projectDescription', props.projectDescription );
-				this.config.set( 'projectRepository', props.projectRepository );
-				this.config.set( 'projectAuthorName', props.projectAuthor );
-				this.config.set( 'projectAuthorEmail', props.projectAuthorEmail );
-				this.config.set( 'useBower', props.useBower );
-				this.config.set( 'useTexturePackager', props.useTexturePackager );
-				this.config.set( 'isCanvasBased', isCanvasBased );
-				this.config.set( 'isDOMBased', isDOMBased );
+        this.config.set('projectDescription', props.projectDescription);
+        this.config.set('projectRepository', props.projectRepository);
+        this.config.set('projectAuthorName', props.projectAuthor);
+        this.config.set('projectAuthorEmail', props.projectAuthorEmail);
+        this.config.set('useBower', props.useBower);
+        this.config.set('useTexturePackager', props.useTexturePackager);
+        this.config.set('isCanvasBased', isCanvasBased);
+        this.config.set('isDOMBased', isDOMBased);
 
-				// var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
-				// this.config.set( 'threejs', threejs );
-				// var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
-				// this.config.set( 'pixi', pixi );
-				// var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
-				// this.config.set( 'gsap', gsap );
+        // var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
+        // this.config.set( 'threejs', threejs );
+        // var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
+        // this.config.set( 'pixi', pixi );
+        // var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
+        // this.config.set( 'gsap', gsap );
 
-				done();
-		    }.bind(this));
-		},
+        done();
+      }.bind(this));
+    },
 
-		promptTemplates: function() {
+    promptTemplates: function() {
 
-			var done = this.async(),
-				config = this.config.getAll(),
-				templateChoices = [],
-				promptOtherTemplate, templates;
+      var done = this.async(),
+        config = this.config.getAll(),
+        templateChoices = [],
+        promptOtherTemplate, templates;
 
-			// This will be a recursive function based on the users answers
-			promptOtherTemplate = function() {
+      // This will be a recursive function based on the users answers
+      promptOtherTemplate = function() {
 
-				this.prompt( [ 
+        this.prompt([
 
-					{
-						type: 'input',
-						name: 'otherTemplate',
-						message: 'Enter in a file extension you\'d like to use for this other template lib',
-						default: '',
-						filter: function( val ) { 
+          {
+            type: 'input',
+            name: 'otherTemplate',
+            message: 'Enter in a file extension you\'d like to use for this other template lib',
+            default: '',
+            filter: function(val) {
 
-							if( val.charAt( 0 ) == '.' ) {
+              if (val.charAt(0) == '.') {
 
-								val = val.substring( 1 );
-							}
+                val = val.substring(1);
+              }
 
-							return val.toLowerCase(); 
-						}
-					}
-				], function (props) {
+              return val.toLowerCase();
+            }
+          }
+        ], function(props) {
 
-					if( props.otherTemplate != '' ) {
+          if (props.otherTemplate != '') {
 
-						if( !_.contains(templates, props.otherTemplate) ) {
+            if (!_.contains(templates, props.otherTemplate)) {
 
-							templates.push( props.otherTemplate );	
-						}
-						
-						promptOtherTemplate();
-					} else {
+              templates.push(props.otherTemplate);
+            }
 
-						this.config.set( 'templateLibraries', templates );
-						done();
-					}
-				}.bind( this ));
-			}.bind( this );
+            promptOtherTemplate();
+          } else {
 
-			// Build out what templates should be asked for
-			if( config.isDOMBased ) {
+            this.config.set('templateLibraries', templates);
+            done();
+          }
+        }.bind(this));
+      }.bind(this);
 
-				templateChoices.push( 'hbs', 'vue' );
-			}
+      // Build out what templates should be asked for
+      if (config.isDOMBased) {
 
-			if( config.isCanvasBased ) {
+        templateChoices.push('hbs', 'vue');
+      }
 
-				templateChoices.push( 'pixi-ears' );
-			}
+      if (config.isCanvasBased) {
 
-			templateChoices.push( 'other' );			
-			
+        templateChoices.push('pixi-ears');
+      }
 
-			// Ask the questions
-			this.prompt( [ 
+      templateChoices.push('other');
 
-				{
-					type: 'checkbox',
-					name: 'templateLibraries',
-					message: 'Choose template system',
-					choices: templateChoices,
-					default: []
-				}
-			], function (props) {
-
-				var hadOther = false;
 
-				templates = props.templateLibraries || [];
-				templates = _.remove( templates, function ( val ) { 
+      // Ask the questions
+      this.prompt([
 
-					hadOther = hadOther || val == 'other'; 
-					return val != 'other'
-				});
+        {
+          type: 'checkbox',
+          name: 'templateLibraries',
+          message: 'Choose template system',
+          choices: templateChoices,
+          default: []
+        }
+      ], function(props) {
 
-				if( hadOther ) {
-
-					promptOtherTemplate();
-				} else {
+        var hadOther = false;
 
-					this.config.set( 'templateLibraries', templates );
-					done();
-				}
-			}.bind( this ));
-		}
-	},
-
-	configuring: {
-
-		
-	},
-
-	writing: {
-
-		root: function() {
-
-			var copy = cp.bind( this ),
-				template = tpl.bind( this ),
-				config = this.config.getAll();
-
-			// copy stuff
-			copy( '.editorconfig' );
-			copy( '.jshintrc' );
-
-			if(this.config.get('useBower')) {
-				copy( 'bower.json' );
-			}
-			
-			copy( 'index.js' );
-
-			copy( '_Gruntfile.js', 'Gruntfile.js' );
-
-			// template stuff
-			template( 'package.json', config );
-			template( 'README.md', config );
-
-			this.mkdir('tasks');
-			this.mkdir('test');
-		},
-
-
-		grunt: function() {
-			var copy = cp.bind( this );
-
-			this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
-
-		    var defaultTasks = [
-		    	'copy:dev',
-		        'licensechecker',
-		        'newer:browserify:dev',
-		        'newer:less:dev',
-		        'connect',
-		        'watch'
-		    ];
-
-		    var distTasks = [
-		        'browserify:dist',
-		        'pngmin',
-		        'copy:dist',
-		        'less:dist'
-		    ];
-
-			this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
-			this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
-			this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less));
-			this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify));
-			this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
-			this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
-			this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
-			this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
-
-			if(this.config.get('useBower') === true) {
-				this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
-				this.gruntfile.loadNpmTasks( 'grunt-contrib-concat' );
-				defaultTasks.splice(defaultTasks.indexOf('newer:browserify:dev'), 0, 'concat:dev');
-				distTasks.splice(distTasks.indexOf('browserify:dist'), 0, 'concat:dist');
-			}
-
-			if(this.config.get('useTexturePackager') === true) {
-				// copy('tasks/texturepacker-animation.js');
-				copy('tasks/texturepacker.js');
-				this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
-				this.gruntfile.registerTask('tp', ['texturepacker']);
-				defaultTasks.unshift('tp');
-				distTasks.unshift('tp');
-
-				this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
-			}
-
-		    this.gruntfile.registerTask('default', defaultTasks);
-		    this.gruntfile.registerTask('release', distTasks);
-		},
-
-		app: function() {
-			var copy = cp.bind( this ),
-				template = tpl.bind( this ),
-				config = this.config.getAll();
-
-			this.mkdir('app/assets/json');
-			this.mkdir('app/assets/images');
-			this.mkdir('app/assets/videos');
-			this.mkdir('app/assets/sounds');
-			this.mkdir('app/assets/fonts');
-			if(this.config.get('useTexturePackager') === true) {
-				this.mkdir('app/assets/tp');
-			}
+        templates = props.templateLibraries || [];
+        templates = _.remove(templates, function(val) {
 
-			template( 'app/index.html', config);
-		},
+          hadOther = hadOther || val == 'other';
+          return val != 'other'
+        });
 
-		temp: function() {
-			var copy = cp.bind( this ),
-				template = tpl.bind( this ),
-				config = this.config.getAll();
+        if (hadOther) {
 
-			this.mkdir('.tmp/assets/json');
-			this.mkdir('.tmp/assets/images');
-			this.mkdir('.tmp/assets/videos');
-			this.mkdir('.tmp/assets/sounds');
-			this.mkdir('.tmp/assets/fonts');
-			if(this.config.get('useTexturePackager') === true) {
-				this.mkdir('app/assets/tp');
-			}
+          promptOtherTemplate();
+        } else {
 
-			template( 'app/index.html', '.tmp/index.html', config);
-		},
+          this.config.set('templateLibraries', templates);
+          done();
+        }
+      }.bind(this));
+    }
+  },
 
-		assets: function() {
-			this.mkdir('assets/json');
-			this.mkdir('assets/images');
-			this.mkdir('assets/videos');
-			this.mkdir('assets/sounds');
-			this.mkdir('assets/fonts');
-			
-			if(this.config.get('useTexturePackager') === true) {
-				this.mkdir('assets/tp');
+  configuring: {
 
-				var copy = cp.bind( this );
-				copy('assets/tp/global.tps');
-				copy('assets/tp/global/dummy-image.png');
-				// this.mkdir('assets/tp/global');
-			}
-		},
 
-		lib: function() {
+  },
 
-			var copy = cp.bind( this ),
-				template = tpl.bind( this );
+  writing: {
 
-			copy( 'framework/index.js', 'lib/framework/index.js' );
-			createRoutesFromRoutes.call( this, INIT_SECTIONS );
-		},
+    root: function() {
 
-		model: function() {
+      var copy = cp.bind(this),
+        template = tpl.bind(this),
+        config = this.config.getAll();
 
-			var model = {};
+      // copy stuff
+      copy('.editorconfig');
+      copy('.jshintrc');
 
-			INIT_SECTIONS.forEach( function( section ) {
+      if (this.config.get('useBower')) {
+        copy('bower.json');
+      }
 
-				model[ section ] = {};
-			});
-			
-			this.fs.copyTpl( 
+      copy('index.js');
 
-				this.templatePath( '../../../templates/model/index.js' ),
-				this.destinationPath( 'lib/model/index.js' ),
-				model,
-				{ variable: 'data' }
-			);
-		},
+      copy('_Gruntfile.js', 'Gruntfile.js');
 
-		less: function() {
-			var copy = cp.bind( this ),
-				template = tpl.bind( this );
+      // template stuff
+      template('package.json', config);
+      template('README.md', config);
 
-			copy( 'less/normalize.less', 'lib/less/normalize.less' );
-			copy( 'less/global.less', 'lib/less/global.less' );
-			copy( 'less/fonts.less', 'lib/less/fonts.less' );
-			copy( 'less/main.less', 'lib/less/main.less' );
+      this.mkdir('tasks');
+      this.mkdir('test');
+    },
 
-			copy( 'less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less' );
-		},
+
+    grunt: function() {
+      var copy = cp.bind(this);
+
+      this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
+
+      var defaultTasks = [
+        'copy:dev',
+        'licensechecker',
+        'newer:browserify:dev',
+        'newer:less:dev',
+        'connect',
+        'watch'
+      ];
 
-		templates: function() {
+      var distTasks = [
+        'browserify:dist',
+        'pngmin',
+        'copy:dist',
+        'less:dist'
+      ];
 
-			createTemplatesFromRoutes.call(this, INIT_SECTIONS, this.config.get( 'templateLibraries' ));
-		},
+      this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
+      this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
+      this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less));
+      this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify));
+      this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
+      this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
+      this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
+      this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
 
-		sections: function() {
+      if (this.config.get('useBower') === true) {
+        this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
+        this.gruntfile.loadNpmTasks('grunt-contrib-concat');
+        defaultTasks.splice(defaultTasks.indexOf('newer:browserify:dev'), 0, 'concat:dev');
+        distTasks.splice(distTasks.indexOf('browserify:dist'), 0, 'concat:dist');
+      }
 
-			createSectionFromRoutes.call( this, INIT_SECTIONS, this.config.get( 'templateLibraries' ));
-		},
+      if (this.config.get('useTexturePackager') === true) {
+        // copy('tasks/texturepacker-animation.js');
+        copy('tasks/texturepacker.js');
+        this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
+        this.gruntfile.registerTask('tp', ['texturepacker']);
+        defaultTasks.unshift('tp');
+        distTasks.unshift('tp');
 
-		ui: function() {
+        this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
+      }
 
-			if( !fs.existsSync( this.destinationPath( 'lib/' ) ) ) {
+      this.gruntfile.registerTask('default', defaultTasks);
+      this.gruntfile.registerTask('release', distTasks);
+    },
 
-				fs.mkdirSync( this.destinationPath( 'lib/' ) );
-			}
+    app: function() {
+      var copy = cp.bind(this),
+        template = tpl.bind(this),
+        config = this.config.getAll();
 
-			if( !fs.existsSync( this.destinationPath( 'lib/ui/' ) ) ) {
+      this.mkdir('app/assets/json');
+      this.mkdir('app/assets/images');
+      this.mkdir('app/assets/videos');
+      this.mkdir('app/assets/sounds');
+      this.mkdir('app/assets/fonts');
+      if (this.config.get('useTexturePackager') === true) {
+        this.mkdir('app/assets/tp');
+      }
 
-				fs.mkdirSync( this.destinationPath( 'lib/ui/' ) );
-			}
+      template('app/index.html', config);
+    },
 
-			INIT_SECTIONS.forEach( function( route ) {
+    temp: function() {
+      var copy = cp.bind(this),
+        template = tpl.bind(this),
+        config = this.config.getAll();
 
-				var fileName = sectionFromRoute( route );
+      this.mkdir('.tmp/assets/json');
+      this.mkdir('.tmp/assets/images');
+      this.mkdir('.tmp/assets/videos');
+      this.mkdir('.tmp/assets/sounds');
+      this.mkdir('.tmp/assets/fonts');
+      if (this.config.get('useTexturePackager') === true) {
+        this.mkdir('app/assets/tp');
+      }
 
-				if( !fs.existsSync( this.destinationPath( 'lib/ui/' + fileName ) ) ) {
+      template('app/index.html', '.tmp/index.html', config);
+    },
 
-					fs.mkdirSync( this.destinationPath( 'lib/ui/' + fileName ) );
-				}
-			}.bind( this ));						
-		}	
-	},
+    assets: function() {
+      this.mkdir('assets/json');
+      this.mkdir('assets/images');
+      this.mkdir('assets/videos');
+      this.mkdir('assets/sounds');
+      this.mkdir('assets/fonts');
 
-	install: function() {
+      if (this.config.get('useTexturePackager') === true) {
+        this.mkdir('assets/tp');
 
-		this.installDependencies();
-	}
+        var copy = cp.bind(this);
+        copy('assets/tp/global.tps');
+        copy('assets/tp/global/dummy-image.png');
+        // this.mkdir('assets/tp/global');
+      }
+    },
+
+    lib: function() {
+
+      var copy = cp.bind(this),
+        template = tpl.bind(this);
+
+      copy('framework/index.js', 'lib/framework/index.js');
+      createRoutesFromRoutes.call(this, INIT_SECTIONS);
+    },
+
+    model: function() {
+
+      var model = {};
+
+      INIT_SECTIONS.forEach(function(section) {
+
+        model[section] = {};
+      });
+
+      this.fs.copyTpl(
+
+        this.templatePath('../../../templates/model/index.js'),
+        this.destinationPath('lib/model/index.js'),
+        model, {
+          variable: 'data'
+        }
+      );
+    },
+
+    less: function() {
+      var copy = cp.bind(this),
+        template = tpl.bind(this);
+
+      copy('less/normalize.less', 'lib/less/normalize.less');
+      copy('less/global.less', 'lib/less/global.less');
+      copy('less/fonts.less', 'lib/less/fonts.less');
+      copy('less/main.less', 'lib/less/main.less');
+
+      copy('less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less');
+    },
+
+    templates: function() {
+
+      createTemplatesFromRoutes.call(this, INIT_SECTIONS, this.config.get('templateLibraries'));
+    },
+
+    sections: function() {
+
+      createSectionFromRoutes.call(this, INIT_SECTIONS, this.config.get('templateLibraries'));
+    },
+
+    ui: function() {
+
+      if (!fs.existsSync(this.destinationPath('lib/'))) {
+
+        fs.mkdirSync(this.destinationPath('lib/'));
+      }
+
+      if (!fs.existsSync(this.destinationPath('lib/ui/'))) {
+
+        fs.mkdirSync(this.destinationPath('lib/ui/'));
+      }
+
+      INIT_SECTIONS.forEach(function(route) {
+
+        var fileName = sectionFromRoute(route);
+
+        if (!fs.existsSync(this.destinationPath('lib/ui/' + fileName))) {
+
+          fs.mkdirSync(this.destinationPath('lib/ui/' + fileName));
+        }
+      }.bind(this));
+    }
+  },
+
+  install: function() {
+
+    this.installDependencies();
+  }
 
 });
