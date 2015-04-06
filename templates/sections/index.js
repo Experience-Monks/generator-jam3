@@ -1,3 +1,4 @@
+'use strict';
 <%
 	var useVue = _.contains( templateTypes, 'vue' );
 %>var fs = require( 'fs' );
@@ -11,7 +12,7 @@ function <%= section %>() {}
 
 	init: function( req, done ) {
 
-		promise.resolve()<% if (useVue) { %>		
+		promise.resolve()<% if (useVue) { %>
 		.then( function() {
 
 			return new promise( function( resolve, reject ) {
@@ -27,7 +28,7 @@ function <%= section %>() {}
 					ready: resolve
 				});
 			}.bind( this ));
-		}.bind( this ))<% } %>		
+		}.bind( this ))<% } %>
 		.then( done );
 	},
 
@@ -44,7 +45,7 @@ function <%= section %>() {}
 	destroy: function( req, done ) {
 
 		<% if (useVue) { %>this.vue.$destroy( true );<% } %>
-	
+
 		done();
 	}
 };

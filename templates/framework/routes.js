@@ -1,5 +1,6 @@
+'use strict';
 module.exports = {
-<% 
+<%
 	routes.forEach( function( route, idx, arr ) {
 
 		var section = sectionFromRoute( route );
