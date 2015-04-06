@@ -284,16 +284,16 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this),
         config = this.config.getAll();
 
-      this.mkdir('app/assets/json');
-      this.mkdir('app/assets/images');
-      this.mkdir('app/assets/videos');
-      this.mkdir('app/assets/sounds');
-      this.mkdir('app/assets/fonts');
+      this.mkdir('release/assets/json');
+      this.mkdir('release/assets/images');
+      this.mkdir('release/assets/videos');
+      this.mkdir('release/assets/sounds');
+      this.mkdir('release/assets/fonts');
       if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('app/assets/tp');
+        this.mkdir('release/assets/tp');
       }
 
-      template('app/index.html', config);
+      template('release/index.html', config);
     },
 
     temp: function() {
@@ -301,16 +301,16 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this),
         config = this.config.getAll();
 
-      this.mkdir('.tmp/assets/json');
-      this.mkdir('.tmp/assets/images');
-      this.mkdir('.tmp/assets/videos');
-      this.mkdir('.tmp/assets/sounds');
-      this.mkdir('.tmp/assets/fonts');
+      this.mkdir('dev/assets/json');
+      this.mkdir('dev/assets/images');
+      this.mkdir('dev/assets/videos');
+      this.mkdir('dev/assets/sounds');
+      this.mkdir('dev/assets/fonts');
       if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('app/assets/tp');
+        this.mkdir('dev/assets/tp');
       }
 
-      template('app/index.html', '.tmp/index.html', config);
+      template('release/index.html', 'dev/index.html', config);
     },
 
     assets: function() {
