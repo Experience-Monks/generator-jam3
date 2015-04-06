@@ -1,6 +1,6 @@
 module.exports = {
   config: {
-    assets: 'assets',
+    assets: 'raw-assets',
     src: 'lib',
     dev: '.tmp',
     dist: 'app',
