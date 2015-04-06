@@ -104,6 +104,21 @@ module.exports = {
         cwd: '<%= config.assets %>/images/',
         src: ['**'],
         dest: '<%= config.dev %>/assets/images/'
+      }, {
+        expand: true,
+        cwd: '<%= config.assets %>/sounds/',
+        src: ['**'],
+        dest: '<%= config.dev %>/assets/sounds/'
+      }, {
+        expand: true,
+        cwd: '<%= config.assets %>/videos/',
+        src: ['**'],
+        dest: '<%= config.dev %>/assets/videos/'
+      }, {
+        expand: true,
+        cwd: '<%= config.assets %>/fonts/',
+        src: ['**'],
+        dest: '<%= config.dev %>/assets/fonts/'
       }]
     },
     dist: {
@@ -117,6 +132,21 @@ module.exports = {
         cwd: '<%= config.dev %>assets/images/',
         src: ['**'],
         dest: '<%= config.dist %>/assets/images/'
+      }, {
+        expand: true,
+        cwd: '<%= config.dev %>assets/sounds/',
+        src: ['**'],
+        dest: '<%= config.dist %>/assets/sounds/'
+      }, {
+        expand: true,
+        cwd: '<%= config.dev %>assets/videos/',
+        src: ['**'],
+        dest: '<%= config.dist %>/assets/videos/'
+      }, {
+        expand: true,
+        cwd: '<%= config.dev %>assets/fonts/',
+        src: ['**'],
+        dest: '<%= config.dist %>/assets/fonts/'
       }]
     }
   },
@@ -154,6 +184,10 @@ module.exports = {
     browserify: {
       files: ['<%= config.src %>/**/*.js', '*.js'],
       tasks: ['browserify:dev']
+    },
+    assets: {
+      files: ['<%= config.assets %>/**/*'],
+      tasks: ['copy:dev']
     }
   }
 };
