@@ -206,6 +206,7 @@ module.exports = yeoman.generators.Base.extend({
         config = this.config.getAll();
 
       // copy stuff
+      copy('.gitignore');
       copy('.editorconfig');
       copy('.jshintrc');
 
