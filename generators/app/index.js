@@ -363,11 +363,11 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this);
 
       copy('less/normalize.less', 'lib/less/normalize.less');
+      copy('less/vars.less', 'lib/less/vars.less');
       copy('less/global.less', 'lib/less/global.less');
       copy('less/fonts.less', 'lib/less/fonts.less');
       copy('less/main.less', 'lib/less/main.less');
 
-      copy('less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less');
     },
 
     templates: function() {
@@ -392,15 +392,6 @@ module.exports = yeoman.generators.Base.extend({
         fs.mkdirSync(this.destinationPath('lib/ui/'));
       }
 
-      INIT_SECTIONS.forEach(function(route) {
-
-        var fileName = sectionFromRoute(route);
-
-        if (!fs.existsSync(this.destinationPath('lib/ui/' + fileName))) {
-
-          fs.mkdirSync(this.destinationPath('lib/ui/' + fileName));
-        }
-      }.bind(this));
     }
   },
 

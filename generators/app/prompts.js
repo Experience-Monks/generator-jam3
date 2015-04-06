@@ -26,7 +26,7 @@ module.exports = [{
 }, {
   type: "confirm",
   name: "useTexturePackager",
-  message: "Would you like to use TextutePackager? (Beta)",
+  message: "Would you like to use TexturePacker? (Beta)",
   default: false
 }, {
   type: "checkbox",
