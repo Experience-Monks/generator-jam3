@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.4.0</string>
         <key>fileName</key>
-        <string>C:/Projects/Jam3Generator/generators/app/templates/assets/tp/common.tps</string>
+        <string>common.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -141,17 +141,17 @@
             <key>java</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../../Blueberry/app/assets/img/tp/web{v}.java</filename>
+                <filename>tps-common.java</filename>
             </struct>
             <key>maintext</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../../Blueberry/src/less/desktop-tps.less</filename>
+                <filename>tps-common.less</filename>
             </struct>
             <key>plaintext</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../../Blueberry/src/less/desktop-tps.less</filename>
+                <filename>tps-common.less</filename>
             </struct>
         </map>
         <key>multiPack</key>
