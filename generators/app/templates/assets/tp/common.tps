@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>json</string>
         <key>textureFileName</key>
-        <filename>tps-common.png</filename>
+        <filename>../../.tmp/assets/images/tp/tps-common.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -131,7 +131,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>tps-common.json</filename>
+                <filename>../../.tmp/assets/json/tp/tps-common.json</filename>
             </struct>
             <key>header</key>
             <struct type="DataFile">
