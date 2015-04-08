@@ -1,8 +1,8 @@
 module.exports = {
   config: {
-    assets: 'assets',
+    assets: 'raw-assets',
     src: 'lib',
-    dev: 'dev',
+    dev: '.tmp',
     dist: 'release',
     libs: '',
   },
@@ -17,7 +17,7 @@ module.exports = {
   browserify: {
     'dev': {
       'src': 'index.js',
-      'dest': '<%= config.dev %>/bundle.js',
+      'dest': '<%= config.dev %>/js/bundle.js',
       'options': {
         'debug': true,
         'watch': true,
@@ -30,7 +30,7 @@ module.exports = {
     },
     'dist': {
       'src': 'index.js',
-      'dest': '<%= config.dist %>/bundle.js',
+      'dest': '<%= config.dist %>/js/bundle.js',
       'options': {
         'debug': false,
         'verbose': false
@@ -46,7 +46,7 @@ module.exports = {
         sourceMapBasepath: '<%= config.dev %>/'
       },
       files: {
-        '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dev %>/css/main.css': '<%= config.src %>/less/main.less'
       }
     },
     dist: {
@@ -55,7 +55,7 @@ module.exports = {
         cleancss: true
       },
       files: {
-        '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dist %>/css/main.css': '<%= config.src %>/less/main.less'
       }
     }
   },
@@ -64,7 +64,7 @@ module.exports = {
     options: {
       multipack: true,
       stdout: true,
-      texturepath: '../assets/images/tp',
+      texturepath: '../raw-assets/images/tp',
       model: '<%= config.src %>/model/desktopSprite'
     }
   },
@@ -86,7 +86,7 @@ module.exports = {
       },
       files: [{
         expand: true,
-        cwd: '<%= config.assets %>/images/',
+        cwd: '<%= config.dev %>/assets/images/',
         src: ['*.png', 'tp/*.png'],
         dest: '<%= config.dist %>/assets/images/'
       }]
@@ -125,35 +125,41 @@ module.exports = {
       files: [{
         expand: true,
         cwd: '<%= config.dev %>/assets/json/',
-        src: '**',
+        src: ['**'],
         dest: '<%= config.dist %>/assets/json/'
       }, {
         expand: true,
-        cwd: '<%= config.dev %>assets/images/',
+        cwd: '<%= config.dev %>/assets/images/',
         src: ['**'],
         dest: '<%= config.dist %>/assets/images/'
       }, {
         expand: true,
-        cwd: '<%= config.dev %>assets/sounds/',
+        cwd: '<%= config.dev %>/assets/sounds/',
         src: ['**'],
         dest: '<%= config.dist %>/assets/sounds/'
       }, {
         expand: true,
-        cwd: '<%= config.dev %>assets/videos/',
+        cwd: '<%= config.dev %>/assets/videos/',
         src: ['**'],
         dest: '<%= config.dist %>/assets/videos/'
       }, {
         expand: true,
-        cwd: '<%= config.dev %>assets/fonts/',
+        cwd: '<%= config.dev %>/assets/fonts/',
         src: ['**'],
         dest: '<%= config.dist %>/assets/fonts/'
+      },
+      {
+        expand: true,
+        cwd: 'app/',
+        src: ['**'],
+        dest: '<%= config.dist %>'
       }]
     }
   },
   connect: {
     dev: {
       'options': {
-        'base': '<%= config.dev %>/',
+        'base': ['<%= config.dev %>/','app/','*'],
         'keepalive': false,
         'hostname': '0.0.0.0'
       }

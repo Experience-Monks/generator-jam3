@@ -4,5 +4,6 @@
 bower_components
 node_modules
 
-.tmp/assets
-app/assets
+raw-assets
+.tmp
+release
