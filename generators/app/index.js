@@ -327,19 +327,18 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     assets: function() {
-      this.mkdir('assets/json');
-      this.mkdir('assets/images');
-      this.mkdir('assets/videos');
-      this.mkdir('assets/sounds');
-      this.mkdir('assets/fonts');
+      this.mkdir('raw-assets/json');
+      this.mkdir('raw-assets/images');
+      this.mkdir('raw-assets/videos');
+      this.mkdir('raw-assets/sounds');
+      this.mkdir('raw-assets/fonts');
 
       if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('assets/tp');
+        this.mkdir('raw-assets/tp');
+        this.mkdir('raw-assets/tp/common');
 
         var copy = cp.bind(this);
-        copy('assets/tp/global.tps');
-        copy('assets/tp/global/dummy-image.png');
-        // this.mkdir('assets/tp/global');
+        copy('assets/tp/common.tps','raw-assets/tp/common.tps');
       }
     },
 
@@ -376,11 +375,11 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this);
 
       copy('less/normalize.less', 'lib/less/normalize.less');
+      copy('less/vars.less', 'lib/less/vars.less');
       copy('less/global.less', 'lib/less/global.less');
       copy('less/fonts.less', 'lib/less/fonts.less');
       copy('less/main.less', 'lib/less/main.less');
 
-      copy('less/sections/Landing/index.less', 'lib/less/sections/Landing/index.less');
     },
 
     templates: function() {
@@ -405,15 +404,6 @@ module.exports = yeoman.generators.Base.extend({
         fs.mkdirSync(this.destinationPath('lib/ui/'));
       }
 
-      INIT_SECTIONS.forEach(function(route) {
-
-        var fileName = sectionFromRoute(route);
-
-        if (!fs.existsSync(this.destinationPath('lib/ui/' + fileName))) {
-
-          fs.mkdirSync(this.destinationPath('lib/ui/' + fileName));
-        }
-      }.bind(this));
     }
   },
 
