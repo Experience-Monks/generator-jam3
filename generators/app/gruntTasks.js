@@ -10,7 +10,7 @@ module.exports = {
     options: {
       warn: true,
       outFile: null,
-      acceptable: ['MIT', 'MIT/X11', 'BSD', 'ISC'],
+      acceptable: ['MIT', 'MIT/X11', 'BSD', 'ISC', 'WTFPL', 'BSD-2', 'BSD-3', 'Apache2', 'Apache-2.0'],
       include: ['dependencies', 'devDependencies', 'peerDependencies']
     }
   },
