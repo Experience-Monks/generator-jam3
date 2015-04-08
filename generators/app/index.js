@@ -314,19 +314,18 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     assets: function() {
-      this.mkdir('assets/json');
-      this.mkdir('assets/images');
-      this.mkdir('assets/videos');
-      this.mkdir('assets/sounds');
-      this.mkdir('assets/fonts');
+      this.mkdir('raw-assets/json');
+      this.mkdir('raw-assets/images');
+      this.mkdir('raw-assets/videos');
+      this.mkdir('raw-assets/sounds');
+      this.mkdir('raw-assets/fonts');
 
       if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('assets/tp');
+        this.mkdir('raw-assets/tp');
 
         var copy = cp.bind(this);
-        copy('assets/tp/global.tps');
-        copy('assets/tp/global/dummy-image.png');
-        // this.mkdir('assets/tp/global');
+        copy('raw-assets/tp/global.tps');
+        copy('raw-assets/tp/global/dummy-image.png');
       }
     },
 
