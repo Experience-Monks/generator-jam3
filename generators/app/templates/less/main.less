@@ -1,6 +1,7 @@
 @import "normalize.less";
-@import "global.less";
+@import 'vars.less';
 @import 'fonts.less';
+@import "global.less";
 @import 'sections/Landing/index.less';
 
 body, html {
@@ -11,20 +12,3 @@ body, html {
   -webkit-font-smoothing: antialiased;
   font-weight: 300;
 }
-
-
-/*  was for desktop retina displays
-.sprite {
-  background-image: url('@{images}tp/tp-desktop.png');
-  @media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (   min--moz-device-pixel-ratio: 2),
-  only screen and (     -o-min-device-pixel-ratio: 2/1),
-  only screen and (        min-device-pixel-ratio: 2),
-  only screen and (                min-resolution: 192dpi),
-  only screen and (                min-resolution: 2dppx) {
-      background-image: url('@{images}tp/tp-desktop-retina.png');
-  }
-}
-*/
-

@@ -1,8 +1,10 @@
+'use strict';
 <%
 	var useVue = _.contains( templateTypes, 'vue' );
+	var useHBS = _.contains( templateTypes, 'hbs' );
 %>var fs = require( 'fs' );
-var promise = require( 'bluebird' );
 <% if (useVue) { %>var vue = require( 'vue' );<% } %>
+<% if (useHBS) { %>var hbs = require( 'handlebars' );<% } %>
 var model = require( '../../model' );
 
 function <%= section %>() {}
@@ -10,12 +12,7 @@ function <%= section %>() {}
 <%= section %>.prototype = {
 
 	init: function( req, done ) {
-
-		promise.resolve()<% if (useVue) { %>		
-		.then( function() {
-
-			return new promise( function( resolve, reject ) {
-
+		<% if (useVue) { %>
 				var containerVue = document.createElement( 'div' );
 				containerVue.className = 'section';
 				document.body.appendChild( containerVue );
@@ -24,11 +21,14 @@ function <%= section %>() {}
 					el: containerVue,
 					data: model[ req.route ],
 					template: fs.readFileSync( __dirname + '/<%= section %>.vue', 'utf8' ),
-					ready: resolve
+					ready: done
 				});
-			}.bind( this ));
-		}.bind( this ))<% } %>		
-		.then( done );
+		<% } %>
+		<% if (useHBS) { %>
+			this.dom = hbs.compile(fs.readFileSync( __dirname + '/<%= section %>.hbs', 'utf8' ),model[req.route]);
+			document.body.appendChild(this.dom);
+			done();
+		<% } %>
 	},
 
 	aniIn: function( req, done ) {
@@ -44,7 +44,7 @@ function <%= section %>() {}
 	destroy: function( req, done ) {
 
 		<% if (useVue) { %>this.vue.$destroy( true );<% } %>
-	
+
 		done();
 	}
 };
