@@ -9,7 +9,8 @@ var yeoman = require('yeoman-generator'),
   gruntTasks = require('./gruntTasks'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
-  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes');
+  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
+  beautify = require('js-beautify').js_beautify;
 
 var INIT_SECTIONS = ['/'];
 
@@ -230,6 +231,17 @@ module.exports = yeoman.generators.Base.extend({
     grunt: function() {
       var copy = cp.bind(this);
 
+      // This has to be hooked in here, before any access to this.gruntfile
+      // Since this hook is generated any time this.gruntfile is accessed, in node_modules/yeaoman-generator/lib/base.js
+      // We are beautifying the Gruntfile.js output to corect the tabs
+      this.env.runLoop.add('writing', function (done) {
+        this.fs.write(
+          this.destinationPath('Gruntfile.js'),
+          beautify(this.env.gruntfile.toString(), { indent_size: 2 })
+        );
+        done();
+      }.bind(this), { once: 'gruntfile:write' });
+
       this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
 
       var defaultTasks = [
@@ -277,6 +289,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.gruntfile.registerTask('default', defaultTasks);
       this.gruntfile.registerTask('release', distTasks);
+
     },
 
     app: function() {
