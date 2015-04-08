@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.6.0</string>
+        <string>3.4.0</string>
         <key>fileName</key>
-        <string>./tp/global.tps</string>
+        <string>C:/Projects/Jam3Generator/generators/app/templates/assets/tp/common.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -36,25 +36,11 @@
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>less</string>
+        <string>json</string>
         <key>textureFileName</key>
-        <filename>../images/tp/tp-global.png</filename>
+        <filename>tps-common.png</filename>
         <key>flipPVR</key>
         <false/>
-        <key>pvrCompressionQuality</key>
-        <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>mipMapMinSize</key>
-        <uint>32768</uint>
-        <key>etc1CompressionQuality</key>
-        <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
-        <key>dxtCompressionMode</key>
-        <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
-        <key>jxrColorFormat</key>
-        <enum type="SettingsBase::JpegXrColorMode">JXR_YUV444</enum>
-        <key>jxrTrimFlexBits</key>
-        <uint>0</uint>
-        <key>jxrCompressionLevel</key>
-        <uint>0</uint>
         <key>ditherType</key>
         <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
         <key>backgroundColor</key>
@@ -72,13 +58,13 @@
         <key>shapePadding</key>
         <uint>2</uint>
         <key>jpgQuality</key>
-        <uint>80</uint>
+        <uint>70</uint>
         <key>pngOptimizationLevel</key>
-        <uint>1</uint>
+        <uint>0</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
-        <string></string>
+        <string>../images</string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
@@ -98,11 +84,11 @@
             <int>-1</int>
         </QSize>
         <key>reduceBorderArtifacts</key>
-        <false/>
+        <true/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -145,12 +131,27 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../animations/preloader-animation.json</filename>
+                <filename>tps-common.json</filename>
             </struct>
-            <key>less</key>
+            <key>header</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../lib/less/tp/tp-global.less</filename>
+                <filename></filename>
+            </struct>
+            <key>java</key>
+            <struct type="DataFile">
+                <key>name</key>
+                <filename>../../../Blueberry/app/assets/img/tp/web{v}.java</filename>
+            </struct>
+            <key>maintext</key>
+            <struct type="DataFile">
+                <key>name</key>
+                <filename>../../../Blueberry/src/less/desktop-tps.less</filename>
+            </struct>
+            <key>plaintext</key>
+            <struct type="DataFile">
+                <key>name</key>
+                <filename>../../../Blueberry/src/less/desktop-tps.less</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -179,21 +180,21 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>innerPadding</key>
-            <uint>0</uint>
+            <uint>2</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
-            <enum type="SpriteSettings::PivotPoint">Center</enum>
+            <enum type="SpriteSettings::PivotPoint">TopLeft</enum>
         </struct>
         <key>fileList</key>
         <array>
-            <filename>global</filename>
+            <filename>common/</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -202,8 +203,8 @@
         <key>ignoredWarnings</key>
         <array/>
         <key>commonDivisorX</key>
-        <uint>1</uint>
+        <uint>2</uint>
         <key>commonDivisorY</key>
-        <uint>1</uint>
+        <uint>2</uint>
     </struct>
 </data>
