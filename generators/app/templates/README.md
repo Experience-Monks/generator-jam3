@@ -68,10 +68,6 @@ Capitalize 'ID' and 'URL' in variable names
 
 ### LESS
 
-All less files that correspond to a javascript section or element should have the same name as the javascript file but camel cased:
-- home.js -> home.less
-- UselessCornerWidget.js -> uselessCornerWidget.less
-
 Use dashes to seperate words in css classes/ids, do NOT use camelCase:
 - .big-pickle
 - .large-img
