@@ -297,33 +297,7 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this),
         config = this.config.getAll();
 
-      this.mkdir('release/assets/json');
-      this.mkdir('release/assets/images');
-      this.mkdir('release/assets/videos');
-      this.mkdir('release/assets/sounds');
-      this.mkdir('release/assets/fonts');
-      if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('release/assets/tp');
-      }
-
-      template('release/index.html', config);
-    },
-
-    temp: function() {
-      var copy = cp.bind(this),
-        template = tpl.bind(this),
-        config = this.config.getAll();
-
-      this.mkdir('dev/assets/json');
-      this.mkdir('dev/assets/images');
-      this.mkdir('dev/assets/videos');
-      this.mkdir('dev/assets/sounds');
-      this.mkdir('dev/assets/fonts');
-      if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('dev/assets/tp');
-      }
-
-      template('release/index.html', 'dev/index.html', config);
+      template('release/index.html', 'app/index.html', config);
     },
 
     assets: function() {

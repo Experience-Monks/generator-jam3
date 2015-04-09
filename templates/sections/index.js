@@ -20,12 +20,12 @@ function <%= section %>() {}
 				this.vue = new vue( {
 					el: containerVue,
 					data: model[ req.route ],
-					template: fs.readFileSync( __dirname + '/<%= section %>.vue', 'utf8' ),
+					template: fs.readFileSync( __dirname + '/template.vue', 'utf8' ),
 					ready: done
 				});
 		<% } %>
 		<% if (useHBS) { %>
-			this.dom = hbs.compile(fs.readFileSync( __dirname + '/<%= section %>.hbs', 'utf8' ),model[req.route]);
+			this.dom = hbs.compile(fs.readFileSync( __dirname + '/template.hbs', 'utf8' ),model[req.route]);
 			document.body.appendChild(this.dom);
 			done();
 		<% } %>
