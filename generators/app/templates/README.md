@@ -49,31 +49,7 @@ $ grunt
 
 Javascript Style Guide: https://github.com/Jam3/Javascript-Code-Conventions
 
-### JS
-
-All classes, for which you need to create an instance of, should be named using title case: (Sections are exempt from this rule)
-- Home.js
-- FancySpritesheetClass.js
-- EpicAnimationElement.js
-
-All modules that return just an object, should be named using camel case:
-- settings.js
-- numbersHelper.js
-- emptyObject.js
-
-Capitalize 'ID' and 'URL' in variable names
-- linkID
-- postURL
-- menuItemID
-
-### LESS
-
-Use dashes to seperate words in css classes/ids, do NOT use camelCase:
-- .big-pickle
-- .large-img
-- #funky-monkey
-
-Nest your styles! So that we don't have weird class overrides
+CSS Style Guide: https://github.com/Jam3/CSS-Style-Guide
 
 ### IMAGES
 
