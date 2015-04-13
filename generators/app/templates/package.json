@@ -10,7 +10,7 @@
   "license": "ISC",
   "repository": "<%= projectRepository %>",
   "dependencies": {
-    "bigwheel": "^1.1.2",
+    "bigwheel": "^2.0.7",
     "gsap": "^1.15.0"<% if (_.contains( templateLibraries, 'vue' )) { %>,
     "vue": "^0.11.4"<% } %><% if (_.contains( templateLibraries, 'hbs' )) { %>,
     "handlebars": "^2.0.0"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
