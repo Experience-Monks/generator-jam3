@@ -31,6 +31,10 @@ function <%= section %>() {}
 		<% } %>
 	},
 
+  resize: function(w,h) {
+
+  },
+
 	animateIn: function( req, done ) {
 
 		done();
