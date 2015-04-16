@@ -11,6 +11,7 @@
   "repository": "<%= projectRepository %>",
   "dependencies": {
     "bigwheel": "^2.0.7",
+    "detect-dom-ready": "^1.0.2",
     "gsap": "^1.15.0"<% if (_.contains( templateLibraries, 'vue' )) { %>,
     "vue": "^0.11.4"<% } %><% if (_.contains( templateLibraries, 'hbs' )) { %>,
     "handlebars": "^2.0.0"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
@@ -40,7 +41,7 @@
     ]
   },
   "browserify-shim": {
-    
+
   },
   "browser": {}
 }
