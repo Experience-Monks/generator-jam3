@@ -1,4 +1,7 @@
 'use strict';
+var domready = require('detect-dom-ready');
 var framework = require( './lib/framework' );
 
-framework.init();
+domready(function() {
+  framework.init();
+});

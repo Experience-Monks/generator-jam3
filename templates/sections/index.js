@@ -31,12 +31,16 @@ function <%= section %>() {}
 		<% } %>
 	},
 
-	aniIn: function( req, done ) {
+  resize: function(w,h) {
+
+  },
+
+	animateIn: function( req, done ) {
 
 		done();
 	},
 
-	aniOut: function( req, done ) {
+	animateOut: function( req, done ) {
 
 		done();
 	},
