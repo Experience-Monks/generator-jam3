@@ -14,7 +14,8 @@
     "detect-dom-ready": "^1.0.2",
     "gsap": "^1.15.0"<% if (_.contains( templateLibraries, 'vue' )) { %>,
     "vue": "^0.11.4"<% } %><% if (_.contains( templateLibraries, 'hbs' )) { %>,
-    "handlebars": "^2.0.0"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
+    "handlebars": "^2.0.0",
+    "domify": "*"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
     "pixi": "^0.2.1"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
     "pixi-ears": "^1.0.0"<% } %>
   },

@@ -5,7 +5,7 @@ module.exports = bigwheel( function( done ) {
 
 	done( {
 
-		initSection: null,
+		initSection: require('../sections/Preloader'),
 
 		routes: require( './routes' )
 	});
