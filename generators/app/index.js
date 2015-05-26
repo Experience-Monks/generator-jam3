@@ -257,7 +257,8 @@ module.exports = yeoman.generators.Base.extend({
         'browserify:dist',
         'pngmin',
         'copy:dist',
-        'less:dist'
+        'less:dist',
+        'uglify'
       ];
 
       this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
@@ -268,6 +269,7 @@ module.exports = yeoman.generators.Base.extend({
       this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
       this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
+      this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
 
       if (this.config.get('useBower') === true) {
         this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));

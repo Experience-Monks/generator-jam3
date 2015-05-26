@@ -195,5 +195,15 @@ module.exports = {
       files: ['<%= config.assets %>/**/*'],
       tasks: ['copy:dev']
     }
+  },
+  uglify: {
+    options: {
+      preserveComments: 'some'
+    },
+    release: {
+      files: {
+          'release/js/bundle.js': ['release/js/bundle.js'],
+      }
+    }
   }
 };
