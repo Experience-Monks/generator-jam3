@@ -358,12 +358,12 @@ module.exports = yeoman.generators.Base.extend({
 
     templates: function() {
 
-      createTemplatesFromRoutes.call(this, INIT_SECTIONS, this.config.get('templateLibraries'));
+      createTemplatesFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibraries'));
     },
 
     sections: function() {
 
-      createSectionFromRoutes.call(this, INIT_SECTIONS, this.config.get('templateLibraries'));
+      createSectionFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibraries'));
     },
 
     ui: function() {

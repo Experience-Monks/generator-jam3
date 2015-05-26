@@ -5,9 +5,16 @@
 %>var fs = require( 'fs' );
 <% if (useVue) { %>var vue = require( 'vue' );<% } %>
 <% if (useHBS) { %>var hbs = require( 'handlebars' );<% } %>
+<% if (useHBS) { %>var domify = require( 'domify' );<% } %>
 var model = require( '../../model' );
 
+<% if (section=='Preloader') { %>
+function <%= section %>(onComplete) {
+  this.preloaded = onComplete;
+}
+<% } else { %>
 function <%= section %>() {}
+<% } %>
 
 <%= section %>.prototype = {
 
@@ -19,13 +26,13 @@ function <%= section %>() {}
 
 				this.vue = new vue( {
 					el: containerVue,
-					data: model[ req.route ],
+					data: <% if (section=='Preloader') { %>{}<% } else { %>model[ req.route ]<% } %>,
 					template: fs.readFileSync( __dirname + '/template.vue', 'utf8' ),
 					ready: done
 				});
 		<% } %>
 		<% if (useHBS) { %>
-			this.dom = hbs.compile(fs.readFileSync( __dirname + '/template.hbs', 'utf8' ),model[req.route]);
+			this.dom = domify(hbs.compile(fs.readFileSync( __dirname + '/template.hbs', 'utf8' ))(<% if (section!='Preloader') { %>model[ req.route ]<% } %>));
 			document.body.appendChild(this.dom);
 			done();
 		<% } %>
@@ -38,6 +45,9 @@ function <%= section %>() {}
 	animateIn: function( req, done ) {
 
 		done();
+    <% if (section=='Preloader') { %>
+    this.preloaded();
+    <% } %>
 	},
 
 	animateOut: function( req, done ) {
@@ -48,6 +58,7 @@ function <%= section %>() {}
 	destroy: function( req, done ) {
 
 		<% if (useVue) { %>this.vue.$destroy( true );<% } %>
+    <% if (useHBS) { %>this.dom.parentNode.removeChild(this.dom);<% } %>
 
 		done();
 	}
