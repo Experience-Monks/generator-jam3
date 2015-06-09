@@ -17,7 +17,7 @@ module.exports = {
   browserify: {
     'dev': {
       'src': 'index.js',
-      'dest': '<%= config.dev %>/js/bundle.js',
+      'dest': '<%= config.dev %>/bundle.js',
       'options': {
         'debug': true,
         'watch': true,
@@ -30,7 +30,7 @@ module.exports = {
     },
     'dist': {
       'src': 'index.js',
-      'dest': '<%= config.dist %>/js/bundle.js',
+      'dest': '<%= config.dist %>/bundle.js',
       'options': {
         'debug': false,
         'verbose': false
@@ -46,7 +46,7 @@ module.exports = {
         sourceMapBasepath: '<%= config.dev %>/'
       },
       files: {
-        '<%= config.dev %>/css/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
       }
     },
     dist: {
@@ -55,7 +55,7 @@ module.exports = {
         cleancss: true
       },
       files: {
-        '<%= config.dist %>/css/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
       }
     }
   },
