@@ -44,7 +44,7 @@ module.exports = {
         sourceMap: true,
         sourceMapFilename: '<%= config.dev %>/main.css.map',
         sourceMapBasepath: '<%= config.dev %>/',
-        'plugins' : [new (require('less-plugin-autoprefix'))({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})]
+        plugins: 'LESS_PLUGINS'
       },
       files: {
         '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
@@ -53,7 +53,8 @@ module.exports = {
     dist: {
       options: {
         compress: true,
-        cleancss: true
+        cleancss: true,
+        plugins: 'LESS_PLUGINS'
       },
       files: {
         '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
