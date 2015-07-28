@@ -25,7 +25,8 @@ module.exports = {
         'open': true,
         'browserifyOptions': {
           'debug': true
-        }
+        },
+        'transform': ['envify']
       }
     },
     'dist': {
