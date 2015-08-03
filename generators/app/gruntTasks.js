@@ -184,7 +184,7 @@ module.exports = {
       livereload: true
     },
     less: {
-      files: ['<%= config.src %>/less/**/*.less'],
+      files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/sections/**/*.less', '<%= config.src %>/ui/**/*.less'],
       tasks: ['less:dev']
     },
     browserify: {
