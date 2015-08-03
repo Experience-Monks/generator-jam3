@@ -188,7 +188,7 @@ module.exports = {
       tasks: ['less:dev']
     },
     browserify: {
-      files: ['<%= config.src %>/**/*.js', '*.js'],
+      files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/*.vue', '<%= config.src %>/**/*.hbs'],
       tasks: ['browserify:dev']
     },
     assets: {
