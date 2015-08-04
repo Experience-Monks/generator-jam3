@@ -25,7 +25,8 @@ module.exports = {
         'open': true,
         'browserifyOptions': {
           'debug': true
-        }
+        },
+        'transform': ['envify']
       }
     },
     'dist': {
@@ -186,11 +187,11 @@ module.exports = {
       livereload: true
     },
     less: {
-      files: ['<%= config.src %>/less/**/*.less'],
+      files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/sections/**/*.less', '<%= config.src %>/ui/**/*.less'],
       tasks: ['less:dev']
     },
     browserify: {
-      files: ['<%= config.src %>/**/*.js', '*.js'],
+      files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/template.*'],
       tasks: ['browserify:dev']
     },
     assets: {
