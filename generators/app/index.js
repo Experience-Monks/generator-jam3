@@ -261,9 +261,20 @@ module.exports = yeoman.generators.Base.extend({
         'uglify'
       ];
 
+      var lessOutput='';
+      var lessPlugins = [
+        {name: 'lessPrefixPlugin', content: "new (require('less-plugin-autoprefix'))({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})"}
+      ]
+
+      for (var i=0; i<lessPlugins.length; i++) {
+        this.gruntfile.insertVariable(lessPlugins[i].name,lessPlugins[i].content);
+        lessOutput += ((i>1) ? ',' : '')+lessPlugins[i].name;
+      }
+
+
       this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
       this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
-      this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less));
+      this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less).replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
       this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify));
       this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
       this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));

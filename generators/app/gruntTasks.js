@@ -44,7 +44,8 @@ module.exports = {
         compress: true,
         sourceMap: true,
         sourceMapFilename: '<%= config.dev %>/main.css.map',
-        sourceMapBasepath: '<%= config.dev %>/'
+        sourceMapBasepath: '<%= config.dev %>/',
+        plugins: 'LESS_PLUGINS'
       },
       files: {
         '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
@@ -53,7 +54,8 @@ module.exports = {
     dist: {
       options: {
         compress: true,
-        cleancss: true
+        cleancss: true,
+        plugins: 'LESS_PLUGINS'
       },
       files: {
         '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
