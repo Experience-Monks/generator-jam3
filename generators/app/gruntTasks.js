@@ -26,7 +26,7 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': ['envify']
+        'transform': [['envify',{ENVIRONMENT: 'dev'}]]
       }
     },
     'dist': {
@@ -34,7 +34,8 @@ module.exports = {
       'dest': '<%= config.dist %>/bundle.js',
       'options': {
         'debug': false,
-        'verbose': false
+        'verbose': false,
+        'transform': [['envify',{ENVIRONMENT: 'prod'}]]
       }
     }
   },
