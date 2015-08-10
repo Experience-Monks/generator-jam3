@@ -29,11 +29,16 @@ function <%= section %>() {}
 					template: fs.readFileSync( __dirname + '/template.vue', 'utf8' ),
 					ready: done
 				});
-        this.vue.$mount(containerVue);
+				this.vue.$mount(containerVue);
 		<% } %>
 		<% if (useHBS) { %>
 			this.dom = domify(hbs.compile(fs.readFileSync( __dirname + '/template.hbs', 'utf8' ))(<% if (section!='Preloader') { %>model[ req.route ]<% } %>));
 			document.body.appendChild(this.dom);
+			<% if (!useVue) { %>
+				done();
+			<% } %>
+		<% } %>
+		<% if (!useHBS && !useVue) { %>
 			done();
 		<% } %>
 	},
