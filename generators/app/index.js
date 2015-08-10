@@ -311,7 +311,7 @@ module.exports = yeoman.generators.Base.extend({
         config = this.config.getAll();
 
       template('release/index.html', 'app/index.html', config);
-      copy('robots.txt', 'app/' + config.projectName + '.txt');
+      copy('robots.txt', 'app/robots.txt');
     },
 
     assets: function() {
