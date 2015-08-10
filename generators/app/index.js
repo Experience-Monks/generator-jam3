@@ -309,8 +309,8 @@ module.exports = yeoman.generators.Base.extend({
       var copy = cp.bind(this),
         template = tpl.bind(this),
         config = this.config.getAll();
-
       template('release/index.html', 'app/index.html', config);
+      copy('humans.txt', 'app/humans.txt');
     },
 
     assets: function() {
