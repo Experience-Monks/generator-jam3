@@ -311,14 +311,24 @@ module.exports = yeoman.generators.Base.extend({
         config = this.config.getAll();
       template('release/index.html', 'app/index.html', config);
       template('humans.txt', 'app/humans.txt', config);
+      copy('robots.txt', 'app/robots.txt');
     },
 
     assets: function() {
+      var copy = cp.bind(this);
+
       this.mkdir('raw-assets/json');
       this.mkdir('raw-assets/images');
       this.mkdir('raw-assets/videos');
       this.mkdir('raw-assets/sounds');
       this.mkdir('raw-assets/fonts');
+
+      copy('assets/json/**/*','raw-assets/json');
+      copy('assets/images/**/*','raw-assets/images');
+      copy('assets/videos/**/*','raw-assets/videos');
+      copy('assets/sounds/**/*','raw-assets/sounds');
+      copy('assets/fonts/**/*','raw-assets/fonts');
+
 
       if (this.config.get('useTexturePackager') === true) {
         this.mkdir('raw-assets/tp');
