@@ -20,6 +20,11 @@ module.exports = [{
   default: ""
 }, {
   type: "confirm",
+  name: "changeFileNaming",
+  message: "Would you perfer Landing/Landing.js over Landing/index.js?",
+  default: false
+}, {
+  type: "confirm",
   name: "useBower",
   message: "Would you like to use Bower? (Use Bower?)",
   default: false

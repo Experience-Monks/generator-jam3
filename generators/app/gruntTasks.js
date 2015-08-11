@@ -188,11 +188,11 @@ module.exports = {
       livereload: true
     },
     less: {
-      files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/**/style.*'],
+      files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/**/*style.*'],
       tasks: ['less:dev']
     },
     browserify: {
-      files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/template.*'],
+      files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/*template.*'],
       tasks: ['browserify:dev']
     },
     assets: {

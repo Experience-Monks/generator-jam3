@@ -2,5 +2,5 @@
 @import 'vars.less';
 @import 'fonts.less';
 @import "global.less";
-@import '../sections/Preloader/style.less';
-@import '../sections/Landing/style.less';
+@import '../sections/Preloader/<%= ((changeFileNaming) ? "Preloader.style" : "style") %>.less';
+@import '../sections/Landing/<%= ((changeFileNaming) ? "Landing.style" : "style") %>.less';

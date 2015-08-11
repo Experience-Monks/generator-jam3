@@ -89,7 +89,7 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('useTexturePackager', props.useTexturePackager);
         this.config.set('isCanvasBased', isCanvasBased);
         this.config.set('isDOMBased', isDOMBased);
-
+        this.config.set('changeFileNaming', props.changeFileNaming);
         // var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
         // this.config.set( 'threejs', threejs );
         // var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
@@ -342,9 +342,10 @@ module.exports = yeoman.generators.Base.extend({
     lib: function() {
 
       var copy = cp.bind(this),
-        template = tpl.bind(this);
+        template = tpl.bind(this),
+        config = this.config.getAll();
 
-      copy('framework/index.js', 'lib/framework/index.js');
+      template('framework/index.js', 'lib/framework/index.js', config);
       createRoutesFromRoutes.call(this, INIT_SECTIONS);
     },
 
@@ -369,14 +370,14 @@ module.exports = yeoman.generators.Base.extend({
 
     less: function() {
       var copy = cp.bind(this),
-        template = tpl.bind(this);
+        template = tpl.bind(this),
+        config = this.config.getAll();
 
       copy('less/normalize.less', 'lib/less/normalize.less');
       copy('less/vars.less', 'lib/less/vars.less');
       copy('less/global.less', 'lib/less/global.less');
       copy('less/fonts.less', 'lib/less/fonts.less');
-      copy('less/main.less', 'lib/less/main.less');
-
+      template('less/main.less', 'lib/less/main.less', config);
     },
 
     templates: function() {
