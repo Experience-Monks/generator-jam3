@@ -310,7 +310,7 @@ module.exports = yeoman.generators.Base.extend({
         template = tpl.bind(this),
         config = this.config.getAll();
       template('release/index.html', 'app/index.html', config);
-      copy('humans.txt', 'app/humans.txt');
+      template('humans.txt', 'app/humans.txt', config);
     },
 
     assets: function() {
