@@ -21,7 +21,7 @@ module.exports = [{
 }, {
   type: "confirm",
   name: "changeFileNaming",
-  message: "What you perfer Landing/index.js over Landing/Landing.js?",
+  message: "Would you perfer Landing/Landing.js over Landing/index.js?",
   default: false
 }, {
   type: "confirm",
