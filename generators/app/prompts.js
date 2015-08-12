@@ -25,6 +25,11 @@ module.exports = [{
   default: false
 }, {
   type: "confirm",
+  name: "useES6",
+  message: "Would you like to use ES6?",
+  default: false
+}, {
+  type: "confirm",
   name: "useBower",
   message: "Would you like to use Bower? (Use Bower?)",
   default: false

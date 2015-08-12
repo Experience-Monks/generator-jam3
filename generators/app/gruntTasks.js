@@ -26,7 +26,7 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': [['envify',{ENVIRONMENT: 'dev'}]]
+        'transform': [['envify',{ENVIRONMENT: 'dev'}], "BABEL_OPTIONS"]
       }
     },
     'dist': {
@@ -35,7 +35,7 @@ module.exports = {
       'options': {
         'debug': false,
         'verbose': false,
-        'transform': [['envify',{ENVIRONMENT: 'prod'}]]
+        'transform': [['envify',{ENVIRONMENT: 'prod'}], "BABEL_OPTIONS"]
       }
     }
   },
