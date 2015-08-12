@@ -41,8 +41,7 @@ module.exports = {
                  'es6.spread',
                  'es6.blockScoping',
                  'es6.constants',
-                 'es6.destructuring',
-                 'es7.asyncFunctions'
+                 'es6.destructuring'
               ]
             }
           ]
