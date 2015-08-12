@@ -26,7 +26,27 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': [['envify',{ENVIRONMENT: 'dev'}]]
+        'transform': 
+        [
+          ['envify',{ENVIRONMENT: 'dev'}], 
+          ['babelify',
+            {
+              sourceMap: true,
+              whitelist: [
+                 'es6.arrowFunctions',
+                 'es6.classes',
+                 'es6.templateLiterals',
+                 'es6.spec.templateLiterals',
+                 'es6.parameters',
+                 'es6.spread',
+                 'es6.blockScoping',
+                 'es6.constants',
+                 'es6.destructuring',
+                 'es7.asyncFunctions'
+              ]
+            }
+          ]
+        ]
       }
     },
     'dist': {
@@ -208,26 +228,6 @@ module.exports = {
       files: {
           'release/js/bundle.js': ['release/js/bundle.js'],
       }
-    }
-  },
-  babel: {
-    options: {
-      sourceMap: true,
-      whitelist: [
-         'es6.arrowFunctions',
-         'es6.classes',
-         'es6.templateLiterals',
-         'es6.spec.templateLiterals',
-         'es6.parameters',
-         'es6.spread',
-         'es6.blockScoping',
-         'es6.constants',
-         'es6.destructuring',
-         'es7.asyncFunctions'
-      ]
-    },
-    files: {
-      'release/js/bundle.js': ['release/js/bundle.js'],
     }
   }
 };
