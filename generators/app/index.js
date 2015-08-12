@@ -247,6 +247,7 @@ module.exports = yeoman.generators.Base.extend({
       var defaultTasks = [
         'copy:dev',
         'licensechecker',
+        'babel',
         'newer:browserify:dev',
         'newer:less:dev',
         'connect',
@@ -281,6 +282,8 @@ module.exports = yeoman.generators.Base.extend({
       this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
       this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
+      this.gruntfile.insertConfig('babel', JSON.stringify(gruntTasks.babel));
+
 
       if (this.config.get('useBower') === true) {
         this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
