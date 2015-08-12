@@ -10,8 +10,7 @@ var yeoman = require('yeoman-generator'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  beautify = require('js-beautify').js_beautify,
-  babelify = require('babelify/polyfill.js');
+  beautify = require('js-beautify').js_beautify;
 
 var INIT_SECTIONS = ['/'];
 
@@ -217,7 +216,7 @@ module.exports = yeoman.generators.Base.extend({
         copy('bower.json');
       }
 
-      copy('index.js');
+      template('index.js',config);
 
       copy('_Gruntfile.js', 'Gruntfile.js');
 
@@ -275,7 +274,7 @@ module.exports = yeoman.generators.Base.extend({
 
       var babelOptions = "['babelify', {sourceMap: true, whitelist: ['es6.arrowFunctions', 'es6.classes', 'es6.templateLiterals', 'es6.spec.templateLiterals', 'es6.parameters', 'es6.spread', 'es6.blockScoping', 'es6.constants', 'es6.destructuring']}]";
       var babelOutput = "";
-      
+
       if(this.config.get('useES6')){
         var babelOutput = babelOptions;
       }
