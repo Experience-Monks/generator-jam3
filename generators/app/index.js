@@ -10,7 +10,8 @@ var yeoman = require('yeoman-generator'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  beautify = require('js-beautify').js_beautify;
+  beautify = require('js-beautify').js_beautify,
+  babelify = require('babelify/polyfill.js');
 
 var INIT_SECTIONS = ['/'];
 
@@ -90,6 +91,7 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('isCanvasBased', isCanvasBased);
         this.config.set('isDOMBased', isDOMBased);
         this.config.set('changeFileNaming', props.changeFileNaming);
+        this.config.set('useES6', props.useES6);
         // var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
         // this.config.set( 'threejs', threejs );
         // var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
@@ -264,18 +266,24 @@ module.exports = yeoman.generators.Base.extend({
       var lessOutput='';
       var lessPlugins = [
         {name: 'lessPrefixPlugin', content: "new (require('less-plugin-autoprefix'))({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})"}
-      ]
+      ];
 
       for (var i=0; i<lessPlugins.length; i++) {
         this.gruntfile.insertVariable(lessPlugins[i].name,lessPlugins[i].content);
         lessOutput += ((i>1) ? ',' : '')+lessPlugins[i].name;
       }
 
+      var babelOptions = "['babelify', {sourceMap: true, whitelist: ['es6.arrowFunctions', 'es6.classes', 'es6.templateLiterals', 'es6.spec.templateLiterals', 'es6.parameters', 'es6.spread', 'es6.blockScoping', 'es6.constants', 'es6.destructuring']}]";
+      var babelOutput = "";
+      
+      if(this.config.get('useES6')){
+        var babelOutput = babelOptions;
+      }
 
       this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
       this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
       this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less).replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
-      this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify));
+      this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify).replace(/('|")BABEL_OPTIONS('|")/g,babelOutput));
       this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
       this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
       this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));

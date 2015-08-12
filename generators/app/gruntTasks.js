@@ -26,26 +26,7 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': 
-        [
-          ['envify',{ENVIRONMENT: 'dev'}], 
-          ['babelify',
-            {
-              sourceMap: true,
-              whitelist: [
-                 'es6.arrowFunctions',
-                 'es6.classes',
-                 'es6.templateLiterals',
-                 'es6.spec.templateLiterals',
-                 'es6.parameters',
-                 'es6.spread',
-                 'es6.blockScoping',
-                 'es6.constants',
-                 'es6.destructuring'
-              ]
-            }
-          ]
-        ]
+        'transform': [['envify',{ENVIRONMENT: 'dev'}], "BABEL_OPTIONS"]
       }
     },
     'dist': {
@@ -54,7 +35,7 @@ module.exports = {
       'options': {
         'debug': false,
         'verbose': false,
-        'transform': [['envify',{ENVIRONMENT: 'prod'}]]
+        'transform': [['envify',{ENVIRONMENT: 'prod'}], "BABEL_OPTIONS"]
       }
     }
   },
