@@ -36,7 +36,7 @@
     "grunt-licensechecker": "^0.1.3",
     "grunt-newer": "^0.8.0",
     "grunt-pngmin": "^0.6.2"<% if (useBower) { %>,
-    "grunt-contrib-concat": "^0.5.0",<% } %> <% if (useES6) { %>,
+    "grunt-contrib-concat": "^0.5.0",<% } %> <% if (useES6) { %>
     "babelify": "^6.1.3"<% } %> 
   },
   "browserify": {
