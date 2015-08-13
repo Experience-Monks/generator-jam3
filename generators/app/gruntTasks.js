@@ -5,6 +5,8 @@ module.exports = {
     dev: '.tmp',
     dist: 'release',
     libs: '',
+    devPath: './assets/images/',
+    livePath: './assets/images/'
   },
   licensechecker: {
     options: {
@@ -26,7 +28,7 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': [['envify',{ENVIRONMENT: 'dev'}], "BABEL_OPTIONS"]
+        'transform': [['envify',{ENVIRONMENT: 'dev', PATH: '<%= config.devPath %>'}], "BABEL_OPTIONS"]
       }
     },
     'dist': {
@@ -35,7 +37,7 @@ module.exports = {
       'options': {
         'debug': false,
         'verbose': false,
-        'transform': [['envify',{ENVIRONMENT: 'prod'}], "BABEL_OPTIONS"]
+        'transform': [['envify',{ENVIRONMENT: 'prod', PATH: '<%= config.livePath %>'}], "BABEL_OPTIONS"]
       }
     }
   },
@@ -46,7 +48,10 @@ module.exports = {
         sourceMap: true,
         sourceMapFilename: '<%= config.dev %>/main.css.map',
         sourceMapBasepath: '<%= config.dev %>/',
-        plugins: 'LESS_PLUGINS'
+        plugins: 'LESS_PLUGINS',
+        modifyVars: {
+          path: '<%= "config.devPath" %>'
+        }
       },
       files: {
         '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
@@ -56,7 +61,10 @@ module.exports = {
       options: {
         compress: true,
         cleancss: true,
-        plugins: 'LESS_PLUGINS'
+        plugins: 'LESS_PLUGINS',
+        modifyVars: {
+          path: '<%= "config.livePath" %>'
+        }
       },
       files: {
         '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
