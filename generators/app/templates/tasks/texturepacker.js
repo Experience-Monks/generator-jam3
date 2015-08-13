@@ -11,6 +11,8 @@ module.exports = function(grunt) {
     var cmd = "";
     var files = fs.readdirSync(source);
 
+    var noImages = false;
+    
     grunt.log.ok("Running TP source: ", source);
 
     files.forEach(function(f) {
@@ -23,7 +25,7 @@ module.exports = function(grunt) {
     grunt.log.ok("Running TP cmd: ", cmd);
     grunt.verbose.subhead(cmd);
     var child = exec(cmd, function(error, stdout, stderr) {
-      if (error !== null) {
+      if (error !== null && !noImages) {
         console.log('exec error: ' + error);
         done(false);
       } else {
@@ -36,7 +38,11 @@ module.exports = function(grunt) {
       });
     }
     child.stderr.on('data', function(chunk) {
-      grunt.log.error(chunk);
+      if(chunk.toLowerCase().indexOf("no sprite sheet written") > -1){
+        noImages = true;
+      }else{
+        grunt.log.error("HERE! :" +chunk);
+      }
     });
   });
 };
