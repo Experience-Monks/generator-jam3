@@ -4,10 +4,9 @@
 	var useHBS = _.contains( templateTypes, 'hbs' );
 %>var fs = require( 'fs' );
 <% if (useVue) { %>var vue = require( 'vue' );<% } %>
-<% if (useHBS) { %>var hbs = require( 'handlebars' );<% } %>
-<% if (useHBS) { %>var domify = require( 'domify' );<% } %>
+<% if (useHBS) { %>var hbs = require( 'handlebars' );
+var domify = require( 'domify' );<% } %>
 var model = require( '../../model' );
-
 <% if (useES6) { %>
 class <%= section %> {
 <% if (section=='Preloader') { %>
