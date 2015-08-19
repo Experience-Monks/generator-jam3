@@ -52,6 +52,13 @@ module.exports = yeoman.generators.Base.extend({
         projectName = pathSplit[pathSplit.length - 1];
 
       this.config.set('projectName', projectName);
+
+      var beautify = require('gulp-beautify')({indentSize: 2, preserveNewlines: false});
+      var gulpif = require('gulp-if');
+      var condition = function(file) {
+        return file.path.indexOf('.js')>-1;
+      };
+      this.registerTransformStream(gulpif(condition,beautify));
     },
 
     readInRemote: function() {
