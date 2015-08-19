@@ -8,6 +8,19 @@
 <% if (useHBS) { %>var domify = require( 'domify' );<% } %>
 var model = require( '../../model' );
 
+<% if (useES6) { %>
+class <%= section %> {
+<% if (section=='Preloader') { %>
+  constructor(onComplete) {
+    this.preloaded = onComplete;
+  }
+<% } else { %>
+  constructor() {
+
+  }
+<% } %>
+  init(req,done) {
+<% } else { %>
 <% if (section=='Preloader') { %>
 function <%= section %>(onComplete) {
   this.preloaded = onComplete;
@@ -15,10 +28,9 @@ function <%= section %>(onComplete) {
 <% } else { %>
 function <%= section %>() {}
 <% } %>
-
 <%= section %>.prototype = {
-
-	init: function( req, done ) {
+  init: function( req, done ) {
+<% } %>
 		<% if (useVue) { %>
 				var containerVue = document.createElement( 'div' );
 				containerVue.className = 'section';
@@ -41,32 +53,43 @@ function <%= section %>() {}
 		<% if (!useHBS && !useVue) { %>
 			done();
 		<% } %>
-	},
-
-  resize: function(w,h) {
-
+<% if (useES6) { %>
+  }
+  resize(w,h) {
+<% } else { %>
   },
+  resize: function(w,h) {
+<% } %>
 
-	animateIn: function( req, done ) {
-
+<% if (useES6) { %>
+  }
+  animateIn(req,done) {
+<% } else { %>
+  },
+  animateIn: function(req,done) {
+<% } %>
 		done();
     <% if (section=='Preloader') { %>
     this.preloaded();
     <% } %>
-	},
-
-	animateOut: function( req, done ) {
-
+<% if (useES6) { %>
+  }
+  animateOut(req,done) {
+<% } else { %>
+  },
+  animateOut: function(req,done) {
+<% } %>
 		done();
-	},
-
-	destroy: function( req, done ) {
-
+<% if (useES6) { %>
+  }
+  destroy(req,done) {
+<% } else { %>
+  },
+  destroy: function(req,done) {
+<% } %>
 		<% if (useVue) { %>this.vue.$destroy( true );<% } %>
     <% if (useHBS) { %>this.dom.parentNode.removeChild(this.dom);<% } %>
-
 		done();
 	}
 };
-
 module.exports = <%= section %>;
