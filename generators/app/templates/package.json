@@ -20,9 +20,11 @@
     "pixi-ears": "^1.0.0"<% } %>
   },
   "devDependencies": {
+    <% if (_.size( templateLibraries) > 0) { %>
     "brfs": "^1.2.0",
-    "browserify": "^6.3.2",
     "browserify-shim": "^3.8.0",
+    <% } %>
+    "browserify": "^6.3.2",
     "less-plugin-autoprefix": "^1.4.2",
     "envify": "^3.4.0",
     "load-grunt-tasks": "^1.0.0",
@@ -40,13 +42,17 @@
     "babelify": "^6.1.3"<% } %> 
   },
   "browserify": {
+    <% if (_.size( templateLibraries) > 0) { %>
     "transform": [
       "browserify-shim",
       "brfs"
     ]
+    <% } %>
   },
+  <% if (_.size( templateLibraries) > 0) { %>
   "browserify-shim": {
 
   },
+  <% } %>
   "browser": {}
 }
