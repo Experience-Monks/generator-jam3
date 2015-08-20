@@ -161,6 +161,7 @@ module.exports = {
         dest: '<%= config.dist %>/assets/fonts/'
       },
       {
+        dot: true,
         expand: true,
         cwd: 'app/',
         src: ['**'],
@@ -214,8 +215,19 @@ module.exports = {
     },
     release: {
       files: {
-          'release/js/bundle.js': ['release/js/bundle.js'],
+          '<%= config.dist %>/bundle.js': ['<%= config.dist %>/bundle.js'],
       }
+    }
+  },
+  compress: {
+    main: {
+      options: {
+        mode: 'gzip'
+      },
+      files: [
+        {expand: true, cwd: '<%= config.dist %>/', src: '*.js', dest: '<%= config.dist %>/', ext: '.js.gz'},
+        {expand: true, cwd: '<%= config.dist %>/', src: '*.css', dest: '<%= config.dist %>/', ext: '.css.gz'}
+      ]
     }
   }
 };
