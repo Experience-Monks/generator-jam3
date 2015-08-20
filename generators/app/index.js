@@ -9,7 +9,8 @@ var yeoman = require('yeoman-generator'),
   gruntTasks = require('./gruntTasks'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
-  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes');
+  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
+  createMainLess = require('../../lib/generator/createMainLess');
 
 var INIT_SECTIONS = ['/'];
 
@@ -382,7 +383,6 @@ module.exports = yeoman.generators.Base.extend({
       copy('less/vars.less', 'lib/less/vars.less');
       copy('less/global.less', 'lib/less/global.less');
       copy('less/fonts.less', 'lib/less/fonts.less');
-      template('less/main.less', 'lib/less/main.less', config);
     },
 
     templates: function() {
@@ -393,6 +393,7 @@ module.exports = yeoman.generators.Base.extend({
     sections: function() {
 
       createSectionFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibraries'));
+
     },
 
     ui: function() {
@@ -411,8 +412,15 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function() {
+    if (this.config.get('useBower')) {
+      this.installDependencies();
+    } else {
+      this.npmInstall();
+    }
+  },
 
-    this.installDependencies();
+  end: function() {
+    createMainLess.call(this,this.async());
   }
 
 });

@@ -1,14 +1,15 @@
 'use strict';
 var yeoman = require('yeoman-generator'),
-	chalk = require( 'chalk' ),
-	fs = require( 'fs' ),
-	createSectionsFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
-	createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
-	createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' );
+  chalk = require( 'chalk' ),
+  fs = require( 'fs' ),
+  createSectionsFromRoutes = require( '../../lib/generator/createSectionsFromRoutes' ),
+  createTemplatesFromRoutes = require( '../../lib/generator/createTemplatesFromRoutes' ),
+  createRoutesFromRoutes = require( '../../lib/generator/createRoutesFromRoutes' ),
+  createMainLess = require('../../lib/generator/createMainLess');
 
 module.exports = yeoman.generators.Base.extend({
 
-	initializing: {
+  initializing: {
 
     addTransform: function() {
       var beautify = require('gulp-beautify')({indentSize: 2, preserveNewlines: false});
@@ -19,72 +20,76 @@ module.exports = yeoman.generators.Base.extend({
       this.registerTransformStream(gulpif(condition,beautify));
     },
 
-		checkInit: function() {
+    checkInit: function() {
 
-			var config = this.config.getAll();
+      var config = this.config.getAll();
 
-			try {
-
-
-				// check if it exists it will throw an err if it doesnt
-				// add a pull request for an exists function
-				this.fs.read( this.destinationPath( '/lib/model/index.js' ) )
-
-				this.model = require( this.destinationPath( '/lib/model/index.js' ) );
-			} catch( e ) {
-
-				this.model = null;
-			}
+      try {
 
 
-			this.isInited = config.projectName !== undefined && this.model !== null;
+        // check if it exists it will throw an err if it doesnt
+        // add a pull request for an exists function
+        this.fs.read( this.destinationPath( '/lib/model/index.js' ) )
 
-			if( !this.isInited ) {
+        this.model = require( this.destinationPath( '/lib/model/index.js' ) );
+      } catch( e ) {
 
-				this.log( chalk.red.bold( 'It seems you haven\'t initialized the project. Call `yo jam3` to get going' ) );
-			} else {
+        this.model = null;
+      }
 
-				this.routes = [];
 
-				for( var i in this.model ) {
+      this.isInited = config.projectName !== undefined && this.model !== null;
 
-					if( i.charAt( 0 ) == '/' ) {
+      if( !this.isInited ) {
 
-						this.routes.push( i );
-					}
-				}
-			}
-		}
-	},
+        this.log( chalk.red.bold( 'It seems you haven\'t initialized the project. Call `yo jam3` to get going' ) );
+      } else {
 
-	writing: {
+        this.routes = [];
 
-		routes: function() {
+        for( var i in this.model ) {
 
-			if( this.isInited ) {
+          if( i.charAt( 0 ) == '/' ) {
 
-				createRoutesFromRoutes.call( this, this.routes );
-			}
-		},
+            this.routes.push( i );
+          }
+        }
+      }
+    }
+  },
 
-		sections: function() {
+  writing: {
 
-			var config = this.config.getAll();
+    routes: function() {
 
-			if( this.isInited ) {
+      if( this.isInited ) {
 
-				createSectionsFromRoutes.call( this, this.routes, config.templateLibraries );
-			}
-		},
+        createRoutesFromRoutes.call( this, this.routes );
+      }
+    },
 
-		templates: function() {
+    sections: function() {
 
-			var config = this.config.getAll();
+      var config = this.config.getAll();
 
-			if( this.isInited ) {
+      if( this.isInited ) {
 
-				createTemplatesFromRoutes.call( this, this.routes, config.templateLibraries );
-			}
-		}
-	}
+        createSectionsFromRoutes.call( this, this.routes, config.templateLibraries );
+
+      }
+    },
+
+    templates: function() {
+
+      var config = this.config.getAll();
+
+      if( this.isInited ) {
+
+        createTemplatesFromRoutes.call( this, this.routes, config.templateLibraries );
+      }
+    },
+  },
+  end: function() {
+    createMainLess.call(this,this.async());
+  }
 });
