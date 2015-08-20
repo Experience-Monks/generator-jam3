@@ -257,7 +257,8 @@ module.exports = yeoman.generators.Base.extend({
         'pngmin',
         'copy:dist',
         'less:dist',
-        'uglify'
+        'uglify',
+        'compress'
       ];
 
       var lessOutput='';
@@ -286,7 +287,7 @@ module.exports = yeoman.generators.Base.extend({
       this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
       this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
-
+      this.gruntfile.insertConfig('compress', JSON.stringify(gruntTasks.compress));
 
       if (this.config.get('useBower') === true) {
         this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
@@ -317,6 +318,7 @@ module.exports = yeoman.generators.Base.extend({
         config = this.config.getAll();
       template('release/index.html', 'app/index.html', config);
       template('humans.txt', 'app/humans.txt', config);
+      copy('.htaccess', 'app/.htaccess');
       copy('robots.txt', 'app/robots.txt');
     },
 
