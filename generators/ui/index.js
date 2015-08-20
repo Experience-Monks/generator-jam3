@@ -3,7 +3,8 @@ var yeoman = require('yeoman-generator'),
   chalk = require( 'chalk' ),
   fs = require( 'fs' ),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
-  createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes');
+  createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
+  createMainLess = require('../../lib/generator/createMainLess');
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -95,8 +96,13 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  writing: function() {
-    createTemplatesFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
-    createSectionFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
+  writing: {
+    ui: function() {
+      createTemplatesFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
+      createSectionFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
+    }
+  },
+  end: function() {
+    createMainLess.call(this,this.async());
   }
 });
