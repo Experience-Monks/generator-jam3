@@ -10,13 +10,22 @@ module.exports = yeoman.generators.Base.extend({
 
 	initializing: {
 
+    addTransform: function() {
+      var beautify = require('gulp-beautify')({indentSize: 2, preserveNewlines: false});
+      var gulpif = require('gulp-if');
+      var condition = function(file) {
+        return file.path.indexOf('.js')>-1;
+      };
+      this.registerTransformStream(gulpif(condition,beautify));
+    },
+
 		checkInit: function() {
 
 			var config = this.config.getAll();
 
 			try {
 
-	
+
 				// check if it exists it will throw an err if it doesnt
 				// add a pull request for an exists function
 				this.fs.read( this.destinationPath( '/lib/model/index.js' ) )
@@ -26,10 +35,10 @@ module.exports = yeoman.generators.Base.extend({
 
 				this.model = null;
 			}
-			
+
 
 			this.isInited = config.projectName !== undefined && this.model !== null;
-			
+
 			if( !this.isInited ) {
 
 				this.log( chalk.red.bold( 'It seems you haven\'t initialized the project. Call `yo jam3` to get going' ) );

@@ -9,8 +9,7 @@ var yeoman = require('yeoman-generator'),
   gruntTasks = require('./gruntTasks'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
-  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  beautify = require('js-beautify').js_beautify;
+  createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes');
 
 var INIT_SECTIONS = ['/'];
 
@@ -47,18 +46,20 @@ module.exports = yeoman.generators.Base.extend({
 
   initializing: {
 
-    readInProjectName: function() {
-      var pathSplit = this.destinationPath().split(path.sep),
-        projectName = pathSplit[pathSplit.length - 1];
-
-      this.config.set('projectName', projectName);
-
+    addTransform: function() {
       var beautify = require('gulp-beautify')({indentSize: 2, preserveNewlines: false});
       var gulpif = require('gulp-if');
       var condition = function(file) {
         return file.path.indexOf('.js')>-1;
       };
       this.registerTransformStream(gulpif(condition,beautify));
+    },
+
+    readInProjectName: function() {
+      var pathSplit = this.destinationPath().split(path.sep),
+        projectName = pathSplit[pathSplit.length - 1];
+
+      this.config.set('projectName', projectName);
     },
 
     readInRemote: function() {
@@ -238,17 +239,6 @@ module.exports = yeoman.generators.Base.extend({
 
     grunt: function() {
       var copy = cp.bind(this);
-
-      // This has to be hooked in here, before any access to this.gruntfile
-      // Since this hook is generated any time this.gruntfile is accessed, in node_modules/yeaoman-generator/lib/base.js
-      // We are beautifying the Gruntfile.js output to corect the tabs
-      this.env.runLoop.add('writing', function (done) {
-        this.fs.write(
-          this.destinationPath('Gruntfile.js'),
-          beautify(this.env.gruntfile.toString(), { indent_size: 2 })
-        );
-        done();
-      }.bind(this), { once: 'gruntfile:write' });
 
       this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
 
