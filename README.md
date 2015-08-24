@@ -39,6 +39,22 @@ cd testProject
 yo jam3
 ```
 
+#### The jam3 generator also exposes 2 other generators:
+
+```bash
+yo jam3:update
+```
+
+This updates the framework based on any additions to the model. Any routes you have added to the model will be created using the same settings you used when setting up the initial project. This will generate all needed template, style, and javascript files needed for your newly defined sections.
+
+
+```bash
+yo jam3:ui
+```
+
+This will create a new ui item with all template, style and javascript files needed based on the previously defined settings and your answers to the prompted questions.
+
+
 ### Getting To Know Yeoman
 
 Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
