@@ -98,8 +98,8 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     ui: function() {
-      createTemplatesFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
-      createSectionFromRoutes.call(this, [this.uiName], this.config.get('templateLibraries'), this.uiSection);
+      createTemplatesFromRoutes.call(this, [this.uiName], this.config.get('templateLibrary'), this.uiSection);
+      createSectionFromRoutes.call(this, [this.uiName], this.config.get('templateLibrary'), this.uiSection);
     }
   },
   end: function() {

@@ -4,7 +4,6 @@ var yeoman = require('yeoman-generator'),
   path = require('path'),
   _ = require('lodash'),
   gitOrigin = require('git-origin-url'),
-  sectionFromRoute = require('../../lib/sectionFromRoute'),
   prompts = require('./prompts'),
   gruntTasks = require('./gruntTasks'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
@@ -100,12 +99,6 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('isDOMBased', isDOMBased);
         this.config.set('changeFileNaming', props.changeFileNaming);
         this.config.set('useES6', props.useES6);
-        // var threejs = (props.extraLibraries.indexOf('threejs') != -1) ? true : false;
-        // this.config.set( 'threejs', threejs );
-        // var pixi = (props.extraLibraries.indexOf('pixi') != -1) ? true : false;
-        // this.config.set( 'pixi', pixi );
-        // var gsap = (props.extraLibraries.indexOf('gsap') != -1) ? true : false;
-        // this.config.set( 'gsap', gsap );
 
         done();
       }.bind(this));
@@ -129,30 +122,15 @@ module.exports = yeoman.generators.Base.extend({
             message: 'Enter in a file extension you\'d like to use for this other template lib',
             default: '',
             filter: function(val) {
-
               if (val.charAt(0) == '.') {
-
                 val = val.substring(1);
               }
-
               return val.toLowerCase();
             }
           }
         ], function(props) {
-
-          if (props.otherTemplate != '') {
-
-            if (!_.contains(templates, props.otherTemplate)) {
-
-              templates.push(props.otherTemplate);
-            }
-
-            promptOtherTemplate();
-          } else {
-
-            this.config.set('templateLibraries', templates);
-            done();
-          }
+          this.config.set('templateLibrary', (!props.otherTemplate) ? 'none' : props.otherTemplate);
+          done();
         }.bind(this));
       }.bind(this);
 
@@ -167,36 +145,24 @@ module.exports = yeoman.generators.Base.extend({
         templateChoices.push('pixi-ears');
       }
 
-      templateChoices.push('other');
+      templateChoices.push('other','none');
 
 
       // Ask the questions
       this.prompt([
 
         {
-          type: 'checkbox',
-          name: 'templateLibraries',
+          type: 'list',
+          name: 'templateLibrary',
           message: 'Choose template system',
           choices: templateChoices,
           default: []
         }
       ], function(props) {
-
-        var hadOther = false;
-
-        templates = props.templateLibraries || [];
-        templates = _.remove(templates, function(val) {
-
-          hadOther = hadOther || val == 'other';
-          return val != 'other'
-        });
-
-        if (hadOther) {
-
+        if (props.templateLibrary==='other') {
           promptOtherTemplate();
         } else {
-
-          this.config.set('templateLibraries', templates);
+          this.config.set('templateLibrary', props.templateLibrary);
           done();
         }
       }.bind(this));
@@ -389,12 +355,12 @@ module.exports = yeoman.generators.Base.extend({
 
     templates: function() {
 
-      createTemplatesFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibraries'));
+      createTemplatesFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibrary'));
     },
 
     sections: function() {
 
-      createSectionFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibraries'));
+      createSectionFromRoutes.call(this, INIT_SECTIONS.concat('Preloader'), this.config.get('templateLibrary'));
 
     },
 

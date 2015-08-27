@@ -74,7 +74,7 @@ module.exports = yeoman.generators.Base.extend({
 
       if( this.isInited ) {
 
-        createSectionsFromRoutes.call( this, this.routes, config.templateLibraries );
+        createSectionsFromRoutes.call( this, this.routes, config.templateLibrary );
 
       }
     },
@@ -85,7 +85,7 @@ module.exports = yeoman.generators.Base.extend({
 
       if( this.isInited ) {
 
-        createTemplatesFromRoutes.call( this, this.routes, config.templateLibraries );
+        createTemplatesFromRoutes.call( this, this.routes, config.templateLibrary );
       }
     },
   },

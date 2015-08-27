@@ -12,15 +12,15 @@
   "dependencies": {
     "bigwheel": "^2.0.7",
     "detect-dom-ready": "^1.0.2",
-    "gsap": "^1.15.0"<% if (_.contains( templateLibraries, 'vue' )) { %>,
-    "vue": "^0.11.4"<% } %><% if (_.contains( templateLibraries, 'hbs' )) { %>,
+    "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
+    "vue": "^0.11.4"<% } %><% if (templateLibrary === 'hbs' ) { %>,
     "handlebars": "^2.0.0",
-    "domify": "*"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
-    "pixi": "^0.2.1"<% } %><% if (_.contains( templateLibraries, 'pixi-ears' )) { %>,
+    "domify": "*"<% } %><% if (templateLibrary === 'pixi-ears') { %>,
+    "pixi": "^0.2.1",
     "pixi-ears": "^1.0.0"<% } %>
   },
   "devDependencies": {
-    <% if (_.size( templateLibraries) > 0) { %>
+    <% if (templateLibrary!=='none') { %>
     "brfs": "^1.2.0",
     "browserify-shim": "^3.8.0",
     <% } %>
@@ -43,14 +43,14 @@
     "babelify": "^6.1.3"<% } %>
   },
   "browserify": {
-    <% if (_.size( templateLibraries) > 0) { %>
+    <% if (templateLibrary!=='none') { %>
     "transform": [
       "browserify-shim",
       "brfs"
     ]
     <% } %>
   },
-  <% if (_.size( templateLibraries) > 0) { %>
+  <% if (templateLibrary!=='none') { %>
   "browserify-shim": {
 
   },
