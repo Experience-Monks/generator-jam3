@@ -13,9 +13,9 @@
     "bigwheel": "^2.0.7",
     "detect-dom-ready": "^1.0.2",
     "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
-    "vue": "^0.11.4"<% } %><% if (templateLibrary === 'hbs' ) { %>,
+    "vue": "^0.11.4"<% } else if (templateLibrary === 'hbs' ) { %>,
     "handlebars": "^2.0.0",
-    "domify": "*"<% } %><% if (templateLibrary === 'pixi-ears') { %>,
+    "domify": "*"<% } else if (templateLibrary === 'pixi-ears') { %>,
     "pixi": "^0.2.1",
     "pixi-ears": "^1.0.0"<% } %>
   },
