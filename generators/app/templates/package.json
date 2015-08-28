@@ -10,8 +10,9 @@
   "license": "ISC",
   "repository": "<%= projectRepository %>",
   "dependencies": {
-    "bigwheel": "^2.0.7",
+    "bigwheel": "^2.2.0",
     "detect-dom-ready": "^1.0.2",
+    "bw-analytics": "*",
     "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
     "vue": "^0.11.4"<% } else if (templateLibrary === 'hbs' ) { %>,
     "handlebars": "^2.0.0",
