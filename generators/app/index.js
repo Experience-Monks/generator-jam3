@@ -313,18 +313,11 @@ module.exports = yeoman.generators.Base.extend({
 
     model: function() {
 
-      var model = {};
-
-      INIT_SECTIONS.forEach(function(section) {
-
-        model[section] = {};
-      });
-
       this.fs.copyTpl(
 
         this.templatePath('../../../templates/model/index.js'),
         this.destinationPath('lib/model/index.js'),
-        model, {
+        INIT_SECTIONS, {
           variable: 'data'
         }
       );
