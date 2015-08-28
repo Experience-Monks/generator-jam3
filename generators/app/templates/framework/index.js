@@ -1,7 +1,9 @@
 'use strict';
 var bigwheel = require( 'bigwheel' );
+var analytics = require( 'bw-analytics' );
+var model = require( '../model' );
 
-module.exports = bigwheel( function( done ) {
+module.exports = analytics(model.settings.UA,bigwheel( function( done ) {
 
 	done( {
 
@@ -9,4 +11,4 @@ module.exports = bigwheel( function( done ) {
 
 		routes: require( './routes' )
 	});
-});
+}));
