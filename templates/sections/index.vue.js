@@ -2,6 +2,7 @@
 var fs = require( 'fs' );
 var Vue = require( 'vue' );
 var model = require( '../../model' );
+var Tween = require('gsap');
 var <%= section %> = Vue.extend({
   replace: true,
   data: function() {
@@ -21,14 +22,21 @@ var <%= section %> = Vue.extend({
       var containerVue = document.createElement( 'div' );
       document.body.appendChild( containerVue );
       this.$mount(containerVue);
+      Tween.set(this.$el, { opacity: 0 });
       done();
     },
     animateIn: function(req, done){
-      done();
+      Tween.to(this.$el, 1, {
+        opacity: 1,
+        onComplete: done
+      });
       <% if (section==='Preloader') { %>this.preloaded();<% } %>
     },
     animateOut: function(req, done){
-      done();
+      Tween.to(this.$el, 1, {
+        opacity: 0,
+        onComplete: done
+      });
     },
     resize: function(w,h){
 
