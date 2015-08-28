@@ -30,11 +30,6 @@ module.exports = [{
   default: false
 }, {
   type: "confirm",
-  name: "useBower",
-  message: "Would you like to use Bower? (Use Bower?)",
-  default: false
-}, {
-  type: "confirm",
   name: "useTexturePackager",
   message: "Would you like to use TexturePacker? (Beta)",
   default: false

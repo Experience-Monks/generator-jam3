@@ -18,7 +18,6 @@ git checkout <%= projectRepository %>
 
 ```bash
 $ npm install
-<% if( useBower ) { %>$ bower install<%  } %>
 ```
 
 BTSync
