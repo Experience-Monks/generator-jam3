@@ -3,6 +3,7 @@ var fs = require( 'fs' );
 var hbs = require( 'handlebars' );
 var domify = require( 'domify' );
 var model = require( '../../model' );
+var Tween = require('gsap');
 
 <% if (useES6) { %>
 class <%= section %> {
@@ -29,6 +30,7 @@ function <%= section %>() {}
 <% } %>
 		this.dom = domify(hbs.compile(fs.readFileSync( __dirname + <% if (changeFileNaming) { %>'/<%= section %>.template.hbs'<% } else { %>'/template.hbs'<% } %>, 'utf8' ))(<% if (section!='Preloader') { %>model[ req.route ]<% } %>));
 		document.body.appendChild(this.dom);
+    Tween.set(this.dom, { opacity: 0 });
     done();
 <% if (useES6) { %>
   }
@@ -45,7 +47,10 @@ function <%= section %>() {}
   },
   animateIn: function(req,done) {
 <% } %>
-		done();
+    Tween.to(this.dom, 1, {
+      opacity: 1,
+      onComplete: done
+    });
     <% if (section==='Preloader') { %>this.preloaded();<% } %>
 <% if (useES6) { %>
   }
@@ -54,7 +59,10 @@ function <%= section %>() {}
   },
   animateOut: function(req,done) {
 <% } %>
-		done();
+		Tween.to(this.dom, 1, {
+      opacity: 0,
+      onComplete: done
+    });
 <% if (useES6) { %>
   }
   destroy(req,done) {
