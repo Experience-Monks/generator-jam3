@@ -1,5 +1,9 @@
 'use strict';
+var fs = require( 'fs' );
+var hbs = require( 'handlebars' );
+var domify = require( 'domify' );
 var model = require( '../../model' );
+
 <% if (useES6) { %>
 class <%= section %> {
 <% if (section=='Preloader') { %>
@@ -23,7 +27,9 @@ function <%= section %>() {}
 <%= section %>.prototype = {
   init: function( req, done ) {
 <% } %>
-		done();
+		this.dom = domify(hbs.compile(fs.readFileSync( __dirname + <% if (changeFileNaming) { %>'/<%= section %>.template.hbs'<% } else { %>'/template.hbs'<% } %>, 'utf8' ))(<% if (section!='Preloader') { %>model[ req.route ]<% } %>));
+		document.body.appendChild(this.dom);
+    done();
 <% if (useES6) { %>
   }
   resize(w,h) {
@@ -40,9 +46,7 @@ function <%= section %>() {}
   animateIn: function(req,done) {
 <% } %>
 		done();
-    <% if (section=='Preloader') { %>
-    this.preloaded();
-    <% } %>
+    <% if (section==='Preloader') { %>this.preloaded();<% } %>
 <% if (useES6) { %>
   }
   animateOut(req,done) {
@@ -58,6 +62,7 @@ function <%= section %>() {}
   },
   destroy: function(req,done) {
 <% } %>
+    this.dom.parentNode.removeChild(this.dom);
 		done();
 	}
 };
