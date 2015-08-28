@@ -93,7 +93,6 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('projectRepository', props.projectRepository);
         this.config.set('projectAuthorName', props.projectAuthor);
         this.config.set('projectAuthorEmail', props.projectAuthorEmail);
-        this.config.set('useBower', props.useBower);
         this.config.set('useTexturePackager', props.useTexturePackager);
         this.config.set('isCanvasBased', isCanvasBased);
         this.config.set('isDOMBased', isDOMBased);
@@ -187,10 +186,6 @@ module.exports = yeoman.generators.Base.extend({
       copy('.editorconfig');
       copy('.jshintrc');
 
-      if (this.config.get('useBower')) {
-        copy('bower.json');
-      }
-
       template('index.js',config);
 
       copy('_Gruntfile.js', 'Gruntfile.js');
@@ -254,13 +249,6 @@ module.exports = yeoman.generators.Base.extend({
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
       this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
       this.gruntfile.insertConfig('compress', JSON.stringify(gruntTasks.compress));
-
-      if (this.config.get('useBower') === true) {
-        this.gruntfile.insertConfig('concat', JSON.stringify(gruntTasks.concat));
-        this.gruntfile.loadNpmTasks('grunt-contrib-concat');
-        defaultTasks.splice(defaultTasks.indexOf('newer:browserify:dev'), 0, 'concat:dev');
-        distTasks.splice(distTasks.indexOf('browserify:dist'), 0, 'concat:dist');
-      }
 
       if (this.config.get('useTexturePackager') === true) {
         // copy('tasks/texturepacker-animation.js');
@@ -380,11 +368,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function() {
-    if (this.config.get('useBower')) {
-      this.installDependencies();
-    } else {
-      this.npmInstall();
-    }
+    this.npmInstall();
   },
 
   end: function() {
