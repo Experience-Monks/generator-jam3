@@ -7,11 +7,11 @@ module.exports = [{
   type: "input",
   name: "projectAuthorEmail",
   message: "What is your email? (Author Email)",
-  default: "info@jam3.com"
+  default: "td@jam3.com"
 }, {
   type: "input",
   name: "projectDescription",
-  message: "What is your quest? (Project description)",
+  message: "Describe the project:",
   default: "A Jam3 project"
 }, {
   type: "input",
