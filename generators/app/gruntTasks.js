@@ -50,7 +50,7 @@ module.exports = {
         sourceMapBasepath: '<%= config.dev %>/',
         plugins: 'LESS_PLUGINS',
         modifyVars: {
-          path: '<%= "config.devPath" %>'
+          path: '"<%= config.devPath %>"'
         }
       },
       files: {
@@ -63,7 +63,7 @@ module.exports = {
         cleancss: true,
         plugins: 'LESS_PLUGINS',
         modifyVars: {
-          path: '<%= "config.livePath" %>'
+          path: '"<%= config.livePath %>"'
         }
       },
       files: {
