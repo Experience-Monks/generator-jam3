@@ -215,8 +215,8 @@ module.exports = yeoman.generators.Base.extend({
 
       var distTasks = [
         'browserify:dist',
-        'pngmin',
         'copy:dist',
+        'pngmin',
         'less:dist',
         'uglify',
         'compress'
