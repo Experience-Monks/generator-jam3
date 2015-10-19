@@ -2,8 +2,13 @@
 
 <%= projectDescription %>
 
-# Developers
+## Developers
 <%= projectAuthorName %>
+
+## Dependencies list
+[http://jam3-license.herokuapp.com/<%= projectName %>/](http://jam3-license.herokuapp.com/<%= projectName %>/)
+
+Note: If the link is broken use http://jam3-license.herokuapp.com/[repo name] ?
 
 ## PROJECT DOCUMENTATION
 
