@@ -206,7 +206,7 @@ module.exports = yeoman.generators.Base.extend({
 
       var defaultTasks = [
         'copy:dev',
-        'licensechecker',
+        //'licensechecker',
         'browserify:dev',
         'less:dev',
         'connect',
