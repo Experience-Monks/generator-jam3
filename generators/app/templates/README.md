@@ -25,12 +25,6 @@ git checkout <%= projectRepository %>
 $ npm install
 ```
 
-BTSync
-```bash
-folder: /raw-assets/
-key: [YOUR ASSET KEY]
-```
-
 Folder Structure
 ```bash
 raw-assets/json/ 		// Any static json files
