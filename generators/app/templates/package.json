@@ -7,6 +7,9 @@
     "email": "<%= projectAuthorEmail %>",
     "url": "https://github.com/Jam3"
   },
+  "scripts": {
+    "sitemap": "node scripts/sitemap.js"
+  },
   "license": "ISC",
   "repository": "<%= projectRepository %>",
   "dependencies": {
@@ -37,7 +40,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-compress": "^0.13.0",
-    "grunt-newer": "^0.8.0",
+    "grunt-exec": "^0.4.6",
+    "sitemap": "^1.4.0",
     "grunt-pngmin": "^0.6.2"<% if (useES6) { %>,
     "babelify": "^6.1.3"<% } %>
   },
