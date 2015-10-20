@@ -194,6 +194,9 @@ module.exports = yeoman.generators.Base.extend({
       template('package.json', config);
       template('README.md', config);
 
+      this.mkdir('scripts');
+      copy('scripts/sitemap.js');
+
       this.mkdir('tasks');
       this.mkdir('test');
     },
@@ -218,7 +221,8 @@ module.exports = yeoman.generators.Base.extend({
         'pngmin',
         'less:dist',
         'uglify',
-        'compress'
+        'compress',
+        'exec'
       ];
 
       var lessOutput='';
@@ -248,6 +252,7 @@ module.exports = yeoman.generators.Base.extend({
       this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
       this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
       this.gruntfile.insertConfig('compress', JSON.stringify(gruntTasks.compress));
+      this.gruntfile.insertConfig('exec', JSON.stringify(gruntTasks.exec));
 
       if (this.config.get('useTexturePackager') === true) {
         // copy('tasks/texturepacker-animation.js');
