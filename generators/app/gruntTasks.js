@@ -229,5 +229,8 @@ module.exports = {
         {expand: true, cwd: '<%= config.dist %>/', src: '*.css', dest: '<%= config.dist %>/', ext: '.css.gz'}
       ]
     }
+  },
+  exec: {
+    sitemap_generation: 'npm run sitemap'
   }
 };
