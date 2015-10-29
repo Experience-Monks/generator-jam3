@@ -5,8 +5,8 @@ module.exports = {
     dev: '.tmp',
     dist: 'release',
     libs: '',
-    devPath: './assets/images/',
-    livePath: './assets/images/'
+    devPath: './assets/',
+    livePath: './assets/'
   },
   licensechecker: {
     options: {
@@ -28,7 +28,7 @@ module.exports = {
         'browserifyOptions': {
           'debug': true
         },
-        'transform': [['envify',{ENVIRONMENT: 'dev', PATH: '<%= config.devPath %>'}], "BABEL_OPTIONS"]
+        'transform': [['envify',{NODE_ENV: 'dev', PATH: '<%= config.devPath %>'}], "BABEL_OPTIONS"]
       }
     },
     'dist': {
@@ -37,7 +37,7 @@ module.exports = {
       'options': {
         'debug': false,
         'verbose': false,
-        'transform': [['envify',{ENVIRONMENT: 'prod', PATH: '<%= config.livePath %>'}], "BABEL_OPTIONS"]
+        'transform': [['envify',{NODE_ENV: 'prod', PATH: '<%= config.livePath %>'}], "BABEL_OPTIONS"]
       }
     }
   },
@@ -50,7 +50,7 @@ module.exports = {
         sourceMapBasepath: '<%= config.dev %>/',
         plugins: 'LESS_PLUGINS',
         modifyVars: {
-          path: '"<%= config.devPath %>"'
+          ASSET_PATH: '"<%= config.devPath %>"'
         }
       },
       files: {
@@ -63,7 +63,7 @@ module.exports = {
         cleancss: true,
         plugins: 'LESS_PLUGINS',
         modifyVars: {
-          path: '"<%= config.livePath %>"'
+          ASSET_PATH: '"<%= config.livePath %>"'
         }
       },
       files: {
