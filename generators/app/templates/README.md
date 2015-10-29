@@ -62,14 +62,14 @@ Always make the root path to assets (image/videos..) a variable, store it in you
 Because when the site goes live, those assets will come from a CDN and going in and changing all the paths the day before the site goes live is very annoying.
 
 ```css
-@CDN: 'images/'; // This variable will be changed by a grunt script when pushing to production or other environments
+@{ASSET_PATH}: 'images/'; // This variable will be changed by a grunt script when pushing to production or other environments
 .background {
-    background: url('@{CDN}/background.png')
+    background: url('@{ASSET_PATH}/images/background.png')
 }
 ```
 
 ```javascript
-var filePath = settings.CDN + 'fancy/fancy-graphic.png';
+var filePath = settings.ASSET_PATH + 'fancy/fancy-graphic.png';
 ```
 
 ## DEPLOYMENT
