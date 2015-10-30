@@ -1,0 +1,6 @@
+@import "normalize.scss";
+@import 'vars.scss';
+@import 'fonts.scss';
+@import "global.scss";
+@import '../sections/Preloader/<%= ((changeFileNaming) ? "Preloader.style" : "style") %>.scss';
+@import '../sections/Landing/<%= ((changeFileNaming) ? "Landing.style" : "style") %>.scss';

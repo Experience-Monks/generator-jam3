@@ -9,7 +9,7 @@ var yeoman = require('yeoman-generator'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  createMainLess = require('../../lib/generator/createMainLess');
+  createMainStyle = require('../../lib/generator/createMainStyle');
 
 var INIT_SECTIONS = ['/'];
 
@@ -98,11 +98,6 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('isDOMBased', isDOMBased);
         this.config.set('changeFileNaming', props.changeFileNaming);
         this.config.set('useES6', props.useES6);
-
-        var repoUrl = this.config.get('projectRepository');
-        if(repoUrl.match('\/(.*?).git') !== null){
-          this.config.set('projectName', repoUrl.match('\/(.*?).git')[1]);
-        } 
 
         done();
       }.bind(this));
@@ -212,7 +207,7 @@ module.exports = yeoman.generators.Base.extend({
       var defaultTasks = [
         'copy:dev',
         'browserify:dev',
-        'less:dev',
+        'sass:dev',
         'connect',
         'watch'
       ];
@@ -221,7 +216,7 @@ module.exports = yeoman.generators.Base.extend({
         'browserify:dist',
         'copy:dist',
         'pngmin',
-        'less:dist',
+        'sass:dist',
         'uglify',
         'compress'
       ];
@@ -245,7 +240,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
       this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
-      this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less).replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
+      this.gruntfile.insertConfig('sass', JSON.stringify(gruntTasks.sass));//.replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
       this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify).replace(/('|")BABEL_OPTIONS('|")/g,babelOutput));
       this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
       this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
@@ -327,15 +322,15 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    less: function() {
+    sass: function() {
       var copy = cp.bind(this),
         template = tpl.bind(this),
         config = this.config.getAll();
 
-      copy('less/normalize.less', 'lib/less/normalize.less');
-      copy('less/vars.less', 'lib/less/vars.less');
-      copy('less/global.less', 'lib/less/global.less');
-      copy('less/fonts.less', 'lib/less/fonts.less');
+      copy('styles/normalize.scss', 'lib/styles/normalize.scss');
+      copy('styles/vars.scss', 'lib/styles/vars.scss');
+      copy('styles/global.scss', 'lib/styles/global.scss');
+      copy('styles/fonts.scss', 'lib/styles/fonts.scss');
     },
 
     templates: function() {
@@ -369,7 +364,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   end: function() {
-    createMainLess.call(this,this.async());
+    createMainStyle.call(this,this.async());
   }
 
 });

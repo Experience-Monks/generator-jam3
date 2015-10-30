@@ -1,7 +1,10 @@
-/* 
+/*
  * ====================================================================
- * Fonts.less
- * Fonts go here, duh
+ * vars.scss
+ * 	Used to set variables used throughout sass files
+ * 	ALL pages.
  * ====================================================================
  */
- @fonts: '@{ASSET_PATH}fonts/';
+
+$ASSET_PATH: './assets/';
+$images: '#{$ASSET_PATH}images/';
