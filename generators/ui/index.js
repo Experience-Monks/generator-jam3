@@ -4,7 +4,7 @@ var yeoman = require('yeoman-generator'),
   fs = require( 'fs' ),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
-  createMainLess = require('../../lib/generator/createMainLess');
+  createMainStyle = require('../../lib/generator/createMainStyle');
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -103,6 +103,6 @@ module.exports = yeoman.generators.Base.extend({
     }
   },
   end: function() {
-    createMainLess.call(this,this.async());
+    createMainStyle.call(this,this.async());
   }
 });

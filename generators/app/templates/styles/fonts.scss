@@ -1,10 +1,7 @@
-/*
+/* 
  * ====================================================================
- * vars.less
- * 	Used to set variables used throughout less files
- * 	ALL pages.
+ * fonts.scss
+ * Fonts go here, duh
  * ====================================================================
  */
-
-@ASSET_PATH: './assets/';
-@images: '@{ASSET_PATH}images/';
+ $fonts: '#{$ASSET_PATH}fonts/';

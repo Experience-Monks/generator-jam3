@@ -41,34 +41,35 @@ module.exports = {
       }
     }
   },
-  less: {
+  sass: {
     dev: {
       options: {
-        compress: true,
-        sourceMap: true,
-        sourceMapFilename: '<%= config.dev %>/main.css.map',
-        sourceMapBasepath: '<%= config.dev %>/',
-        plugins: 'LESS_PLUGINS',
-        modifyVars: {
-          ASSET_PATH: '"<%= config.devPath %>"'
-        }
+        outputStyle: 'compressed',
+        sourceMap: '<%= config.dev %>/main.css.map'
       },
       files: {
-        '<%= config.dev %>/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dev %>/main.css': '<%= config.src %>/styles/main.scss'
       }
     },
     dist: {
       options: {
-        compress: true,
-        cleancss: true,
-        plugins: 'LESS_PLUGINS',
-        modifyVars: {
-          ASSET_PATH: '"<%= config.livePath %>"'
-        }
+        outputStyle: 'compressed',
       },
       files: {
-        '<%= config.dist %>/main.css': '<%= config.src %>/less/main.less'
+        '<%= config.dist %>/main.css': '<%= config.src %>/styles/main.scss'
       }
+    }
+  },
+  postcss: {
+    options: {
+        map: true,
+        processors: "SASS_PREFIX"
+    },
+    dev: {
+        src: '<%= config.dev %>/*.css'
+    },
+    dist: {
+        src: '<%= config.dist %>/*.css'
     }
   },
   texturepacker: {
@@ -196,9 +197,9 @@ module.exports = {
     options: {
       livereload: true
     },
-    less: {
-      files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/**/*style.*'],
-      tasks: ['less:dev']
+    sass: {
+      files: ['<%= config.src %>/styles/**/*.scss', '<%= config.src %>/**/*style.*'],
+      tasks: ['sass:dev', 'postcss:dev']
     },
     browserify: {
       files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/*template.*'],
