@@ -204,10 +204,11 @@ module.exports = yeoman.generators.Base.extend({
 
       this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
 
-      var defaultTasks = [
+        var defaultTasks = [
         'copy:dev',
         'browserify:dev',
         'sass:dev',
+        'postcss:dev',
         'connect',
         'watch'
       ];
@@ -217,18 +218,20 @@ module.exports = yeoman.generators.Base.extend({
         'copy:dist',
         'pngmin',
         'sass:dist',
+        'postcss:dist',
         'uglify',
         'compress'
       ];
 
-      var lessOutput='';
-      var lessPlugins = [
-        {name: 'lessPrefixPlugin', content: "new (require('less-plugin-autoprefix'))({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})"}
+      var sassOutput='';
+      var sassPlugins = [
+        {name: 'sassPrefix', 
+        content: "require('autoprefixer')({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})"}
       ];
-
-      for (var i=0; i<lessPlugins.length; i++) {
-        this.gruntfile.insertVariable(lessPlugins[i].name,lessPlugins[i].content);
-        lessOutput += ((i>1) ? ',' : '')+lessPlugins[i].name;
+    
+      for (var i=0; i<sassPlugins.length; i++) {
+        this.gruntfile.insertVariable(sassPlugins[i].name,sassPlugins[i].content);
+        sassOutput += ((i>1) ? ',' : '')+sassPlugins[i].name;
       }
 
       var babelOptions = "['babelify', {sourceMap: true, whitelist: ['es6.arrowFunctions', 'es6.classes', 'es6.templateLiterals', 'es6.spec.templateLiterals', 'es6.parameters', 'es6.spread', 'es6.blockScoping', 'es6.constants', 'es6.destructuring']}]";
@@ -240,7 +243,8 @@ module.exports = yeoman.generators.Base.extend({
 
       this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
       this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
-      this.gruntfile.insertConfig('sass', JSON.stringify(gruntTasks.sass));//.replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
+      this.gruntfile.insertConfig('sass', JSON.stringify(gruntTasks.sass));
+      this.gruntfile.insertConfig('postcss', JSON.stringify(gruntTasks.postcss).replace(/('|")SASS_PREFIX('|")/g,'['+sassOutput+']'));
       this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify).replace(/('|")BABEL_OPTIONS('|")/g,babelOutput));
       this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
       this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));

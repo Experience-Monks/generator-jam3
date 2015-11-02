@@ -60,6 +60,18 @@ module.exports = {
       }
     }
   },
+  postcss: {
+    options: {
+        map: true,
+        processors: "SASS_PREFIX"
+    },
+    dev: {
+        src: '<%= config.dev %>/*.css'
+    },
+    dist: {
+        src: '<%= config.dist %>/*.css'
+    }
+  },
   texturepacker: {
     src: '<%= config.assets %>/tp',
     options: {
@@ -186,8 +198,8 @@ module.exports = {
       livereload: true
     },
     sass: {
-      files: ['<%= config.src %>/scss/**/*.scss', '<%= config.src %>/**/*style.*'],
-      tasks: ['sass:dev']
+      files: ['<%= config.src %>/styles/**/*.scss', '<%= config.src %>/**/*style.*'],
+      tasks: ['sass:dev', 'postcss:dev']
     },
     browserify: {
       files: ['<%= config.src %>/**/*.js', '*.js', '<%= config.src %>/**/*template.*'],
