@@ -14,7 +14,7 @@
     "detect-dom-ready": "^1.0.2",
     "bw-analytics": "*",
     "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
-    "vue": "^0.11.4"<% } else if (templateLibrary === 'hbs' ) { %>,
+    "vue": "^1.0.0-migration"<% } else if (templateLibrary === 'hbs' ) { %>,
     "handlebars": "^2.0.0",
     "domify": "*"<% } else if (templateLibrary === 'pixi-ears') { %>,
     "pixi": "^0.2.1",
