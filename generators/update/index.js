@@ -29,14 +29,13 @@ module.exports = yeoman.generators.Base.extend({
 
         // check if it exists it will throw an err if it doesnt
         // add a pull request for an exists function
-        this.fs.read( this.destinationPath( '/lib/model/index.js' ) )
+        this.fs.read( this.destinationPath( './lib/model/index.js' ) )
 
-        this.model = require( this.destinationPath( '/lib/model/index.js' ) );
+        this.model = require( this.destinationPath( './lib/model/index.js' ) );
       } catch( e ) {
 
         this.model = null;
       }
-
 
       this.isInited = config.projectName !== undefined && this.model !== null;
 

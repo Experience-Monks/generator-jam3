@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
 <%
 	routes.forEach( function( route, idx, arr ) {
