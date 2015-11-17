@@ -99,6 +99,11 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('changeFileNaming', props.changeFileNaming);
         this.config.set('useES6', props.useES6);
 
+        var repoUrl = this.config.get('projectRepository');
+        if(repoUrl.match('\/(.*?).git') !== null){
+          this.config.set('projectName', repoUrl.match('\/(.*?).git')[1]);
+        } 
+
         done();
       }.bind(this));
     },
@@ -206,7 +211,6 @@ module.exports = yeoman.generators.Base.extend({
 
       var defaultTasks = [
         'copy:dev',
-        'licensechecker',
         'browserify:dev',
         'less:dev',
         'connect',

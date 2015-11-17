@@ -2,8 +2,8 @@
 module.exports = {
   settings: {
     'UA': '',
-    'PATH': process.env.PATH,
-    'ENVIRONMENT': process.env.ENVIRONMENT
+    'ASSET_PATH': process.env.ASSET_PATH,
+    'NODE_ENV': process.env.NODE_ENV
   }<% data.forEach(function(cur) { %>,
   '<%=cur%>': {}<% }); %>
 };
