@@ -30,8 +30,9 @@
     "gulp-beautify": "^1.1.2",
     "gulp-if": "^1.2.5",
     "lodash": "^2.4.1",
+    "mkdirp": "^0.5.1",
     "string": "^3.0.0",
-    "yeoman-generator": "^0.18.3",
+    "yeoman-generator": "^0.21.1",
     "yosay": "^0.3.0"
   },
   "devDependencies": {

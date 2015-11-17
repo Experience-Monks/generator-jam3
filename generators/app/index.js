@@ -9,7 +9,8 @@ var yeoman = require('yeoman-generator'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  createMainLess = require('../../lib/generator/createMainLess');
+  createMainLess = require('../../lib/generator/createMainLess'),
+  mkdirp = require('mkdirp');
 
 var INIT_SECTIONS = ['/'];
 
@@ -102,7 +103,7 @@ module.exports = yeoman.generators.Base.extend({
         var repoUrl = this.config.get('projectRepository');
         if(repoUrl.match('\/(.*?).git') !== null){
           this.config.set('projectName', repoUrl.match('\/(.*?).git')[1]);
-        } 
+        }
 
         done();
       }.bind(this));
@@ -199,8 +200,8 @@ module.exports = yeoman.generators.Base.extend({
       template('package.json', config);
       template('README.md', config);
 
-      this.mkdir('tasks');
-      this.mkdir('test');
+      mkdirp('tasks');
+      mkdirp('test');
     },
 
 
@@ -283,11 +284,11 @@ module.exports = yeoman.generators.Base.extend({
     assets: function() {
       var copy = cp.bind(this);
 
-      this.mkdir('raw-assets/json');
-      this.mkdir('raw-assets/images');
-      this.mkdir('raw-assets/videos');
-      this.mkdir('raw-assets/sounds');
-      this.mkdir('raw-assets/fonts');
+      mkdirp('raw-assets/json');
+      mkdirp('raw-assets/images');
+      mkdirp('raw-assets/videos');
+      mkdirp('raw-assets/sounds');
+      mkdirp('raw-assets/fonts');
       copy('.gitattributes','raw-assets/.gitattributes');
 
       copy('assets/json/**/*','raw-assets/json');
@@ -298,8 +299,8 @@ module.exports = yeoman.generators.Base.extend({
 
 
       if (this.config.get('useTexturePackager') === true) {
-        this.mkdir('raw-assets/tp');
-        this.mkdir('raw-assets/tp/common');
+        mkdirp('raw-assets/tp');
+        mkdirp('raw-assets/tp/common');
 
         var copy = cp.bind(this);
         copy('assets/tp/common.tps','raw-assets/tp/common.tps');
@@ -322,9 +323,7 @@ module.exports = yeoman.generators.Base.extend({
 
         this.templatePath('../../../templates/model/index.js'),
         this.destinationPath('lib/model/index.js'),
-        INIT_SECTIONS, {
-          variable: 'data'
-        }
+        {data: INIT_SECTIONS}
       );
     },
 

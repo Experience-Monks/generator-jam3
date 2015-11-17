@@ -4,7 +4,8 @@ var yeoman = require('yeoman-generator'),
   fs = require( 'fs' ),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
-  createMainLess = require('../../lib/generator/createMainLess');
+  createMainLess = require('../../lib/generator/createMainLess'),
+  mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
 
@@ -24,11 +25,9 @@ module.exports = yeoman.generators.Base.extend({
       try {
         // check if it exists it will throw an err if it doesnt
         // add a pull request for an exists function
-        this.fs.read( this.destinationPath( '/lib/model/index.js' ) )
-
-        this.model = require( this.destinationPath( '/lib/model/index.js' ) );
+        this.fs.read( this.destinationPath( './lib/model/index.js' ) )
+        this.model = require( this.destinationPath( './lib/model/index.js' ) );
       } catch( e ) {
-
         this.model = null;
       }
 
@@ -83,10 +82,7 @@ module.exports = yeoman.generators.Base.extend({
       this.uiSection = props.section || 'common';
 
       var uiDir = 'lib/ui/'+this.uiSection+'/';
-      if (!fs.existsSync(this.destinationPath(uiDir))) {
-        fs.mkdirSync(this.destinationPath(uiDir));
-      }
-
+      mkdirp(this.destinationPath(uiDir));
 
       if (!this.uiName || !this.uiSection) {
         this.log( chalk.red.bold( 'You must specify a name and a section.' ) );
