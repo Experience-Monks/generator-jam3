@@ -284,6 +284,7 @@ module.exports = yeoman.generators.Base.extend({
       this.mkdir('raw-assets/videos');
       this.mkdir('raw-assets/sounds');
       this.mkdir('raw-assets/fonts');
+      copy('.gitattributes','raw-assets/.gitattributes');
 
       copy('assets/json/**/*','raw-assets/json');
       copy('assets/images/**/*','raw-assets/images');
