@@ -7,6 +7,17 @@
     "email": "<%= projectAuthorEmail %>",
     "url": "https://github.com/Jam3"
   },
+  "scripts": {
+    "start": "npm run copy && npm run less && npm run dev",
+    "copy": "node scripts/copy.js",
+    "less": "node scripts/less.js",
+    "dev": "node scripts/dev.js",
+    "release": "npm run release-less && npm run release-browserify && npm run release-copy && npm run release-gzip",
+    "release-less": "node scripts/less.js --env=production",
+    "release-browserify": "node scripts/release.js --env=production",
+    "release-copy": "node scripts/copy.js --env=production",
+    "release-gzip": "node scripts/gzip.js --env=production"
+  },
   "license": "ISC",
   "repository": "<%= projectRepository %>",
   "dependencies": {
@@ -21,33 +32,31 @@
     "pixi-ears": "^1.0.0"<% } %>
   },
   "devDependencies": {
-    <% if (templateLibrary!=='none') { %>
-    "brfs": "^1.2.0",
-    "browserify-shim": "^3.8.0",
-    <% } %>
-    "browserify": "^6.3.2",
-    "less-plugin-autoprefix": "^1.4.2",
+    "budo": "^6.1.0",
+    "concat-stream": "^1.5.1",
     "envify": "^3.4.0",
-    "load-grunt-tasks": "^1.0.0",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.2.0",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-uglify": "^0.9.1",
-    "grunt-contrib-compress": "^0.13.0",
-    "grunt-newer": "^0.8.0",
-    "grunt-pngmin": "^0.6.2"<% if (useES6) { %>,
+    "garnish": "^4.1.1",
+    "glob": "^6.0.1",
+    "less": "^2.5.3",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-glob": "^1.1.1",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "pngquant-bin": "^3.0.0",
+    "uglify-js": "^2.6.1",<% if (templateLibrary!=='none') { %>
+    "brfs": "^1.2.0",
+    "browserify-shim": "^3.8.0",<% } %>
+    "browserify": "^12.0.1",
+    "envify": "^3.4.0"<% if (useES6) { %>,
     "babelify": "^6.1.3"<% } %>
   },
   "browserify": {
-    <% if (templateLibrary!=='none') { %>
     "transform": [
+      "envify"<% if (templateLibrary!=='none') { %>,
       "browserify-shim",
-      "brfs"
+      "brfs"<% } %><% if (useES6) { %>,
+      "babelify"<% } %>
     ]
-    <% } %>
   },
   <% if (templateLibrary!=='none') { %>
   "browserify-shim": {
