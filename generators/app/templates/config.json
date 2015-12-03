@@ -1,0 +1,21 @@
+{
+  "development": {
+    "entry": "./index.js",
+    "bundle": "bundle.js",
+    "app": "./app/",
+    "raw": "./raw-assets/",
+    "output": "./.tmp/",
+    "less": "./lib/less/main.less",
+    "ASSET_PATH": "./assets/"
+  },
+  "production": {
+    "entry": "./index.js",
+    "bundle": "bundle.js",
+    "app": "./app/",
+    "raw": "./raw-assets/",
+    "output": "./release/",
+    "less": "./lib/less/main.less",
+    "ASSET_PATH": "./assets/"
+  }
+}
+

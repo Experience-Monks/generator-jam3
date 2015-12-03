@@ -40,7 +40,7 @@ raw-assets/tp/common/	// Folder containing images to be texture packed,
 ## Run
 
 ```bash
-$ grunt
+$ npm start
 ```
 
 ## Development
@@ -62,7 +62,7 @@ Always make the root path to assets (image/videos..) a variable, store it in you
 Because when the site goes live, those assets will come from a CDN and going in and changing all the paths the day before the site goes live is very annoying.
 
 ```css
-@{ASSET_PATH}: 'images/'; // This variable will be changed by a grunt script when pushing to production or other environments
+@{ASSET_PATH}: 'images/'; // This variable will be changed by a script when pushing to production or other environments
 .background {
     background: url('@{ASSET_PATH}/images/background.png')
 }
@@ -75,7 +75,7 @@ var filePath = settings.ASSET_PATH + 'fancy/fancy-graphic.png';
 ## DEPLOYMENT
 
 ```bash
-$ grunt release
+$ npm run release
 ```
 
 ## RUN TESTS
@@ -91,6 +91,6 @@ $ beefy test/thingtotest/index.js [PORT] [-- browserify args]
 
 When installing modules be sure to use `npm install --save` for dependencies that will be used in the actual application deployed to the server.
 
-And `npm install --save-dev` for modules that are only used on your system for workflow and development, like automated grunts tasks etc.
+And `npm install --save-dev` for modules that are only used on your system for workflow and development, like automated tasks etc.
 
 [List of Jam3 Node modules](https://docs.google.com/a/jam3.com/spreadsheets/d/1bPImGwGLjqbOnBxMNmqGVz2mdfVb_R2FKaaoOw1IyP8/edit#gid=0)

@@ -5,7 +5,6 @@ var yeoman = require('yeoman-generator'),
   _ = require('lodash'),
   gitOrigin = require('git-origin-url'),
   prompts = require('./prompts'),
-  gruntTasks = require('./gruntTasks'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
@@ -191,10 +190,9 @@ module.exports = yeoman.generators.Base.extend({
       copy('.gitignore');
       copy('.editorconfig');
       copy('.jshintrc');
+      copy('config.json');
 
       template('index.js',config);
-
-      copy('_Gruntfile.js', 'Gruntfile.js');
 
       // template stuff
       template('package.json', config);
@@ -202,73 +200,9 @@ module.exports = yeoman.generators.Base.extend({
 
       mkdirp('tasks');
       mkdirp('test');
-    },
 
-
-    grunt: function() {
-      var copy = cp.bind(this);
-
-      this.gruntfile.insertVariable('loader', 'require("load-grunt-tasks")(grunt)');
-
-      var defaultTasks = [
-        'copy:dev',
-        'browserify:dev',
-        'less:dev',
-        'connect',
-        'watch'
-      ];
-
-      var distTasks = [
-        'browserify:dist',
-        'copy:dist',
-        'pngmin',
-        'less:dist',
-        'uglify',
-        'compress'
-      ];
-
-      var lessOutput='';
-      var lessPlugins = [
-        {name: 'lessPrefixPlugin', content: "new (require('less-plugin-autoprefix'))({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})"}
-      ];
-
-      for (var i=0; i<lessPlugins.length; i++) {
-        this.gruntfile.insertVariable(lessPlugins[i].name,lessPlugins[i].content);
-        lessOutput += ((i>1) ? ',' : '')+lessPlugins[i].name;
-      }
-
-      var babelOptions = "['babelify', {sourceMap: true, whitelist: ['es6.arrowFunctions', 'es6.classes', 'es6.templateLiterals', 'es6.spec.templateLiterals', 'es6.parameters', 'es6.spread', 'es6.blockScoping', 'es6.constants', 'es6.destructuring']}]";
-      var babelOutput = "";
-
-      if(this.config.get('useES6')){
-        var babelOutput = babelOptions;
-      }
-
-      this.gruntfile.insertConfig('config', JSON.stringify(gruntTasks.config));
-      this.gruntfile.insertConfig('licensechecker', JSON.stringify(gruntTasks.licensechecker));
-      this.gruntfile.insertConfig('less', JSON.stringify(gruntTasks.less).replace(/('|")LESS_PLUGINS('|")/g,'['+lessOutput+']'));
-      this.gruntfile.insertConfig('browserify', JSON.stringify(gruntTasks.browserify).replace(/('|")BABEL_OPTIONS('|")/g,babelOutput));
-      this.gruntfile.insertConfig('connect', JSON.stringify(gruntTasks.connect));
-      this.gruntfile.insertConfig('pngmin', JSON.stringify(gruntTasks.pngmin));
-      this.gruntfile.insertConfig('watch', JSON.stringify(gruntTasks.watch));
-      this.gruntfile.insertConfig('copy', JSON.stringify(gruntTasks.copy));
-      this.gruntfile.insertConfig('uglify', JSON.stringify(gruntTasks.uglify));
-      this.gruntfile.insertConfig('compress', JSON.stringify(gruntTasks.compress));
-
-      if (this.config.get('useTexturePackager') === true) {
-        // copy('tasks/texturepacker-animation.js');
-        copy('tasks/texturepacker.js');
-        this.gruntfile.insertConfig('texturepacker', JSON.stringify(gruntTasks.texturepacker));
-        this.gruntfile.registerTask('tp', ['texturepacker']);
-        defaultTasks.unshift('tp');
-        distTasks.unshift('tp');
-
-        this.gruntfile.insertVariable('tasks', 'grunt.loadTasks("tasks")');
-      }
-
-      this.gruntfile.registerTask('default', defaultTasks);
-      this.gruntfile.registerTask('release', distTasks);
-
+      mkdirp('scripts');
+      copy('scripts/**/*','scripts');
     },
 
     app: function() {
