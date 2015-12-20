@@ -36,7 +36,7 @@ function copyFile(outputDir,srcDir,file) {
     if (!err) {
       if (config.NODE_ENV==='production' && file.indexOf('.png')>-1){
         execFile(pngquant, ['-o', output, file], function (err) {
-          if(err) console.log(err);
+          if(err) fs.createReadStream(file).pipe(fs.createWriteStream(output));
         });
       } else {
         fs.createReadStream(file).pipe(fs.createWriteStream(output));
