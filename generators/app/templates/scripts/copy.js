@@ -13,7 +13,7 @@ function copy(file) {
   } else {
     glob(path.join(config.raw,'**/*.*'),function(err,files) {
       if (!err) {
-        files.map(copyFile.bind(null,path.join(config.output,'assets/'),config.raw));
+        files.forEach(copyFile.bind(null,path.join(config.output,'assets/'),config.raw));
       } else {
         console.log(err);
       }
@@ -21,7 +21,7 @@ function copy(file) {
     if (config.NODE_ENV==='production') {
       glob(path.join(config.app,'**/*.*'),function(err,files) {
         if (!err) {
-          files.map(copyFile.bind(null,path.join(config.output),config.app));
+          files.forEach(copyFile.bind(null,path.join(config.output),config.app));
         } else {
           console.log(err);
         }
