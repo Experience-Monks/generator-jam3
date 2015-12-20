@@ -9,7 +9,7 @@ var pngquant = require('pngquant-bin');
 
 function copy(file) {
   if (file) {
-    copyFile(file);
+    copyFile(path.join(config.output,'assets/'),config.raw,file);
   } else {
     glob(path.join(config.raw,'**/*.*'),function(err,files) {
       if (!err) {
