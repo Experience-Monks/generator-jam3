@@ -8,7 +8,6 @@ var yeoman = require('yeoman-generator'),
   createSectionFromRoutes = require('../../lib/generator/createSectionsFromRoutes'),
   createTemplatesFromRoutes = require('../../lib/generator/createTemplatesFromRoutes'),
   createRoutesFromRoutes = require('../../lib/generator/createRoutesFromRoutes'),
-  createMainLess = require('../../lib/generator/createMainLess'),
   mkdirp = require('mkdirp');
 
 var INIT_SECTIONS = ['/'];
@@ -98,6 +97,7 @@ module.exports = yeoman.generators.Base.extend({
         this.config.set('isDOMBased', isDOMBased);
         this.config.set('changeFileNaming', props.changeFileNaming);
         this.config.set('useES6', props.useES6);
+        this.config.set('css', props.css);
 
         var repoUrl = this.config.get('projectRepository');
         if(repoUrl.match('\/(.*?).git') !== null){
@@ -190,7 +190,7 @@ module.exports = yeoman.generators.Base.extend({
       copy('.gitignore');
       copy('.editorconfig');
       copy('.jshintrc');
-      copy('config.json');
+      template('config.json',config);
 
       template('index.js',config);
 
@@ -202,7 +202,8 @@ module.exports = yeoman.generators.Base.extend({
       mkdirp('test');
 
       mkdirp('scripts');
-      copy('scripts/**/*','scripts');
+      copy('scripts/*','scripts');
+      copy('scripts/base/'+config.css+'.js','scripts/style.js');
     },
 
     app: function() {
@@ -261,15 +262,16 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    less: function() {
+    style: function() {
       var copy = cp.bind(this),
         template = tpl.bind(this),
         config = this.config.getAll();
 
-      copy('less/normalize.less', 'lib/less/normalize.less');
-      copy('less/vars.less', 'lib/less/vars.less');
-      copy('less/global.less', 'lib/less/global.less');
-      copy('less/fonts.less', 'lib/less/fonts.less');
+      copy('style/normalize.base', 'lib/style/normalize.'+config.css);
+      copy('style/global.base', 'lib/style/global.'+config.css);
+      template('style/vars.base', 'lib/style/vars.'+config.css,config);
+      template('style/fonts.base', 'lib/style/fonts.'+config.css, config);
+      template('style/main.base', 'lib/style/main.'+config.css, config);
     },
 
     templates: function() {
@@ -300,10 +302,6 @@ module.exports = yeoman.generators.Base.extend({
 
   install: function() {
     this.npmInstall();
-  },
-
-  end: function() {
-    createMainLess.call(this,this.async());
   }
 
 });

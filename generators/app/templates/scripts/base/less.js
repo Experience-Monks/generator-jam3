@@ -10,17 +10,17 @@ var lessPrefixPlugin = new(require('less-plugin-autoprefix'))({
 });
 
 var running = false;
-var lessOutput = path.basename(config.less).replace('.less','.css');
+var lessOutput = path.basename(config.style).replace('.less','.css');
 var createLess = function(callback) {
   if (running) return;
   running = true;
-  fs.readFile(config.less,'UTF-8',function(err,data) {
+  fs.readFile(config.style,'UTF-8',function(err,data) {
     if (!err) {
       mkdirp(path.basename(config.output),function(err) {
         if (!err) {
           data += createModifyVars({ASSET_PATH: config.ASSET_PATH});
           less.render(data,{
-            paths: [path.dirname(config.less)],
+            paths: [path.dirname(config.style)],
             filename: lessOutput,
             plugins: [lessPrefixPlugin,lessGlobPlugin],
             compress: true,

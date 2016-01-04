@@ -45,4 +45,16 @@ module.exports = [{
     name: "CANVAS",
     value: "canvas"
   }]
+},{
+  type: "list",
+  message: "What css preprocessor will your project use?",
+  name: "css",
+  choices: [{
+    name: "SCSS",
+    value: "scss",
+    checked: true
+  },{
+    name: "LESS",
+    value: "less"
+  }]
 }];

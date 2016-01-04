@@ -2,7 +2,7 @@
 var path = require('path');
 var config = require('./config');
 var budo = require('budo');
-var less = require('./less');
+var style = require('./style');
 var copy = require('./copy');
 
 process.env.NODE_ENV = config.type;
@@ -11,16 +11,16 @@ process.env.ASSET_PATH = config.ASSET_PATH;
 var b = budo(config.entry, {
   serve: config.bundle,
   open: true,
-  dir: ['./static','./.tmp'],
+  dir: ['./app','./.tmp'],
   stream: process.stdout
 });
 b.live();
-b.watch(['**/*.{html,css,less}',config.raw+'**/*.*']);
+b.watch(['**/*.{html,css,less,scss}',config.raw+'**/*.*']);
 b.on('watch',function(e,file) {
   if (file.indexOf(path.basename(config.raw))>-1) {
     copy(file);
-  } else if (file.indexOf('.less')>-1) {
-    less(function() {
+  } else if (file.indexOf('.less')>-1 || file.indexOf('.scss')>-1) {
+    style(function() {
       b.reload('main.css');
     });
   } else {

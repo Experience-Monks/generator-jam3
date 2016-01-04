@@ -8,12 +8,13 @@
     "url": "https://github.com/Jam3"
   },
   "scripts": {
-    "start": "npm run copy && npm run less && npm run dev",
+    "install": "npm run start",
+    "start": "npm run copy && npm run style && npm run dev",
     "copy": "node scripts/copy.js",
-    "less": "node scripts/less.js",
+    "style": "node scripts/style.js",
     "dev": "node scripts/dev.js",
-    "release": "npm run release-less && npm run release-browserify && npm run release-copy && npm run release-gzip",
-    "release-less": "node scripts/less.js --env=production",
+    "release": "npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",
+    "release-style": "node scripts/style.js --env=production",
     "release-browserify": "node scripts/release.js --env=production",
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production"
@@ -36,10 +37,14 @@
     "concat-stream": "^1.5.1",
     "envify": "^3.4.0",
     "garnish": "^4.1.1",
-    "glob": "^6.0.1",
+    "glob": "^6.0.1",<% if (css === 'less') { %>
     "less": "^2.5.3",
     "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-glob": "^1.1.1",
+    "less-plugin-glob": "^1.1.1",<% } else if (css === 'scss') { %>
+    "autoprefixer": "^6.2.3",
+    "node-sass": "^3.4.2",
+    "postcss": "^5.0.14",
+    "sass-glob-importer": "^1.0.1",<% } %>
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pngquant-bin": "^3.0.0",
