@@ -5,7 +5,7 @@
     "app": "./app/",
     "raw": "./raw-assets/",
     "output": "./.tmp/",
-    "less": "./lib/less/main.less",
+    "style": "./lib/style/main.<%=css%>",
     "ASSET_PATH": "./assets/"
   },
   "production": {
@@ -14,7 +14,7 @@
     "app": "./app/",
     "raw": "./raw-assets/",
     "output": "./release/",
-    "less": "./lib/less/main.less",
+    "style": "./lib/style/main.<%=css%>",
     "ASSET_PATH": "./assets/"
   }
 }
