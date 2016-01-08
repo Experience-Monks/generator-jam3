@@ -30,11 +30,6 @@ var prompts = [{
   message: "Would you like to use ES6?",
   default: false
 }, {
-  type: "confirm",
-  name: "useTP",
-  message: "Would you like to use TexturePacker? (Beta)",
-  default: false
-}, {
   type: "list",
   message: "What framework will your project use?",
   name: "framework",
@@ -63,17 +58,10 @@ var prompts = [{
   }]
 }];
 var globs = [
-{
-  base: 'template/{{framework}}/',
-  glob: '**/*'
-},
-{
-  base: 'template/scripts/',
-  glob: '*'
-},
-{
-  base: 'template/scripts/{{css}}/',
-  glob: '*'
-}
+  { base: 'templates/{{framework}}/' },
+  { base: 'templates/', glob: 'scripts/*' },
+  { base: 'templates/base/' },
+  { base: 'templates/style/', output: 'lib/{{css}}/' },
+  { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
 ];
 nyg(prompts,globs).run();

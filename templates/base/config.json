@@ -1,0 +1,21 @@
+{
+  "development": {
+    "entry": "./index.js",
+    "bundle": "bundle.js",
+    "app": "./app/",
+    "raw": "./raw-assets/",
+    "output": "./.tmp/",
+    "style": "./lib/style/main.{{css}}",
+    "ASSET_PATH": "./assets/"
+  },
+  "production": {
+    "entry": "./index.js",
+    "bundle": "bundle.js",
+    "app": "./app/",
+    "raw": "./raw-assets/",
+    "output": "./release/",
+    "style": "./lib/style/main.{{css}}",
+    "ASSET_PATH": "./assets/"
+  }
+}
+

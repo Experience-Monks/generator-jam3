@@ -1,0 +1,9 @@
+/*
+ * ====================================================================
+ * vars.less
+ * 	Used to set variables used throughout less files
+ * ====================================================================
+ */
+<% if (css==='less') { %>@ASSET_PATH: './assets/';
+@images: '@{ASSET_PATH}images/';<% } else if (css==='scss') { %>$ASSET_PATH: './assets/';
+$images: '#{$ASSET_PATH}images/';<% } %>
