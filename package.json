@@ -1,0 +1,33 @@
+{
+  "name": "nyg-jam3",
+  "version": "1.0.0",
+  "description": "Jam3 project scaffold generator based on nyg",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Nick Poisson",
+    "email": "nick@jam3.com",
+    "url": "https://github.com/njam3"
+  },
+  "dependencies": {
+    "nyg": "0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "jam3,",
+    "project,",
+    "scaffold,",
+    "generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/njam3/nyg-jam3.git"
+  },
+  "homepage": "https://github.com/njam3/nyg-jam3",
+  "bugs": {
+    "url": "https://github.com/njam3/nyg-jam3/issues"
+  }
+}
