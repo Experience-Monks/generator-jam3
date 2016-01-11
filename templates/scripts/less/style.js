@@ -38,6 +38,8 @@ var createLess = function(callback) {
               fs.writeFile(path.join(config.output,lessOutput+'.map'),output.map,function(err) {
                 console.log((err) ? 'cannot write css map file.' : 'successfully wrote css map file.');
               });
+            } else {
+              console.err(err);
             }
           });
         }

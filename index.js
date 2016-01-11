@@ -61,7 +61,7 @@ var globs = [
   { base: 'templates/{{framework}}/' },
   { base: 'templates/', glob: 'scripts/*' },
   { base: 'templates/base/' },
-  { base: 'templates/style/', output: 'lib/{{css}}/' },
+  { base: 'templates/style/', output: 'lib/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
 ];
 var gen = nyg(prompts,globs)

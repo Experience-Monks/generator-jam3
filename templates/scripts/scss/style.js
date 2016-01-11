@@ -48,6 +48,8 @@ var createSass = function (callback) {
               fs.writeFile(path.join(config.output, sassOutput + '.map'), output.map, function (err) {
                 console.log((err) ? 'cannot write css map file.' : 'successfully wrote css map file.');
               });
+            } else {
+              console.err(err);
             }
           });
         }

@@ -4,6 +4,6 @@
  * 	Used to set variables used throughout less files
  * ====================================================================
  */
-<% if (css==='less') { %>@ASSET_PATH: './assets/';
-@images: '@{ASSET_PATH}images/';<% } else if (css==='scss') { %>$ASSET_PATH: './assets/';
-$images: '#{$ASSET_PATH}images/';<% } %>
+{{if css|equals>less}}@ASSET_PATH: './assets/';
+@images: '@{ASSET_PATH}images/';{{/if}}{{if css|equals>scss}}$ASSET_PATH: './assets/';
+$images: '#{$ASSET_PATH}images/';{{/if}}
