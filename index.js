@@ -37,13 +37,13 @@ var prompts = [{
     name: "Bigwheel / Handlebars",
     value: "bigwheel",
     checked: true
-  }, {
+  }/*, {
     name: "React",
     value: "react"
   }, {
     name: "Angular",
     value: "Angular"
-  }]
+  }*/]
 },{
   type: "list",
   message: "What css preprocessor will your project use?",

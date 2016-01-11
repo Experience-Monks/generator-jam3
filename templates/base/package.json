@@ -21,7 +21,7 @@
   },
   "license": "ISC",
   "repository": "{{repo}}",
-  "dependencies": {{{if framework|equals>bigwheel}}
+  "dependencies": { {{if framework|equals>bigwheel}}
     "bigwheel": "^2.2.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
@@ -45,25 +45,23 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pngquant-bin": "^3.0.0",
-    "uglify-js": "^2.6.1",{{if templateLibrary!=='none') }
+    "uglify-js": "^2.6.1",{{if framework|equals>bigwheel }}
     "brfs": "^1.2.0",
     "browserify-shim": "^3.8.0",{{/if}}
     "browserify": "^12.0.1",
-    "envify": "^3.4.0"{{if (useES6) },
+    "envify": "^3.4.0"{{if useES6}},
     "babelify": "^6.1.3"{{/if}}
   },
   "browserify": {
     "transform": [
       "envify"{{if framework|equals>bigwheel}},
       "browserify-shim",
-      "brfs"{{/if}}{{if (useES6)}},
+      "brfs"{{/if}}{{if useES6}},
       "babelify"{{/if}}
     ]
-  },
-  {{if framework|equals>bigwheel}}
+  },{{if framework|equals>bigwheel}}
   "browserify-shim": {
 
-  },
-  {{/if}}
+  },{{/if}}
   "browser": {}
 }
