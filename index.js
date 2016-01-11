@@ -64,4 +64,17 @@ var globs = [
   { base: 'templates/style/', output: 'lib/{{css}}/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
 ];
-nyg(prompts,globs).run();
+var gen = nyg(prompts,globs)
+.on('postprompt',function() {
+  var repo = gen.config.get('repo').match('\/(.*?).git');
+  if (repo && repo[1]) gen.config.set('folder', repo[1]);
+  if (gen.config.get('framework')==='bigwheel') {
+    gen.prompt({
+      type: "confirm",
+      name: "pushState",
+      message: "Use push states?",
+      default: true
+    },gen.async());
+  }
+})
+.run();

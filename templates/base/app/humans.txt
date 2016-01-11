@@ -3,7 +3,7 @@
 
 # TEAM
 
-  <%= projectAuthorName %> - <%= projectAuthorEmail %>
+  {{author}} - {{email}}
 
 # THANKS
 

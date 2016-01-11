@@ -1,10 +1,10 @@
 {
-  "name": "<%= projectName %>",
+  "name": "{{folder}}",
   "version": "0.0.0",
-  "description": "<%= projectDescription %>",
+  "description": "{{description}}",
   "author": {
-    "name": "<%= projectAuthorName %>",
-    "email": "<%= projectAuthorEmail %>",
+    "name": "{{author}}",
+    "email": "{{email}}",
     "url": "https://github.com/Jam3"
   },
   "scripts": {
@@ -20,53 +20,50 @@
     "release-gzip": "node scripts/gzip.js --env=production"
   },
   "license": "ISC",
-  "repository": "<%= projectRepository %>",
-  "dependencies": {
+  "repository": "{{repo}}",
+  "dependencies": {{{if framework|equals>bigwheel}}
     "bigwheel": "^2.2.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
-    "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
-    "vue": "^0.11.4"<% } else if (templateLibrary === 'hbs' ) { %>,
+    "gsap": "^1.18.2",
     "handlebars": "^2.0.0",
-    "domify": "^1.4.0"<% } else if (templateLibrary === 'pixi-ears') { %>,
-    "pixi": "^0.2.1",
-    "pixi-ears": "^1.0.0"<% } %>
+    "domify": "^1.4.0"{{/if}}
   },
   "devDependencies": {
     "budo": "^6.1.0",
     "concat-stream": "^1.5.1",
     "envify": "^3.4.0",
     "garnish": "^4.1.1",
-    "glob": "^6.0.1",<% if (css === 'less') { %>
+    "glob": "^6.0.1",{{if css|equals>less}}
     "less": "^2.5.3",
     "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-glob": "^1.1.1",<% } else if (css === 'scss') { %>
+    "less-plugin-glob": "^1.1.1",{{/if}}{{if css|equals>scss}}
     "autoprefixer": "^6.2.3",
     "node-sass": "^3.4.2",
     "postcss": "^5.0.14",
-    "sass-glob-importer": "^1.0.1",<% } %>
+    "sass-glob-importer": "^1.0.1",{{/if}}
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pngquant-bin": "^3.0.0",
-    "uglify-js": "^2.6.1",<% if (templateLibrary!=='none') { %>
+    "uglify-js": "^2.6.1",{{if templateLibrary!=='none') }
     "brfs": "^1.2.0",
-    "browserify-shim": "^3.8.0",<% } %>
+    "browserify-shim": "^3.8.0",{{/if}}
     "browserify": "^12.0.1",
-    "envify": "^3.4.0"<% if (useES6) { %>,
-    "babelify": "^6.1.3"<% } %>
+    "envify": "^3.4.0"{{if (useES6) },
+    "babelify": "^6.1.3"{{/if}}
   },
   "browserify": {
     "transform": [
-      "envify"<% if (templateLibrary!=='none') { %>,
+      "envify"{{if framework|equals>bigwheel}},
       "browserify-shim",
-      "brfs"<% } %><% if (useES6) { %>,
-      "babelify"<% } %>
+      "brfs"{{/if}}{{if (useES6)}},
+      "babelify"{{/if}}
     ]
   },
-  <% if (templateLibrary!=='none') { %>
+  {{if framework|equals>bigwheel}}
   "browserify-shim": {
 
   },
-  <% } %>
+  {{/if}}
   "browser": {}
 }

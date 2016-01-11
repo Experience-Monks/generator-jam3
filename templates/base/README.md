@@ -1,12 +1,12 @@
-# <%= projectName %>
+# {{folder}}
 
-<%= projectDescription %>
+{{description}}
 
 ## Developers
-<%= projectAuthorName %>
+{{author}}
 
 ## Dependencies list
-[http://jam3-license.herokuapp.com/<%= projectName %>/](http://jam3-license.herokuapp.com/<%= projectName %>/)
+[http://jam3-license.herokuapp.com/{{folder}}/](http://jam3-license.herokuapp.com/{{folder}}/)
 
 Note: If the link is broken use http://jam3-license.herokuapp.com/[repo name] ?
 
@@ -16,7 +16,7 @@ Note: If the link is broken use http://jam3-license.herokuapp.com/[repo name] ?
 ## GIT
 
 ```
-git checkout <%= projectRepository %>
+git checkout {{repo}}
 ```
 
 ## Setup
@@ -61,10 +61,17 @@ Always make the root path to assets (image/videos..) a variable, store it in you
 
 Because when the site goes live, those assets will come from a CDN and going in and changing all the paths the day before the site goes live is very annoying.
 
-```css
+```less
 @{ASSET_PATH}: 'images/'; // This variable will be changed by a script when pushing to production or other environments
 .background {
     background: url('@{ASSET_PATH}/images/background.png')
+}
+```
+
+```scss
+$ASSET_PATH: 'images/'; // This variable will be changed by a script when pushing to production or other environments
+.background {
+    background: url('#{$ASSET_PATH}/images/background.png')
 }
 ```
 
@@ -80,11 +87,11 @@ $ npm run release
 
 ## RUN TESTS
 
-Use [Beefy](http://didact.us/beefy/) to develop and test your modules independently before integrating into the framework.
+Use [Budo](http://npmjs.com/budo/) to develop and test your modules independently before integrating into the framework.
 
 ```bash
-$ cd <%= projectName %>
-$ beefy test/thingtotest/index.js [PORT] [-- browserify args]
+$ cd {{folder}}
+$ budo test/thingtotest/index.js [PORT] [-- browserify args]
 ```
 
 ## NPM MODULES
