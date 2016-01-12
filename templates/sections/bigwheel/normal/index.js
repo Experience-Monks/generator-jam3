@@ -4,7 +4,7 @@ var hbs = require('handlebars');
 var domify = require('domify');
 var model = require('../../model');
 var Tween = require('gsap');
-function Landing() {}
+function {{section}}() {}
 Landing.prototype = {
   init: function (req, done) {
     this.dom = domify(hbs.compile(fs.readFileSync(__dirname + '/template.hbs', 'utf8'))(model[req.route]));
@@ -32,4 +32,4 @@ Landing.prototype = {
     done();
   }
 };
-module.exports = Landing;
+module.exports = {{section}};

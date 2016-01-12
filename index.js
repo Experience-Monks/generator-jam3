@@ -1,4 +1,5 @@
 var nyg = require('nyg');
+var createSections = require('./lib/createSections');
 var prompts = [{
   type: "input",
   name: "author",
@@ -42,7 +43,7 @@ var prompts = [{
     value: "react"
   }, {
     name: "Angular",
-    value: "Angular"
+    value: "angular"
   }*/]
 },{
   type: "list",
@@ -76,5 +77,12 @@ var gen = nyg(prompts,globs)
       default: true
     },gen.async());
   }
+})
+.on('postcopy',function() {
+  var done = gen.async();
+  createSections(gen,done);
+})
+.on('preinstall',function() {
+  gen.end();
 })
 .run();
