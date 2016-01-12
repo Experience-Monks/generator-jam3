@@ -82,7 +82,4 @@ var gen = nyg(prompts,globs)
   var done = gen.async();
   createSections(gen,done);
 })
-.on('preinstall',function() {
-  gen.end();
-})
 .run();

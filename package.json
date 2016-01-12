@@ -20,7 +20,8 @@
     "jam3,",
     "project,",
     "scaffold,",
-    "generator"
+    "generator",
+    "nyg"
   ],
   "repository": {
     "type": "git",
