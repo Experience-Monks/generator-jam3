@@ -5,7 +5,7 @@ var domify = require('domify');
 var model = require('../../model');
 var Tween = require('gsap');
 function {{section}}() {}
-Landing.prototype = {
+{{section}}.prototype = {
   init: function (req, done) {
     this.dom = domify(hbs.compile(fs.readFileSync(__dirname + '/template.hbs', 'utf8'))(model[req.route]));
     document.body.appendChild(this.dom);
