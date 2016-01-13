@@ -26,7 +26,7 @@
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
     "gsap": "^1.15.0"<% if (templateLibrary === 'vue' ) { %>,
-    "vue": "^0.11.4"<% } else if (templateLibrary === 'hbs' ) { %>,
+    "vue": "^1.0.0-migration"<% } else if (templateLibrary === 'hbs' ) { %>,
     "handlebars": "^2.0.0",
     "domify": "^1.4.0"<% } else if (templateLibrary === 'pixi-ears') { %>,
     "pixi": "^0.2.1",
