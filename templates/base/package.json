@@ -51,14 +51,16 @@
     "browserify-shim": "^3.8.0",{{/if}}
     "browserify": "^12.0.1",
     "envify": "^3.4.0"{{if useES6}},
-    "babelify": "^6.1.3"{{/if}}
+    "babelify": "^7.2.0",
+    "babel-preset-es2015": "^6.3.13"{{if}},
+    "babel-preset-react": "^6.3.13"{{/if}}{{/if}}
   },
   "browserify": {
     "transform": [
       "envify"{{if framework|equals>bigwheel}},
       "browserify-shim",
       "brfs"{{/if}}{{if useES6}},
-      "babelify"{{/if}}
+      ["babelify", {"presets": ["es2015"{{if framework|equals>react}},"react"{{/if}}]}]{{/if}}
     ]
   },{{if framework|equals>bigwheel}}
   "browserify-shim": {
