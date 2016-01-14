@@ -17,7 +17,8 @@
     "release-style": "node scripts/style.js --env=production",
     "release-browserify": "node scripts/release.js --env=production",
     "release-copy": "node scripts/copy.js --env=production",
-    "release-gzip": "node scripts/gzip.js --env=production"
+    "release-gzip": "node scripts/gzip.js --env=production",
+    "lowercase": "node scripts/lowercase.js"
   },
   "license": "ISC",
   "repository": "{{repo}}",
