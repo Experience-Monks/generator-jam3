@@ -17,7 +17,7 @@ cd your-project-directory
 nyg generator-jam3
 ```
 
-You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratualtions, you are now setup with the basis of a Jam3 project. 
+You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project. 
 
 ## License
 
