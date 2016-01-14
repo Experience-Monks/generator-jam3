@@ -37,16 +37,16 @@ var createSass = function (callback) {
               var srcMap = srcMapReg.exec(css);
               sassPrefix.process(css).then(function(output) {
                 fs.writeFile(path.join(config.output, sassOutput), output.css + ((srcMap && srcMap[0]) ? '\n'+srcMap[0] : ''), function (err) {
-                  console.log((err) ? 'cannot write css file.' : 'successfully wrote css file.');
+                  console.log((err) ? '\x1b[31m cannot write css file.' : '\x1b[32m successfully wrote css file.');
                   running = false;
                   if (callback) callback();
                 });
               },function() {
-                console.log('cannot process css file.');
+                console.log('\x1b[31m cannot process css file.');
                 running = false;
               });
               fs.writeFile(path.join(config.output, sassOutput + '.map'), output.map, function (err) {
-                console.log((err) ? 'cannot write css map file.' : 'successfully wrote css map file.');
+                console.log((err) ? '\x1b[31m cannot write css map file.' : '\x1b[32m successfully wrote css map file.');
               });
             } else {
               console.err(err);

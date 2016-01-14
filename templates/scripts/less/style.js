@@ -31,12 +31,12 @@ var createLess = function(callback) {
           },function(err,output) {
             if (!err) {
               fs.writeFile(path.join(config.output,lessOutput),output.css,function(err) {
-                console.log((err) ? 'cannot write css file.' : 'successfully wrote css file.');
+                console.log((err) ? '\x1b[31m cannot write css file.' : '\x1b[32m successfully wrote css file.');
                 running = false;
                 if (callback) callback();
               });
               fs.writeFile(path.join(config.output,lessOutput+'.map'),output.map,function(err) {
-                console.log((err) ? 'cannot write css map file.' : 'successfully wrote css map file.');
+                console.log((err) ? '\x1b[31m cannot write css map file.' : '\x1b[32m successfully wrote css map file.');
               });
             } else {
               console.err(err);

@@ -29,7 +29,7 @@ var prompts = [{
   type: "confirm",
   name: "useES6",
   message: "Would you like to use ES6?",
-  default: false
+  default: true
 }, {
   type: "list",
   message: "What framework will your project use?",
