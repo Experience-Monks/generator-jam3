@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
-  pushState: {{pushState}},
+  'pushState': {{pushState}},
   '/': require('../sections/Landing/index.js'),
   '404': '/'
 };
