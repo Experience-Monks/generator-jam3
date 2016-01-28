@@ -1,4 +1,4 @@
-# generator-jam3
+# nyg-jam3
 
 [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)
 
@@ -6,7 +6,7 @@ Jam3 project scaffold based on [nyg](https://www.npmjs.com/package/nyg). Used to
 
 ## Usage
 
-[![NPM](https://nodei.co/npm/generator-jam3.png)](https://www.npmjs.com/package/generator-jam3)
+[![NPM](https://nodei.co/npm/nyg-jam3.png)](https://www.npmjs.com/package/nyg-jam3)
 
 The nyg generator is designed to function similar to yeoman. To get it running, simply follow these steps:
 
@@ -21,4 +21,4 @@ You will then be prompted with a number of questions, which will define the proj
 
 ## License
 
-MIT, see [LICENSE.md](http://github.com/njam3/generator-jam3/blob/master/LICENSE.md) for details.
+MIT, see [LICENSE.md](http://github.com/Jam3/generator-jam3/blob/master/LICENSE.md) for details.
