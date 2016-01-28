@@ -1,5 +1,5 @@
 {
-  "name": "generator-jam3",
+  "name": "nyg-jam3",
   "version": "1.0.0",
   "description": "Jam3 project scaffold generator based on nyg",
   "main": "index.js",
@@ -25,10 +25,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/njam3/nyg-jam3.git"
+    "url": "git://github.com/Jam3/generator-jam3.git"
   },
-  "homepage": "https://github.com/njam3/nyg-jam3",
+  "homepage": "https://github.com/Jam3/generator-jam3",
   "bugs": {
-    "url": "https://github.com/njam3/nyg-jam3/issues"
+    "url": "https://github.com/Jam3/generator-jam3/issues"
   }
 }
