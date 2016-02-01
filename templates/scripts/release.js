@@ -6,7 +6,7 @@ var browserify = require('browserify');
 var uglify = require('uglify-js');
 var concat = require('concat-stream');
 
-process.env.NODE_ENV = config.type;
+process.env.NODE_ENV = config.NODE_ENV;
 process.env.ASSET_PATH = config.ASSET_PATH;
 
 var output = concat(function(src) {
