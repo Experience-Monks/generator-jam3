@@ -6,9 +6,9 @@
 {{author}}
 
 ## Dependencies list
-[http://jam3-license.herokuapp.com/{{folder}}/](http://jam3-license.herokuapp.com/{{folder}}/)
+[http://jam3-license.herokuapp.com/projects/{{folder}}/licenses](http://jam3-license.herokuapp.com/projects/{{folder}}/licenses)
 
-Note: If the link is broken use http://jam3-license.herokuapp.com/[repo name] ?
+Note: If the link is broken use http://jam3-license.herokuapp.com/projects/[repo name]/licenses ?
 
 ## PROJECT DOCUMENTATION
 
