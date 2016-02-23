@@ -1,5 +1,5 @@
 {
-  "name": "{{folder}}",
+  "name": "{{repoName}}",
   "version": "0.0.0",
   "description": "{{description}}",
   "author": {
@@ -49,8 +49,7 @@
     "uglify-js": "^2.6.1",{{if framework|equals>bigwheel}}
     "brfs": "^1.2.0",
     "browserify-shim": "^3.8.0",{{/if}}
-    "browserify": "^12.0.1",
-    "envify": "^3.4.0"{{if useES6}},
+    "browserify": "^12.0.1"{{if useES6}},
     "babelify": "^7.2.0",
     "babel-runtime": "^5.8.34",
     "babel-preset-es2015": "^6.3.13"{{if framework|equals>react}},
