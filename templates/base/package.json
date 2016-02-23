@@ -24,7 +24,7 @@
   "license": "ISC",
   "repository": "{{repo}}",
   "dependencies": { {{if framework|equals>bigwheel}}
-    "bigwheel": "^2.2.0",
+    "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
     "gsap": "^1.18.2",
@@ -32,9 +32,8 @@
     "domify": "^1.4.0"{{/if}}
   },
   "devDependencies": {
-    "budo": "^6.1.0",
+    "budo": "^8.0.4",
     "concat-stream": "^1.5.1",
-    "envify": "^3.4.0",
     "garnish": "^4.1.1",
     "glob": "^6.0.1",{{if css|equals>less}}
     "less": "^2.5.3",

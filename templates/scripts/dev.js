@@ -12,7 +12,8 @@ var b = budo(config.entry, {
   serve: config.bundle,
   open: true,
   dir: ['./app','./.tmp'],
-  stream: process.stdout
+  stream: process.stdout{{if pushState}},
+  pushstate: true{{/if}}
 });
 b.live();
 b.watch(['**/*.{html,css,less,scss}',config.raw+'**/*.*']);
