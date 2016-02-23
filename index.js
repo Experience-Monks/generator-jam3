@@ -68,7 +68,7 @@ var globs = [
 var gen = nyg(prompts,globs)
 .on('postprompt',function() {
   var repo = gen.config.get('repo').match('\/(.*?).git');
-  if (repo && repo[1]) gen.config.set('folder', repo[1]);
+  if (repo && repo[1]) gen.config.set('repoName', repo[1]);
   if (gen.config.get('framework')==='bigwheel') {
     gen.prompt({
       type: "confirm",

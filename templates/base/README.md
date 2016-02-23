@@ -1,4 +1,4 @@
-# {{folder}}
+# {{repoName}}
 
 {{description}}
 
@@ -6,7 +6,7 @@
 {{author}}
 
 ## Dependencies list
-[http://jam3-license.herokuapp.com/projects/{{folder}}/licenses](http://jam3-license.herokuapp.com/projects/{{folder}}/licenses)
+[http://jam3-license.herokuapp.com/projects/{{repoName}}/licenses](http://jam3-license.herokuapp.com/projects/{{repoName}}/licenses)
 
 Note: If the link is broken use http://jam3-license.herokuapp.com/projects/[repo name]/licenses ?
 
@@ -90,7 +90,7 @@ $ npm run release
 Use [Budo](http://npmjs.com/budo/) to develop and test your modules independently before integrating into the framework.
 
 ```bash
-$ cd {{folder}}
+$ cd {{repoName}}
 $ budo test/thingtotest/index.js [PORT] [-- browserify args]
 ```
 
