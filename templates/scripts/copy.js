@@ -11,7 +11,7 @@ function copy(file) {
   if (file) {
     copyFile(path.join(config.output,'assets/'),config.raw,file);
   } else {
-    glob(path.join(config.raw,'**/*.*'),{dot: true},function(err,files) {
+    glob(path.join(config.raw,'**/*'),{dot: true},function(err,files) {
       if (!err) {
         files.forEach(copyFile.bind(null,path.join(config.output,'assets/'),config.raw));
       } else {
@@ -19,7 +19,7 @@ function copy(file) {
       }
     });
     if (config.NODE_ENV==='production') {
-      glob(path.join(config.app,'**/*.*'),{dot: true},function(err,files) {
+      glob(path.join(config.app,'**/*'),{dot: true},function(err,files) {
         if (!err) {
           files.forEach(copyFile.bind(null,path.join(config.output),config.app));
         } else {
