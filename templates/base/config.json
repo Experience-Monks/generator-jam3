@@ -4,7 +4,7 @@
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",
-    "output": "./.tmp/",
+    "output": "./build/",
     "style": "./lib/style/main.{{css}}",
     "ASSET_PATH": "./assets/"
   },
