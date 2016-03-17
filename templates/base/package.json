@@ -19,7 +19,7 @@
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production",
     "lowercase": "node scripts/lowercase.js",
-    "lint": "xo index.js lib/**/*.js"
+    "lint": "xo lib/**/*.js"
   },
   "license": "ISC",
   "repository": "{{repo}}",

@@ -1,6 +1,6 @@
 {
   "development": {
-    "entry": "./index.js",
+    "entry": "./lib/index.js",
     "bundle": "bundle.js",
     "app": "./app/",
     "raw": "./raw-assets/",
@@ -9,7 +9,7 @@
     "ASSET_PATH": "./assets/"
   },
   "production": {
-    "entry": "./index.js",
+    "entry": "./lib/index.js",
     "bundle": "bundle.js",
     "app": "./app/",
     "raw": "./raw-assets/",
