@@ -11,7 +11,7 @@ process.env.ASSET_PATH = config.ASSET_PATH;
 var b = budo(config.entry, {
   serve: config.bundle,
   open: true,
-  dir: ['./app','./.tmp'],
+  dir: [config.static, config.output],
   stream: process.stdout{{if pushState}},
   pushstate: true{{/if}}
 });

@@ -2,7 +2,7 @@
   "development": {
     "entry": "./lib/index.js",
     "bundle": "bundle.js",
-    "app": "./app/",
+    "static": "./static/",
     "raw": "./raw-assets/",
     "output": "./.tmp/",
     "style": "./lib/style/main.{{css}}",
@@ -11,7 +11,7 @@
   "production": {
     "entry": "./lib/index.js",
     "bundle": "bundle.js",
-    "app": "./app/",
+    "static": "./static/",
     "raw": "./raw-assets/",
     "output": "./release/",
     "style": "./lib/style/main.{{css}}",
