@@ -18,15 +18,13 @@ function copy(file) {
         console.log(err);
       }
     });
-    if (config.NODE_ENV==='production') {
-      glob(path.join(config.static,'**/*'),{dot: true, nodir: true},function(err,files) {
-        if (!err) {
-          files.forEach(copyFile.bind(null,path.join(config.output),config.static));
-        } else {
-          console.log(err);
-        }
-      });
-    }
+    glob(path.join(config.static,'**/*'),{dot: true, nodir: true},function(err,files) {
+      if (!err) {
+        files.forEach(copyFile.bind(null,path.join(config.output),config.static));
+      } else {
+        console.log(err);
+      }
+    });
   }
 }
 
