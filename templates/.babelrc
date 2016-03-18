@@ -1,0 +1,6 @@
+{
+  "presets": [
+  	"es2015"{{if framework|equals>react}}, 
+  	"react"{{/if}}
+  ]
+}

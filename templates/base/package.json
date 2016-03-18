@@ -18,8 +18,7 @@
     "release-browserify": "node scripts/release.js --env=production",
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production",
-    "lowercase": "node scripts/lowercase.js",
-    "lint": "xo lib/**/*.js"
+    "lowercase": "node scripts/lowercase.js"
   },
   "license": "ISC",
   "repository": "{{repo}}",
@@ -61,7 +60,7 @@
       "envify"{{if framework|equals>bigwheel}},
       "browserify-shim",
       "brfs"{{/if}}{{if useES6}},
-      ["babelify", {"presets": ["es2015"{{if framework|equals>react}},"react"{{/if}}]}]{{/if}}
+      "babelify"{{/if}}
     ]
   }{{if framework|equals>bigwheel}},
   "browserify-shim": {

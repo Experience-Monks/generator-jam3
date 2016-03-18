@@ -80,6 +80,12 @@ var gen = nyg(prompts,globs)
 })
 .on('postcopy',function() {
   var done = gen.async();
-  createSections(gen,done);
+  if (gen.config.get('useES6')) {
+    gen.copy('templates/.babelrc','.babelrc',function() {
+      createSections(gen,done);
+    });
+  } else {
+    createSections(gen,done);
+  }
 })
 .run();

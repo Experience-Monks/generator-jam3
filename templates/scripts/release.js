@@ -10,14 +10,22 @@ process.env.NODE_ENV = config.NODE_ENV;
 process.env.ASSET_PATH = config.ASSET_PATH;
 
 var output = concat(function(src) {
-  var min = uglify.minify(src.toString(),{fromString: true});
   mkdirp(config.output,function(err) {
     if (!err) {
-      fs.writeFile(config.output+config.bundle,min.code,function(err) {
-        console.log((err) ? 'Failed to output JS' : 'JS Saved');
-      });
+      try {
+        var min = uglify.minify(src.toString(),{fromString: true});
+      } catch(err) {
+        fs.writeFile(config.output+config.bundle,src.toString(),function(e) {
+          console.log('\x1b[31m Error at line',err.line+':',err.message+'\x1b[0m');
+        });
+      }
+      if (min) {
+        fs.writeFile(config.output+config.bundle,min.code,function(err) {
+          console.log((err) ? '\x1b[31m Failed to output JS\x1b[0m' : '\x1b[32m JS Saved\x1b[0m');
+        });
+      }
     } else {
-      console.log('Cannot create ouput folder');
+      console.log('\x1b[31m Cannot create ouput folder\x1b[0m');
     }
   });
 });
