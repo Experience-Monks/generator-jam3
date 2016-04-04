@@ -1,3 +1,5 @@
+var fs = require('fs');
+var path = require('path');
 var nyg = require('nyg');
 var createSections = require('./lib/createSections');
 var prompts = [{
@@ -80,12 +82,14 @@ var gen = nyg(prompts,globs)
 })
 .on('postcopy',function() {
   var done = gen.async();
-  if (gen.config.get('useES6')) {
-    gen.copy('templates/.babelrc','.babelrc',function() {
+  fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {   
+    if (gen.config.get('useES6')) {
+      gen.copy('templates/.babelrc','.babelrc',function() {
+        createSections(gen,done);
+      });
+    } else {
       createSections(gen,done);
-    });
-  } else {
-    createSections(gen,done);
-  }
+    }
+  });
 })
 .run();
