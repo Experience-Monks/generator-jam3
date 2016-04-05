@@ -25,8 +25,8 @@ var createLess = function(callback) {
             plugins: [lessPrefixPlugin,lessGlobPlugin],
             compress: true,
             sourceMap: {
-              sourceMapFilename: path.join(config.output,lessOutput+'.map'),
-              sourceMapBasepath: config.output
+              sourceMapFilename: lessOutput+'.map',
+              sourceMapRootpath: '../'
             }
           },function(err,output) {
             if (!err) {

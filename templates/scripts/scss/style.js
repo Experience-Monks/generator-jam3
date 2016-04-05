@@ -29,8 +29,7 @@ var createSass = function (callback) {
             compress: true,
             outFile: path.join(config.output, sassOutput),
             outputStyle: 'compressed',
-            sourceMap: true,
-            sourceMapRoot: config.output
+            sourceMap: true
           }, function (err, output) {
             if (!err) {
               var css = output.css.toString();
