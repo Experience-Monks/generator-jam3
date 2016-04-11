@@ -1,6 +1,6 @@
 'use strict';
 var glob = require('glob');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var path = require('path');
 
 var loc = path.join('./raw-assets','**/*');

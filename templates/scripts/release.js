@@ -1,5 +1,5 @@
 'use strict';
-var fs = require('fs');
+var fs = require('graceful-fs');
 var config = require('./config');
 var mkdirp = require('mkdirp');
 var browserify = require('browserify');

@@ -14,7 +14,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mkdir output && cd output && node ../index.js && cd ../"
+    "test": "node test/"
   },
   "keywords": [
     "jam3,",

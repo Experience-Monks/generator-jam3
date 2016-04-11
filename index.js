@@ -24,11 +24,6 @@ var prompts = [{
   default: ""
 }, {
   type: "confirm",
-  name: "sectionNames",
-  message: "Would you perfer Landing/Landing.js over Landing/index.js?",
-  default: false
-}, {
-  type: "confirm",
   name: "useES6",
   message: "Would you like to use ES6?",
   default: true
@@ -46,7 +41,11 @@ var prompts = [{
   }, {
     name: "Angular",
     value: "angular"
-  }*/]
+  }*/,
+  {
+    name: "None",
+    value: "none"
+  }]
 },{
   type: "list",
   message: "What css preprocessor will your project use?",
@@ -64,31 +63,47 @@ var globs = [
   { base: 'templates/{{framework}}/' },
   { base: 'templates/', glob: 'scripts/*' },
   { base: 'templates/base/' },
-  { base: 'templates/style/', output: 'lib/style/' },
+  { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
 ];
 var gen = nyg(prompts,globs)
 .on('postprompt',function() {
   var repo = gen.config.get('repo').match('\/(.*?).git');
   gen.config.set('repoName', repo && repo[1] ? repo[1] : '');
-  if (gen.config.get('framework')==='bigwheel') {
+  if (gen.config.get('framework')!=='none') {
+    var done = gen.async();
     gen.prompt({
       type: "confirm",
-      name: "pushState",
-      message: "Use push states?",
-      default: true
-    },gen.async());
+      name: "sectionNames",
+      message: "Would you perfer Landing/Landing.js over Landing/index.js?",
+      default: false
+    },function() {
+      if (gen.config.get('framework')==='bigwheel') {
+        gen.prompt({
+          type: "confirm",
+          name: "pushState",
+          message: "Use push states?",
+          default: true
+        },done);
+      } else {
+        done();
+      }
+    });
   }
 })
 .on('postcopy',function() {
   var done = gen.async();
   fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {   
-    if (gen.config.get('useES6')) {
-      gen.copy('templates/.babelrc','.babelrc',function() {
+    if (gen.config.get('framework')!=='none') {
+      if (gen.config.get('useES6')) {
+        gen.copy('templates/.babelrc','.babelrc',function() {
+          createSections(gen,done);
+        });
+      } else {
         createSections(gen,done);
-      });
+      }
     } else {
-      createSections(gen,done);
+      fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
     }
   });
 })

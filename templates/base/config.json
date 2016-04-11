@@ -1,20 +1,20 @@
 {
   "development": {
-    "entry": "./lib/index.js",
+    "entry": "./src/index.js",
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",
     "output": "./build/",
-    "style": "./lib/style/main.{{css}}",
+    "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/"
   },
   "production": {
-    "entry": "./lib/index.js",
+    "entry": "./src/index.js",
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",
     "output": "./release/",
-    "style": "./lib/style/main.{{css}}",
+    "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/"
   }
 }
