@@ -35,6 +35,7 @@
     "envify": "^3.4.0",
     "concat-stream": "^1.5.1",
     "garnish": "^4.1.1",
+    "graceful-fs": "^4.1.3",
     "glob": "^6.0.1",{{if css|equals>less}}
     "less": "^2.5.3",
     "less-plugin-autoprefix": "^1.5.1",
