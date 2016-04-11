@@ -63,7 +63,7 @@ var globs = [
   { base: 'templates/{{framework}}/' },
   { base: 'templates/', glob: 'scripts/*' },
   { base: 'templates/base/' },
-  { base: 'templates/style/', output: 'lib/style/' },
+  { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
 ];
 var gen = nyg(prompts,globs)
@@ -103,7 +103,7 @@ var gen = nyg(prompts,globs)
         createSections(gen,done);
       }
     } else {
-      fs.writeFile(path.join(gen.cwd,'lib/index.js'),'',done);
+      fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
     }
   });
 })
