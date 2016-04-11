@@ -13,11 +13,12 @@
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
     "dev": "node scripts/dev.js",
-    "release": "npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",
+    "release": "npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",
     "release-style": "node scripts/style.js --env=production",
     "release-browserify": "node scripts/release.js --env=production",
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production",
+    "release-clean": "node scripts/clean.js --env=production",
     "lowercase": "node scripts/lowercase.js"
   },
   "license": "ISC",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "budo": "^8.0.4",
+    "rimraf": "^2.5.2",
     "envify": "^3.4.0",
     "concat-stream": "^1.5.1",
     "garnish": "^4.1.1",
