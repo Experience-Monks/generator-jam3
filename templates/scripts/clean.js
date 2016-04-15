@@ -1,6 +1,6 @@
 'use strict';
 var rimraf = require('rimraf');
-var config = require('../scripts/config');
+var config = require('./config');
 
 rimraf(config.output, function(err) {
   if(err) {

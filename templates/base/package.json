@@ -45,7 +45,7 @@
     "autoprefixer": "^6.2.3",
     "node-sass": "^3.4.2",
     "postcss": "^5.0.14",
-    "sass-glob-importer": "^1.0.1",{{/if}}
+    "node-sass-glob": "^1.0.4",{{/if}}
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pngquant-bin": "^3.0.0",

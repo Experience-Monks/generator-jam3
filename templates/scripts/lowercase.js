@@ -1,9 +1,10 @@
 'use strict';
+var config = require('./config');
 var glob = require('glob');
 var fs = require('graceful-fs');
 var path = require('path');
 
-var loc = path.join('./raw-assets','**/*');
+var loc = path.join(config.raw,'**/*');
 glob(loc,function(err,files) {
   if (!err) {
     files.forEach(function(cur) {
