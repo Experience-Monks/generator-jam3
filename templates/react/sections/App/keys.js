@@ -1,0 +1,5 @@
+export default {
+  SET_READY: 'SET_READY',
+  SET_PROGRESS: 'SET_PROGRESS',
+  SET_ASSETS: 'SET_ASSETS'
+}
