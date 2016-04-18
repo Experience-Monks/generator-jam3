@@ -23,25 +23,17 @@ var prompts = [{
   message: "What is your git repository? (GitHub Repository)",
   default: ""
 }, {
-  type: "confirm",
-  name: "useES6",
-  message: "Would you like to use ES6?",
-  default: true
-}, {
   type: "list",
   message: "What framework will your project use?",
   name: "framework",
   choices: [{
+    name: "React",
+    value: "react"
+  },{
     name: "Bigwheel / Handlebars",
     value: "bigwheel",
     checked: true
-  }/*, {
-    name: "React",
-    value: "react"
-  }, {
-    name: "Angular",
-    value: "angular"
-  }*/,
+  },
   {
     name: "None",
     value: "none"
@@ -78,13 +70,25 @@ var gen = nyg(prompts,globs)
       message: "Would you perfer Landing/Landing.js over Landing/index.js?",
       default: false
     },function() {
-      if (gen.config.get('framework')==='bigwheel') {
+      if (gen.config.get('framework')!=='none') {
         gen.prompt({
           type: "confirm",
           name: "pushState",
           message: "Use push states?",
           default: true
-        },done);
+        },function() {
+          if (gen.config.get('framework')==='bigwheel') {
+            gen.prompt({
+              type: "confirm",
+              name: "useES6",
+              message: "Would you like to use ES6?",
+              default: true
+            },done);
+          } else {
+            gen.config.set('useES6',true);
+            done();
+          }
+        });
       } else {
         done();
       }
@@ -97,7 +101,13 @@ var gen = nyg(prompts,globs)
     if (gen.config.get('framework')!=='none') {
       if (gen.config.get('useES6')) {
         gen.copy('templates/.babelrc','.babelrc',function() {
-          createSections(gen,done);
+          if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
+            fs.rename(path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js'), function() {
+              createSections(gen,done);
+            });
+          } else {
+            createSections(gen,done);
+          }
         });
       } else {
         createSections(gen,done);
