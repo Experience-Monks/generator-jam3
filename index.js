@@ -101,7 +101,13 @@ var gen = nyg(prompts,globs)
     if (gen.config.get('framework')!=='none') {
       if (gen.config.get('useES6')) {
         gen.copy('templates/.babelrc','.babelrc',function() {
-          createSections(gen,done);
+          if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
+            fs.rename(path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js'), function() {
+              createSections(gen,done);
+            });
+          } else {
+            createSections(gen,done);
+          }
         });
       } else {
         createSections(gen,done);

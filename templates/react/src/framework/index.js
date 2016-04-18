@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import store from '../store';
 import DevTools from '../components/DevTools';
 import App from '../sections/App';
-import Landing from '../sections/Landing';
+import Landing from '../sections/Landing{{if sectionNames}}/Landing{{/if}}';
 
 {{if pushState}}const history = syncHistoryWithStore(browserHistory, store);{{else}}const history = syncHistoryWithStore(hashHistory, store);{{/if}}
 
