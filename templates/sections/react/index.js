@@ -24,12 +24,13 @@ class {{section}} extends React.Component {
     });
   }
   render() {
+    var style = {width: this.props.width, height: this.props.height};
     return <ReactF1
       go={this.state.state}
       onComplete={this.state.onComplete}
       states={states(this.props)}
       transitions={transitions(this.props)}
-      style={{width: this.props.width, height: this.props.height}}
+      style={style}
     >
       <div id="{{section}}" data-f1="container"></div>
     </ReactF1>;
