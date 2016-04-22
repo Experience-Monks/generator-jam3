@@ -23,13 +23,13 @@
   },
   "license": "ISC",
   "repository": "{{repo}}",
-  "dependencies": { {{if framework|equals>bigwheel}}
+  "dependencies": { {{#is framework 'bigwheel'}}
     "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
     "gsap": "^1.18.2",
     "handlebars": "^2.0.0",
-    "domify": "^1.4.0"{{/if}}{{if framework|equals>react}}
+    "domify": "^1.4.0"{{/is}}{{#is framework 'react'}}
     "babel-polyfill": "^6.7.4",
     "domready": "^1.0.8",
     "glob": "^6.0.4",
@@ -44,7 +44,7 @@
     "redux": "^3.4.0",
     "redux-devtools": "^3.2.0",
     "redux-devtools-dock-monitor": "^1.1.1",
-    "redux-devtools-log-monitor": "^1.0.9"{{/if}}
+    "redux-devtools-log-monitor": "^1.0.9"{{/is}}
   },
   "devDependencies": {
     "budo": "^8.0.4",
@@ -53,37 +53,38 @@
     "concat-stream": "^1.5.1",
     "garnish": "^4.1.1",
     "graceful-fs": "^4.1.3",
-    "glob": "^6.0.1",{{if css|equals>less}}
+    "handlebars": "^4.0.5",
+    "glob": "^6.0.1",{{#is css 'less'}}
     "less": "^2.5.3",
     "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-glob": "^1.1.1",{{/if}}{{if css|equals>scss}}
+    "less-plugin-glob": "^1.1.1",{{/is}}{{#is css 'scss'}}
     "autoprefixer": "^6.2.3",
     "node-sass": "^3.4.2",
     "postcss": "^5.0.14",
-    "node-sass-glob": "^1.0.4",{{/if}}
+    "node-sass-glob": "^1.0.4",{{/is}}
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "pngquant-bin": "^3.0.0",
-    "uglify-js": "^2.6.1",{{if framework|equals>bigwheel}}
+    "uglify-js": "^2.6.1",{{#is framework 'bigwheel'}}
     "brfs": "^1.2.0",
-    "browserify-shim": "^3.8.0",{{/if}}
-    "browserify": "^12.0.1"{{if useES6}},
+    "browserify-shim": "^3.8.0",{{/is}}
+    "browserify": "^12.0.1"{{#if useES6}},
     "babelify": "^7.2.0",
     "babel-runtime": "^5.8.34",
-    "babel-preset-es2015": "^6.3.13"{{if framework|equals>react}},
+    "babel-preset-es2015": "^6.3.13"{{#is framework 'react'}},
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0"{{/if}}{{/if}}
+    "babel-preset-stage-1": "^6.5.0"{{/is}}{{/if}}
   },
   "browserify": {
     "transform": [
-      "envify"{{if framework|equals>bigwheel}},
+      "envify"{{#is framework 'bigwheel'}},
       "browserify-shim",
-      "brfs"{{/if}}{{if useES6}},
+      "brfs"{{/is}}{{#if useES6}},
       "babelify"{{/if}}
     ]
-  }{{if framework|equals>bigwheel}},
+  }{{#is framework 'bigwheel'}},
   "browserify-shim": {
 
   },
-  "browser": {}{{/if}}
+  "browser": {}{{/is}}
 }

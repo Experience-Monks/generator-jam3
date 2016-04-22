@@ -10,7 +10,7 @@
     "url": "https://github.com/njam3"
   },
   "dependencies": {
-    "nyg": "^1.0.1"
+    "nyg": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {

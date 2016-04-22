@@ -4,4 +4,4 @@
  * Fonts go here, duh
  * ====================================================================
  */
-{{if css|equals>less}}@fonts: '@{ASSET_PATH}fonts/';{{/if}}{{if css|equals>scss}}$fonts: '#{$ASSET_PATH}fonts/';{{/if}}
+{{#is css 'less'}}@fonts: '@{ASSET_PATH}fonts/';{{/is}}{{#is css 'scss'}}$fonts: '#{$ASSET_PATH}fonts/';{{/is}}

@@ -17,7 +17,7 @@
       Header set Content-Encoding "gzip" env=is_gzip
     </IfModule>
 
-    {{if pushState}}
+    {{#if pushState}}
     # Push state support
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

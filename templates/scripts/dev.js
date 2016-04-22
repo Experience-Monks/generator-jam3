@@ -12,7 +12,7 @@ var b = budo(config.entry, {
   serve: config.bundle,
   open: true,
   dir: config.output,
-  stream: process.stdout{{if pushState}},
+  stream: process.stdout{{#if pushState}},
   pushstate: true{{/if}}
 });
 b.live();
