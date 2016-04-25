@@ -1,6 +1,7 @@
 {
   "development": {
     "entry": "./src/index.js",
+    "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",
@@ -10,6 +11,7 @@
   },
   "production": {
     "entry": "./src/index.js",
+    "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",

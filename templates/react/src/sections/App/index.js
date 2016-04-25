@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import { connect } from 'react-redux';
-import Preloader from '../../components/Preloader{{if sectionNames}}/Preloader{{/if}}';
+import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import {setReady, setProgress} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
 

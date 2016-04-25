@@ -6,6 +6,7 @@ var glob = require('glob');
 var mkdirp = require('mkdirp');
 var execFile = require('child_process').execFile;
 var pngquant = require('pngquant-bin');
+var render = require("./template");
 
 function copy(file) {
   if (file) {
@@ -34,15 +35,31 @@ function copyFile(outputDir,srcDir,file) {
     if (!err) {
       if (config.NODE_ENV==='production' && file.indexOf('.png')>-1){
         execFile(pngquant, ['-o', output, file], function (err) {
-          if(err) fs.createReadStream(file).pipe(fs.createWriteStream(output));
+          if (err) stream(file,output);
         });
       } else {
-        fs.createReadStream(file).pipe(fs.createWriteStream(output));
+        (srcDir === config.static) ? template(file,output) : stream(file,output);
       }
     } else {
-      console.log('could no create folder:',path.basename(file));
+      console.log('\x1b[31m could not create folder:',path.basename(file),'\x1b[0m');
     }
   });
+}
+
+function template(file,output) {
+  fs.readFile(file,'utf8',function(err,data) {
+    if (!err) {
+      fs.writeFile(output,render(data,config),function(err) {
+        if (err) console.log('\x1b[31m could not write file:',output,'\x1b[0m');
+      });
+    } else {
+      console.log('\x1b[31m could not read file:',file,'\x1b[0m');
+    }
+  });
+}
+
+function stream(file,output) {
+  fs.createReadStream(file).pipe(fs.createWriteStream(output));
 }
 
 if (!module.parent) {

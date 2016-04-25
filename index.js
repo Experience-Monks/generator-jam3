@@ -50,6 +50,11 @@ var prompts = [{
     name: "LESS",
     value: "less"
   }]
+},{
+  type: "confirm",
+  name: "vendor",
+  message: "Create vendor.js for dependencies?",
+  default: true
 }];
 var globs = [
   { base: 'templates/{{framework}}/' },
