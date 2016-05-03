@@ -48,7 +48,7 @@ class App extends React.Component {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  let section = ownProps.location.pathname.split('/')[0] || 'landing';
+  let section = ownProps.location.pathname.split('/')[1] || 'landing';
   return {
     progress: state.progress,
     ready: state.ready,
