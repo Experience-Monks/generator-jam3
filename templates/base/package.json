@@ -76,11 +76,11 @@
     "babel-preset-stage-1": "^6.5.0"{{/is}}{{/if}}
   },
   "browserify": {
-    "transform": [
-      "envify"{{#is framework 'bigwheel'}},
+    "transform": [{{#is framework 'bigwheel'}}
       "browserify-shim",
-      "brfs"{{/is}}{{#if useES6}},
-      "babelify"{{/if}}
+      "brfs",{{/is}}{{#if useES6}}
+      "babelify",{{/if}}
+      "envify"
     ]
   }{{#is framework 'bigwheel'}},
   "browserify-shim": {
