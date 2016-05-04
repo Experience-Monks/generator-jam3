@@ -3,4 +3,4 @@
 @import 'fonts.{{css}}';
 @import "global.{{css}}";
 @import "../sections/**/*.{{css}}";
-@import "../ui/**/*.{{css}}";
+{{#is framework 'bigwheel'}}@import "../ui/**/*.{{css}}";{{/is}}{{#is framework 'react'}}@import "../components/**/*.{{css}}";{{/is}}
