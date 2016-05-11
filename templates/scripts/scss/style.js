@@ -7,7 +7,7 @@ var postcss = require('postcss');
 var autoprefixer = require('autoprefixer');
 var sass = require('node-sass');
 var sassGlob = require('node-sass-glob');
-var sassPrefix = postcss([autoprefixer({browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']})]);
+var sassPrefix = postcss([autoprefixer({browsers: ['last 2 versions', 'Chrome >= 42', 'Firefox >= 37', 'iOS >= 7', 'Safari >= 5', 'Explorer >= 9']})]);
 var running = false;
 var sassOutput = path.basename(config.style).replace('.scss', '.css');
 var srcMapReg = new RegExp('\\/\\*# ?sourceMappingURL.+\\*\\/','g');

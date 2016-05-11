@@ -6,7 +6,7 @@ var mkdirp = require('mkdirp');
 var less = require('less');
 var lessGlobPlugin = require('less-plugin-glob');
 var lessPrefixPlugin = new(require('less-plugin-autoprefix'))({
-  browsers: ['last 2 versions', 'Chrome 42', 'Firefox 37', 'iOS 7', 'Safari 5', 'Explorer 8']
+  browsers: ['last 2 versions', 'Chrome >= 42', 'Firefox >= 37', 'iOS >= 7', 'Safari >= 5', 'Explorer >= 9']
 });
 
 var running = false;
