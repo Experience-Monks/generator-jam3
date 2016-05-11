@@ -29,7 +29,7 @@ class App extends React.Component {
   }
   getContent() {
     if (this.props.ready) {
-      return React.cloneElement(this.props.children, { key: this.props.section+'-'+Math.random(), width: this.state.width, height: this.state.height});
+      return React.cloneElement(this.props.children, { key: this.props.section, width: this.state.width, height: this.state.height});
     } else {
       return <Preloader 
         onProgress={this.props.onProgress}
