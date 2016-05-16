@@ -8,7 +8,6 @@
     "url": "https://github.com/Jam3"
   },
   "scripts": {
-    "install": "npm run start",
     "start": "npm run copy && npm run style && npm run dev",
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
