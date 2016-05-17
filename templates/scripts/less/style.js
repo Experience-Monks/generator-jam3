@@ -40,6 +40,7 @@ var createLess = function(callback) {
               });
             } else {
               console.error(err);
+              running = false;
             }
           });
         }

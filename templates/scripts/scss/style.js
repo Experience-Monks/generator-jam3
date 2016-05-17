@@ -49,6 +49,7 @@ var createSass = function (callback) {
               });
             } else {
               console.error(err);
+              running = false;
             }
           });
         }
