@@ -1,7 +1,7 @@
 /*
  * ====================================================================
- * vars.less
- * 	Used to set variables used throughout less files
+ * vars.{{css}}
+ * 	Used to set variables used throughout {{css}} files
  * ====================================================================
  */
 {{#is css 'less'}}@ASSET_PATH: './assets/';
