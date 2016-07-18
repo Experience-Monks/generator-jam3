@@ -53,19 +53,19 @@ var prompts = [{
 },{
   type: "confirm",
   name: "vendor",
-  message: "Create vendor.js for dependencies?",
+  message: "Seperate common npm modules into vendor.js?",
   default: true
 },{
   type: "list",
-  message: "What would you like to use for 'unsupported' page redirect?",
+  message: "How would you like to implement an unsupported page redirect?",
   name: "unsupported",
   choices: [{
     name: "PHP",
     value: "php"
   }, {
-      name: "None",
-      value: "none"
-    }]
+    name: "None",
+    value: "none"
+  }]
 }];
 var globs = [
   { base: 'templates/{{framework}}/' },
