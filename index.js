@@ -53,15 +53,29 @@ var prompts = [{
 },{
   type: "confirm",
   name: "vendor",
-  message: "Create vendor.js for dependencies?",
+  message: "Seperate common npm modules into vendor.js?",
   default: true
+},{
+  type: "list",
+  message: "How would you like to implement an unsupported page redirect?",
+  name: "unsupported",
+  choices: [{
+    name: "PHP",
+    value: "php"
+  }, {
+    name: "None",
+    value: "none"
+  }]
 }];
 var globs = [
   { base: 'templates/{{framework}}/' },
   { base: 'templates/', glob: 'scripts/*' },
   { base: 'templates/base/' },
   { base: 'templates/style/', output: 'src/style/' },
-  { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' }
+  { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
+  { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
+  { base: 'templates/unsupported/', glob: '*', output: 'static/' },
+  { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
 ];
 var gen = nyg(prompts,globs)
 .on('postprompt',function() {

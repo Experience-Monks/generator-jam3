@@ -26,3 +26,4 @@
     {{/if}}
 </ifModule>
 
+DirectoryIndex index.php index.html
