@@ -1,4 +1,4 @@
-<?
+<?php
 require('Browser.php');
 require('Mobile_Detect.php');
 
