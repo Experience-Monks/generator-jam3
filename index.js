@@ -26,11 +26,6 @@ var prompts = [{
   message: "What is your git repository? (GitHub Repository)",
   default: ""
 }, {
-  type: "input",
-  name: "password",
-  message: "Write the application password, leave blank to don't use password?",
-  default: ""
-}, {
   type: "list",
   message: "What framework will your project use?",
   name: "framework",
@@ -86,7 +81,13 @@ var globs = [
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
 ];
 var gen = nyg(prompts,globs)
-.on('postprompt',function() {
+.on('postprompt', onPostPrompt)
+.on('postcopy', onPostCopy)
+.run();
+
+//*************************** Event Handlers ***************************
+
+function onPostPrompt() {
   var repo = gen.config.get('repo').match('\/(.*?).git');
   gen.config.set('repoName', repo && repo[1] ? repo[1] : '');
   if (gen.config.get('framework')!=='none') {
@@ -110,19 +111,24 @@ var gen = nyg(prompts,globs)
               name: "useES6",
               message: "Would you like to use ES6?",
               default: true
-            },done);
+            }, function() {
+              passwordQuestion(gen, done);
+            });
           } else {
             gen.config.set('useES6',true);
-            done();
+            passwordQuestion(gen, done);
           }
         });
       } else {
-        done();
+        passwordQuestion(gen, done);
       }
     });
+  } else {
+    passwordQuestion(gen, done);
   }
-})
-.on('postcopy',function() {
+}
+
+function onPostCopy() {
   var done = gen.async();
   fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {
     if (gen.config.get('framework')!=='none') {
@@ -148,5 +154,26 @@ var gen = nyg(prompts,globs)
       addPasswordProtection(gen.cwd, gen.config.get('password'));
     }
   });
-})
-.run();
+}
+
+//*************************** Customs ***************************
+
+function passwordQuestion(gen, done) {
+  gen.prompt({
+    type: "input",
+    name: "password",
+    message: "Write the application password, leave blank to don't use password?",
+    default: ""
+  }, function() {
+    if (gen.config.get('password')!=='') {
+      gen.prompt({
+        type: "input",
+        name: "passLocation",
+        message: "Where do you want to save your .htpasswd file:",
+        default: "/var/www"
+      },done);
+    } else {
+      done();
+    }
+  });
+}
