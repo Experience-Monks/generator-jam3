@@ -144,7 +144,9 @@ var gen = nyg(prompts,globs)
     } else {
       fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
     }
-    addPasswordProtection(gen.cwd + '/static', gen.config.get('password'));
+    if (gen.config.get('password') !== '') {
+      addPasswordProtection(gen.cwd + '/static', gen.config.get('password'));
+    }
   });
 })
 .run();
