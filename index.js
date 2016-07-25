@@ -1,7 +1,10 @@
 var fs = require('fs');
 var path = require('path');
 var nyg = require('nyg');
+
 var createSections = require('./lib/createSections');
+var addPasswordProtection = require('./lib/addPasswordProtection.js');
+
 var prompts = [{
   type: "input",
   name: "author",
@@ -21,6 +24,11 @@ var prompts = [{
   type: "input",
   name: "repo",
   message: "What is your git repository? (GitHub Repository)",
+  default: ""
+}, {
+  type: "input",
+  name: "password",
+  message: "Write the application password, leave blank to don't use password?",
   default: ""
 }, {
   type: "list",
@@ -116,7 +124,7 @@ var gen = nyg(prompts,globs)
 })
 .on('postcopy',function() {
   var done = gen.async();
-  fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {   
+  fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {
     if (gen.config.get('framework')!=='none') {
       if (gen.config.get('useES6')) {
         gen.copy('templates/.babelrc','.babelrc',function() {
@@ -136,6 +144,7 @@ var gen = nyg(prompts,globs)
     } else {
       fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
     }
+    addPasswordProtection(gen.cwd + '/static', gen.config.get('password'));
   });
 })
 .run();
