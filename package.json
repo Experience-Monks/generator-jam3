@@ -12,7 +12,9 @@
   "dependencies": {
     "nyg": "^2.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "rimraf": "^2.5.2"
+  },
   "scripts": {
     "test": "node test/"
   },
