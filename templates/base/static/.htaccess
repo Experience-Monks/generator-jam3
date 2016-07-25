@@ -1,3 +1,12 @@
+# ----------------------------------------------------------------------
+# Authentication
+# AuthUserFile -> Must be an absolute path
+# ----------------------------------------------------------------------
+# AuthName "Restricted Area"
+# AuthType Basic
+# AuthUserFile /var/www/.htpasswd
+# Require valid-user
+
 <ifModule mod_rewrite.c>
     RewriteEngine On
     #Serve gzip compressed CSS files if they exist and the client accepts gzip.
