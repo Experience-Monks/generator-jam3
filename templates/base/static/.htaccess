@@ -34,3 +34,5 @@
     RewriteRule (.*) index.html [L,QSA]
     {{/if}}
 </ifModule>
+
+DirectoryIndex index.php index.html
