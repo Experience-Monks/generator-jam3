@@ -1,12 +1,15 @@
 <!doctype html>
 <html>
 <head>
+  {{#is unsupported 'php'}}
+  <?php
+    require('./lib/MetaTags.php');
+    $meta = new MetaTags('share-urls.json');
+    $meta->write();
+  ?>
+  {{/is}}
+  {{#is unsupported 'none'}}
   <title>{{repoName}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
-  {{#if unsupported}}
-  <!--php tags-->
-  {{else}}
   <meta name="description" content="">
   <!--
   Facebook metadata
@@ -31,7 +34,9 @@
   <meta name="twitter:title" content="">
   <meta name="twitter:description" content="">
   <meta name="twitter:image" content="">
-  {{/if}}
+  {{/is}}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
   <link rel="apple-touch-icon" href="/assets/images/appicon57x57.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/appicon72x72.png">
   <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/appicon57x57@2x.png">
