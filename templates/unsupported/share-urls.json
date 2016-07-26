@@ -1,0 +1,15 @@
+{
+  "default": {
+    "image": "",
+    "title": "",
+    "description": "",
+    "og:site_name": "",
+    "twitter:site": "",
+    "twitter:creator": ""
+  },
+  "root/subroute": {
+    "title": "",
+    "description": "",
+    "keywords": ""
+  }
+}
