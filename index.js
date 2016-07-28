@@ -1,7 +1,10 @@
 var fs = require('fs');
 var path = require('path');
 var nyg = require('nyg');
+
 var createSections = require('./lib/createSections');
+var Favicon = require('./lib/favicon.js');
+
 var prompts = [{
   type: "input",
   name: "author",
@@ -116,7 +119,7 @@ var gen = nyg(prompts,globs)
 })
 .on('postcopy',function() {
   var done = gen.async();
-  fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {   
+  fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {
     if (gen.config.get('framework')!=='none') {
       if (gen.config.get('useES6')) {
         gen.copy('templates/.babelrc','.babelrc',function() {
@@ -138,4 +141,13 @@ var gen = nyg(prompts,globs)
     }
   });
 })
+.on('postcopy', addFavicons)
 .run();
+
+function addFavicons() {
+  var fav = new Favicon('/lib/faviconDescription.json', path.join(gen.cwd,'faviconData.json'), './favicons');
+
+  fav.generate(function(){
+    // fav.inject(__dirname, 'index.html');
+  });
+}

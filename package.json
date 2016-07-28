@@ -10,7 +10,8 @@
     "url": "https://github.com/njam3"
   },
   "dependencies": {
-    "nyg": "^2.0.2"
+    "nyg": "^2.0.2",
+    "rfg-api": "^0.1.7"
   },
   "devDependencies": {},
   "scripts": {
