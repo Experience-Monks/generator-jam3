@@ -145,7 +145,7 @@ var gen = nyg(prompts,globs)
 .run();
 
 function addFavicons() {
-  var fav = new Favicon(path.join(__dirname,'lib/favicons/faviconDescription.json'), path.join(gen.cwd,'static/faviconData.json'), path.join(gen.cwd,'static/favicons'));
+  var fav = new Favicon(path.join(__dirname,'lib/favicons/faviconDescription.json'), path.join(gen.cwd,'static/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
 
   fav.generate(function(){
     fav.inject(path.join(gen.cwd,'static/index.html'));

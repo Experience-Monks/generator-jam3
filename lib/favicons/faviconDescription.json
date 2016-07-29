@@ -1,6 +1,6 @@
 {
   "masterPicture": "jam3.png",
-  "iconsPath": "/favicons",
+  "iconsPath": "/assets/images/favicons",
   "design": {
     "ios": {
       "pictureAspect": "noChange",
