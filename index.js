@@ -3,7 +3,7 @@ var path = require('path');
 var nyg = require('nyg');
 
 var createSections = require('./lib/createSections');
-var Favicon = require('./lib/favicon.js');
+var Favicon = require('./lib/favicons/favicons.js');
 
 var prompts = [{
   type: "input",
@@ -145,9 +145,9 @@ var gen = nyg(prompts,globs)
 .run();
 
 function addFavicons() {
-  var fav = new Favicon('/lib/faviconDescription.json', path.join(gen.cwd,'faviconData.json'), './favicons');
+  var fav = new Favicon(path.join(__dirname,'lib/favicons/faviconDescription.json'), path.join(gen.cwd,'static/faviconData.json'), path.join(gen.cwd,'static/favicons'));
 
   fav.generate(function(){
-    // fav.inject(__dirname, 'index.html');
+    fav.inject(path.join(gen.cwd,'static/index.html'));
   });
 }
