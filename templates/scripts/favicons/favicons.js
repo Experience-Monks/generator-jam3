@@ -77,5 +77,13 @@ function onGenerationComplete(onFinish, err, result) {
     });
 }
 
+if (!module.parent) {
+  var config = require('../config');
+  var fav = new Favicon(path.join(__dirname,'faviconDescription.json'), path.join(__dirname, 'faviconData.json'), path.join(config.raw,'images/favicons'));
 
-module.exports = Favicon;
+  fav.generate(function(){
+    fav.inject(path.join(config.static,'index.html'));
+  });
+} else {
+  module.exports = Favicon;
+}

@@ -3,7 +3,7 @@ var path = require('path');
 var nyg = require('nyg');
 
 var createSections = require('./lib/createSections');
-var Favicon = require('./lib/favicons/favicons.js');
+var Favicon = require('./templates/scripts/favicons/favicons.js');
 
 var prompts = [{
   type: "input",
@@ -76,6 +76,7 @@ var globs = [
   { base: 'templates/base/' },
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
+  { base: 'templates/scripts/favicons/', glob: '*', output: 'scripts/favicons/' },
   { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
   { base: 'templates/unsupported/', glob: '*', output: 'static/' },
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
@@ -145,7 +146,7 @@ var gen = nyg(prompts,globs)
 .run();
 
 function addFavicons() {
-  var fav = new Favicon(path.join(__dirname,'lib/favicons/faviconDescription.json'), path.join(gen.cwd,'static/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
+  var fav = new Favicon(path.join(gen.cwd,'scripts/favicons/faviconDescription.json'), path.join(gen.cwd,'scripts/favicons/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
 
   fav.generate(function(){
     fav.inject(path.join(gen.cwd,'static/index.html'));
