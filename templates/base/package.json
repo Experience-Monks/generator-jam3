@@ -12,8 +12,7 @@
     "start": "electron ./scripts/electron.dev.js --env=development",{{/is}}{{#is app 'no'}}
     "start": "npm run copy && npm run style && npm run dev", {{/is}}
     "copy": "node scripts/copy.js",
-    "style": "node scripts/style.js",{{#is app 'electron'}}
-    "dev": "node scripts/electron.dev.js",{{/is}} {{#is app 'no'}}
+    "style": "node scripts/style.js",{{#is app 'no'}}
     "dev": "node scripts/dev.js", {{/is}} {{#is app 'chrome'}} 
     "dev": "node scripts/chrome.dev.js", {{/is}} 
     "release": "npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",

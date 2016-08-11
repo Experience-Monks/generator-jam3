@@ -1,4 +1,5 @@
 'use strict';
+{{#is framework 'react'}}require('babel-polyfill');{{/is}}
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('../package.json');

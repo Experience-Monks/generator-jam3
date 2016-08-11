@@ -119,6 +119,7 @@ var gen = nyg(prompts,globs)
         });
       } else if(gen.config.get('app') === 'electron') {
         gen.config.set('pushState', false);
+        
         //node-sass not supported in electron yet
         gen.config.set('css', 'less');
         if (gen.config.get('framework')==='bigwheel') {

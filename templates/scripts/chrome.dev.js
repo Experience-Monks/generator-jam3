@@ -1,9 +1,5 @@
 'use strict';
 var tasks = require('./chrome.tasks');
-
-tasks('dev', run);
-
-'use strict';
 var path = require('path');
 var config = require('./config');
 var budo = require('budo');
@@ -12,6 +8,9 @@ var copy = require('./copy');
 
 process.env.NODE_ENV = config.NODE_ENV;
 process.env.ASSET_PATH = config.ASSET_PATH;
+
+tasks(process.env.NODE_ENV, run);
+
 function run() {
   var server = budo(config.entry, {
     serve: config.bundle,
