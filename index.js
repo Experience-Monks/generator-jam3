@@ -83,7 +83,7 @@ var gen = nyg(prompts,globs)
       message: "Would you perfer Landing/Landing.js over Landing/index.js?",
       default: false
     },function() {
-      if (gen.config.get('framework')!=='none' && gen.config.get('app') !== 'electron') {
+      if (gen.config.get('framework')!=='none' && ( gen.config.get('app') !== 'electron' && gen.config.get('app') !== 'chrome')) {
         gen.prompt({
           type: "confirm",
           name: "pushState",
@@ -118,9 +118,39 @@ var gen = nyg(prompts,globs)
             }  
           });
         });
-      } else if(gen.config.get('app') === 'electron') {
+      } 
+      else if(gen.config.get('app') === 'chrome') {
         gen.config.set('pushState', false);
-        
+        gen.prompt({
+          type: "list",
+          message: "What css preprocessor will your project use?",
+          name: "css",
+          choices: [
+          {
+            name: "SCSS",
+            value: "scss",
+            checked: true
+          },
+          {
+            name: "LESS",
+            value: "less"
+          }]
+        },function() {
+          if (gen.config.get('framework')==='bigwheel') {
+            gen.prompt({
+              type: "confirm",
+              name: "useES6",
+              message: "Would you like to use ES6?",
+              default: true
+            },done);
+          } else {
+            gen.config.set('useES6',true);
+            done();
+          }  
+        });
+      }
+      else if(gen.config.get('app') === 'electron') {
+        gen.config.set('pushState', false);
         //node-sass not supported in electron yet
         gen.config.set('css', 'less');
         if (gen.config.get('framework')==='bigwheel') {
