@@ -66,6 +66,7 @@ var globs = [
   { base: 'templates/base/' },
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
+  { base: 'templates/scripts/{{app}}/', glob: '*', output: 'scripts/' },
   { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
   { base: 'templates/unsupported/', glob: '*', output: 'static/' },
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
@@ -115,7 +116,7 @@ var gen = nyg(prompts,globs)
               gen.config.set('useES6',true);
               done();
             }  
-          })
+          });
         });
       } else if(gen.config.get('app') === 'electron') {
         gen.config.set('pushState', false);
