@@ -1,11 +1,15 @@
 {
   "development": {
     "entry": "./src/index.js",
-    "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},
-    "bundle": "bundle.js",
+    "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},{{#is app 'chrome'}}
+    "bundle": "./dev/bundle.js",{{/is}}{{#is app 'electron'}}
+    "bundle":  "bundle.js",{{/is}}{{#is app 'no'}}
+    "bundle":  "bundle.js",{{/is}}
     "static": "./static/",
-    "raw": "./raw-assets/",
-    "output": "./build/",
+    "raw": "./raw-assets/",{{#is app 'chrome'}}
+    "output": "./dev",{{/is}}{{#is app 'electron'}}
+    "output": "./build/",{{/is}}{{#is app 'no'}}
+    "output": "./build/",{{/is}}
     "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/"
   },

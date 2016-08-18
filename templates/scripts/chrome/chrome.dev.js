@@ -5,11 +5,15 @@ var config = require('./config');
 var budo = require('budo');
 var style = require('./style');
 var copy = require('./copy');
+var browserify = require('browserify');
+var fs = require('fs');
+var pkg = require('../package.json');
+var deps = Object.keys(pkg.dependencies);
 
-process.env.NODE_ENV = config.NODE_ENV;
-process.env.ASSET_PATH = config.ASSET_PATH;
-
-tasks(process.env.NODE_ENV, run);
+tasks.dev(function() {
+  copy();
+  style(run);  
+});
 
 function run() {
   var server = budo(config.entry, {
@@ -19,10 +23,12 @@ function run() {
     debug: true,
     dir: config.output,
     stream: process.stdout,
-    pushstate: true
+    pushstate: false
   });
-  server.watch(['**/*.{html,css,less,scss}',config.raw+'**/*.*'])
+  server.watch(['**/*.{html,css,less,scss,js}',config.raw+'**/*.*'])
   .on('watch',function(e,file) {
+    if(file.split('/')[0] === 'dev') return;
+    console.log(file);
     if (file.indexOf(path.basename(config.raw))>-1) {
       copy(file);
     } else if (file.indexOf('.less')>-1 || file.indexOf('.scss')>-1) {
@@ -30,7 +36,10 @@ function run() {
         server.reload('main.css');
       });
     } else {
-      server.reload(file);
+      copy();
+      style(function() {
+        rebuild(server.reload.bind(this, file));
+      })
     }
   })
   .on('pending', server.reload.bind(server))
@@ -38,4 +47,23 @@ function run() {
     server.reload(config.bundle);
   });  
   server.live();
+}
+
+function rebuild(cb) {
+  if (config.vendor && typeof config.vendor === 'string') {
+    browserify(config.entry).external(deps).bundle(function(err, buff) {
+      if(err) throw new Error(err.message);
+      fs.writeFileSync('dev/bundle.js', buff);
+      browserify().require(deps).bundle(function(err, buff) {
+        if(err) throw new Error(err.message);
+        fs.writeFileSync('dev/vendor.js', buff);
+      });
+    })
+  } else {
+    browserify(config.entry).bundle(function(err, buff) {
+      if(err) throw new Error(err.message);
+      fs.writeFileSync('dev/bundle.js', buff);
+      cb();    
+    });
+  }
 }
