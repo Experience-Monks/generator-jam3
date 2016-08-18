@@ -1,0 +1,34 @@
+{
+  "version": "0.0.0",
+  "name": "Name of app",
+  "manifest_version": 2,
+  "description": "Description of app",
+  "browser_action": {
+    "default_title": "Default app title",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/jam3Logo.png",
+    "48": "img/jam3Logo.png",
+    "128": "img/jam3Logo.png"
+  },
+  "web_accessible_resources": [
+    "background.html",
+    "bundle.js",
+    "inject.bundle.js",
+    "background.bundle.js"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": [
+      "content_script.js"
+    ]
+  }],
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": ["webRequest", "*://*/*", "activeTab", "tabs", "storage", "notifications"],
+  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 https://localhost:3000; connect-src http://localhost:3000 https://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src  data:;"
+}

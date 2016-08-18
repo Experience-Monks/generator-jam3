@@ -39,40 +39,35 @@ var prompts = [{
     value: "none"
   }]
 },{
-  type: "list",
-  message: "What css preprocessor will your project use?",
-  name: "css",
-  choices: [{
-    name: "SCSS",
-    value: "scss",
-    checked: true
-  },{
-    name: "LESS",
-    value: "less"
-  }]
-},{
   type: "confirm",
   name: "vendor",
   message: "Seperate common npm modules into vendor.js?",
   default: true
 },{
   type: "list",
-  message: "How would you like to implement an unsupported page redirect?",
-  name: "unsupported",
+  message: "Is your project an app?",
+  name: "app",
+  default: 'no',
   choices: [{
-    name: "PHP",
-    value: "php"
+    name: "No",
+    value: 'no'
+  },{
+    name: "Electron App",
+    value: "electron"
   }, {
-    name: "None",
-    value: "none"
+    name: "Chrome Extension",
+    value: "chrome"
   }]
-}];
+}
+];
 var globs = [
   { base: 'templates/{{framework}}/' },
   { base: 'templates/', glob: 'scripts/*' },
   { base: 'templates/base/' },
   { base: 'templates/style/', output: 'src/style/' },
-  { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
+  { base: 'templates/{{app}}', output: 'chrome/' },
+  { base: 'templates/scripts/{{css}}/',  output: 'scripts/' },
+  { base: 'templates/scripts/{{app}}/', glob: '*', output: 'scripts/' },
   { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
   { base: 'templates/unsupported/', glob: '*', output: 'static/' },
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
@@ -89,12 +84,58 @@ var gen = nyg(prompts,globs)
       message: "Would you perfer Landing/Landing.js over Landing/index.js?",
       default: false
     },function() {
-      if (gen.config.get('framework')!=='none') {
+      if (gen.config.get('framework')!=='none' && ( gen.config.get('app') !== 'electron' && gen.config.get('app') !== 'chrome')) {
         gen.prompt({
           type: "confirm",
           name: "pushState",
           message: "Use push states?",
           default: true
+        },function() {
+          gen.prompt({
+            type: "list",
+            message: "What css preprocessor will your project use?",
+            name: "css",
+            choices: [
+            {
+              name: "SCSS",
+              value: "scss",
+              checked: true
+            },
+            {
+              name: "LESS",
+              value: "less"
+            }]
+          },function() {
+            if (gen.config.get('framework')==='bigwheel') {
+              gen.prompt({
+                type: "confirm",
+                name: "useES6",
+                message: "Would you like to use ES6?",
+                default: true
+              },done);
+            } else {
+              gen.config.set('useES6',true);
+              done();
+            }  
+          });
+        });
+      } 
+      else if(gen.config.get('app') === 'chrome') {
+        gen.config.set('pushState', false);
+        gen.prompt({
+          type: "list",
+          message: "What css preprocessor will your project use?",
+          name: "css",
+          choices: [
+          {
+            name: "SCSS",
+            value: "scss",
+            checked: true
+          },
+          {
+            name: "LESS",
+            value: "less"
+          }]
         },function() {
           if (gen.config.get('framework')==='bigwheel') {
             gen.prompt({
@@ -106,8 +147,24 @@ var gen = nyg(prompts,globs)
           } else {
             gen.config.set('useES6',true);
             done();
-          }
+          }  
         });
+      }
+      else if(gen.config.get('app') === 'electron') {
+        gen.config.set('pushState', false);
+        //node-sass not supported in electron yet
+        gen.config.set('css', 'less');
+        if (gen.config.get('framework')==='bigwheel') {
+          gen.prompt({
+            type: "confirm",
+            name: "useES6",
+            message: "Would you like to use ES6?",
+            default: true
+          },done);
+        } else {
+          gen.config.set('useES6',true);
+          done();
+        }
       } else {
         done();
       }
