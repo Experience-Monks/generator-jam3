@@ -3,8 +3,8 @@
 <head>
   {{#is unsupported 'php'}}
   <?php
-    require('./lib/MetaTags.php');
-    $meta = new MetaTags('share-urls.json');
+    require('./lib/Meta.php');
+    $meta = new Meta('share-urls.json');
     $meta->write();
   ?>
   {{/is}}
