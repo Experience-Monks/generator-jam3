@@ -162,14 +162,14 @@ function passwordQuestion(gen, done) {
   gen.prompt({
     type: "input",
     name: "password",
-    message: "Write the application password, leave blank to don't use password?",
+    message: "Choose the password to use for password protection. (leave blank to disable)",
     default: ""
   }, function() {
     if (gen.config.get('password')!=='') {
       gen.prompt({
         type: "input",
         name: "passLocation",
-        message: "Where do you want to save your .htpasswd file:",
+        message: "Where on the server will your .htpasswd be located?",
         default: "/var/www"
       },done);
     } else {
