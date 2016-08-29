@@ -7,6 +7,7 @@ var mkdirp = require('mkdirp');
 var execFile = require('child_process').execFile;
 var pngquant = require('pngquant-bin');
 var render = require("./template");
+var isbinaryfile = require('isbinaryfile');
 
 function copy(file) {
   if (file) {
@@ -38,7 +39,7 @@ function copyFile(outputDir,srcDir,file) {
           if (err) stream(file,output);
         });
       } else {
-        (srcDir === config.static) ? template(file,output) : stream(file,output);
+        (srcDir === config.static && !isbinaryfile.sync(file)) ? template(file,output) : stream(file,output);
       }
     } else {
       console.log('\x1b[31m could not create folder:',path.basename(file),'\x1b[0m');
