@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var nyg = require('nyg');
+var spawn = require('cross-spawn');
 
 var createSections = require('./lib/createSections');
 var Favicon = require('./templates/scripts/favicons/favicons.js');
@@ -43,6 +44,24 @@ var prompts = [{
     value: "none"
   }]
 },{
+  type: "confirm",
+  name: "sectionNames",
+  message: "Would you perfer Landing/Landing.js over Landing/index.js?",
+  default: false,
+  when: function(answers) { return answers.framework!=='none'; }
+},{
+  type: "confirm",
+  name: "pushState",
+  message: "Use push states?",
+  default: true,
+  when: function(answers) { return answers.framework!=='none'; }
+},{
+  type: "confirm",
+  name: "useES6",
+  message: "Would you like to use ES6?",
+  default: true,
+  when: function(answers) { return answers.framework==='bigwheel' || answers.framework==='none'; }
+},{
   type: "list",
   message: "What css preprocessor will your project use?",
   name: "css",
@@ -70,6 +89,17 @@ var prompts = [{
     name: "None",
     value: "none"
   }]
+},{
+  type: "input",
+  name: "password",
+  message: "Choose the password to use for password protection. (leave blank to disable)",
+  default: ""
+},{
+  type: "input",
+  name: "passLocation",
+  message: "Where on the server will your .htpasswd be located?",
+  default: "/var/www",
+  when: function(answers) { return answers.password!==''; }
 }];
 var globs = [
   { base: 'templates/{{framework}}/' },
@@ -85,6 +115,7 @@ var globs = [
 var gen = nyg(prompts,globs)
 .on('postprompt', onPostPrompt)
 .on('postcopy', onPostCopy)
+.on('postinstall', onPostInstall)
 .run();
 
 //*************************** Event Handlers ***************************
@@ -92,42 +123,7 @@ var gen = nyg(prompts,globs)
 function onPostPrompt() {
   var repo = gen.config.get('repo').match('\/(.*?).git');
   gen.config.set('repoName', repo && repo[1] ? repo[1] : '');
-  if (gen.config.get('framework')!=='none') {
-    var done = gen.async();
-    gen.prompt({
-      type: "confirm",
-      name: "sectionNames",
-      message: "Would you perfer Landing/Landing.js over Landing/index.js?",
-      default: false
-    },function() {
-      if (gen.config.get('framework')!=='none') {
-        gen.prompt({
-          type: "confirm",
-          name: "pushState",
-          message: "Use push states?",
-          default: true
-        },function() {
-          if (gen.config.get('framework')==='bigwheel') {
-            gen.prompt({
-              type: "confirm",
-              name: "useES6",
-              message: "Would you like to use ES6?",
-              default: true
-            }, function() {
-              passwordQuestion(gen, done);
-            });
-          } else {
-            gen.config.set('useES6',true);
-            passwordQuestion(gen, done);
-          }
-        });
-      } else {
-        passwordQuestion(gen, done);
-      }
-    });
-  } else {
-    passwordQuestion(gen, done);
-  }
+  if (gen.config.get('framework')!=='none' && gen.config.get('framework')!=='bigwheel') gen.config.set('useES6',true);
 }
 
 function onPostCopy() {
@@ -150,41 +146,28 @@ function onPostCopy() {
         createSections(gen,done);
       }
     } else {
-      fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
+      fs.writeFile(path.join(gen.cwd,'src/index.js'),'',function() {
+        if (gen.config.get('useES6')) {
+          gen.copy('templates/.babelrc','.babelrc',done);
+        } else {
+          done();
+        }
+      });
     }
     if (gen.config.get('password') !== '') {
       addPasswordProtection(gen.cwd, gen.config.get('password'));
     }
-    addFavicons();
   });
 }
 
-//*************************** Customs ***************************
-function passwordQuestion(gen, done) {
-  gen.prompt({
-    type: "input",
-    name: "password",
-    message: "Choose the password to use for password protection. (leave blank to disable)",
-    default: ""
-  }, function() {
-    if (gen.config.get('password')!=='') {
-      gen.prompt({
-        type: "input",
-        name: "passLocation",
-        message: "Where on the server will your .htpasswd be located?",
-        default: "/var/www"
-      },done);
-    } else {
-      done();
-    }
+function onPostInstall() {
+  var done = gen.async();
+  var npm = spawn('npm', ['run','favicons'], {cwd: gen.cwd, stdio: 'inherit'});
+  npm.on('error',function() {
+    console.log(arguments);
   });
-};
-function addFavicons() {
-  var fav = new Favicon(path.join(gen.cwd,'scripts/favicons/faviconDescription.json'), path.join(gen.cwd,'scripts/favicons/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
-  fav.generate(function(){
-    fav.inject(path.join(gen.cwd,'static/index.html'));
-    fs.exists(path.join(gen.cwd,'static/main.php'),function(exists) {
-      if (exists) fav.inject(path.join(gen.cwd,'static/main.php'));
-    });
+  npm.on('close',function(code) {
+    if (code!==0) console.log(new Error('npm run favicons exited with non-zero code ' + code + '. Please try running "npm run favicons" again as administrator.'));
+    done();
   });
-};
+}
