@@ -1,0 +1,15 @@
+{
+  "default": {
+    "image": "",
+    "title": "{{repoName}}",
+    "description": "{{description}}",
+    "og:site_name": "",
+    "twitter:site": "",
+    "twitter:creator": ""
+  },
+  "/route/subroute": {
+    "title": "",
+    "description": "",
+    "keywords": ""
+  }
+}

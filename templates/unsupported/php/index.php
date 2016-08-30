@@ -14,5 +14,5 @@ if (
   ) {
     header('Location: ' . 'unsupported.html');
 } else {
-  require('index.html');
+  require('main.php');
 }
