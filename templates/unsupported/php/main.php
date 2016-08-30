@@ -1,31 +1,12 @@
 <!doctype html>
 <html>
 <head>
+  <?php
+    require('./lib/Meta.php');
+    $meta = new Meta('share.json');
+    $meta->write();
+  ?>
   <title>{{repoName}}</title>
-  <meta name="description" content="">
-  <!--
-  Facebook metadata
-  Info: https://developers.facebook.com/docs/sharing/webmasters
-  Validator: https://developers.facebook.com/tools/debug/
-  -->
-  <meta property="og:title" content="">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:description" content="">
-  <meta property="og:site_name" content="">
-  <meta property="og:locale" content="en_US">
-  <!--
-  Twitter metadata
-  Info: https://dev.twitter.com/cards/overview
-  Validator: https://cards-dev.twitter.com/validator
-  -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="">
-  <meta name="twitter:creator" content="">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="">
-  <meta name="twitter:image" content="">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
   <link rel="apple-touch-icon" href="/assets/images/appicon57x57.png">
