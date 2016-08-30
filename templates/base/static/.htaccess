@@ -1,14 +1,12 @@
-# ----------------------------------------------------------------------
-# Authentication
-# AuthUserFile -> Must be an absolute path
-# ----------------------------------------------------------------------
-# AuthName "Restricted Area"
-# AuthType Basic
-# AuthUserFile /var/www/.htpasswd
-# Require valid-user
-
 <ifModule mod_rewrite.c>
     RewriteEngine On
+
+    # Force HTTPS
+    # RewriteCond %{HTTP:X-Forwarded-Proto} =http [OR]
+    # RewriteCond %{HTTP:X-Forwarded-Proto} =""
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     #Serve gzip compressed CSS files if they exist and the client accepts gzip.
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s

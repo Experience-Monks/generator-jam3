@@ -17,24 +17,13 @@ Favicon.prototype.generate = function(onFinish){
 
 Favicon.prototype.inject = function(filename) {
   fs.readFile(this.data, function(err, data){
-    if (err) {
-      throw err;
-    }
-
+    if (err) console.log(err);
     var content = JSON.parse(data).favicon.html_code;
-
     fs.readFile(filename, function(err, markups){
-      if (err) {
-        throw err;
-      }
-
+      if (err) console.log(err);
       rfg.injectFaviconMarkups(markups, content, null, function(err, finalContent) {
         fs.writeFile(filename, finalContent, function(err) {
-          if (err) {
-            throw err;
-          }
-
-          console.log('Favicons injection completed');
+          if (err) console.log(err)
         })
       });
     });
@@ -42,10 +31,7 @@ Favicon.prototype.inject = function(filename) {
 }
 
 function onReadDescriptionFile(onFinish, err, desc) {
-  if (err) {
-    throw err;
-  }
-
+  if (err) console.log(err);
   var favicon = JSON.parse(desc);
 
   var opts = {
@@ -58,21 +44,14 @@ function onReadDescriptionFile(onFinish, err, desc) {
   };
 
   var request = rfg.createRequest(opts);
-
   rfg.generateFavicon(request, this.favOutput, onGenerationComplete.bind(this, onFinish));
 }
 
 function onGenerationComplete(onFinish, err, result) {
-  if (err) {
-    throw err;
-  }
+  if (err) console.log(err);
 
   fs.writeFile(this.data, JSON.stringify(result), function(err) {
-      if (err) {
-        throw err;
-      }
-
-      console.log("Favicons generation completed");
+      if (err) console.log(err);
       onFinish();
     });
 }
@@ -83,6 +62,9 @@ if (!module.parent) {
 
   fav.generate(function(){
     fav.inject(path.join(config.static,'index.html'));
+    fs.exists(path.join(config.static,'main.php'),function(exists) {
+      if (exists) fav.inject(path.join(config.static,'main.php'));
+    });
   });
 } else {
   module.exports = Favicon;

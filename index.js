@@ -4,6 +4,7 @@ var nyg = require('nyg');
 
 var createSections = require('./lib/createSections');
 var Favicon = require('./templates/scripts/favicons/favicons.js');
+var addPasswordProtection = require('./lib/addPasswordProtection.js');
 
 var prompts = [{
   type: "input",
@@ -82,7 +83,13 @@ var globs = [
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
 ];
 var gen = nyg(prompts,globs)
-.on('postprompt',function() {
+.on('postprompt', onPostPrompt)
+.on('postcopy', onPostCopy)
+.run();
+
+//*************************** Event Handlers ***************************
+
+function onPostPrompt() {
   var repo = gen.config.get('repo').match('\/(.*?).git');
   gen.config.set('repoName', repo && repo[1] ? repo[1] : '');
   if (gen.config.get('framework')!=='none') {
@@ -106,19 +113,24 @@ var gen = nyg(prompts,globs)
               name: "useES6",
               message: "Would you like to use ES6?",
               default: true
-            },done);
+            }, function() {
+              passwordQuestion(gen, done);
+            });
           } else {
             gen.config.set('useES6',true);
-            done();
+            passwordQuestion(gen, done);
           }
         });
       } else {
-        done();
+        passwordQuestion(gen, done);
       }
     });
+  } else {
+    passwordQuestion(gen, done);
   }
-})
-.on('postcopy',function() {
+}
+
+function onPostCopy() {
   var done = gen.async();
   fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {
     if (gen.config.get('framework')!=='none') {
@@ -140,15 +152,39 @@ var gen = nyg(prompts,globs)
     } else {
       fs.writeFile(path.join(gen.cwd,'src/index.js'),'',done);
     }
-  });
-})
-.on('postcopy', addFavicons)
-.run();
-
-function addFavicons() {
-  var fav = new Favicon(path.join(gen.cwd,'scripts/favicons/faviconDescription.json'), path.join(gen.cwd,'scripts/favicons/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
-
-  fav.generate(function(){
-    fav.inject(path.join(gen.cwd,'static/index.html'));
+    if (gen.config.get('password') !== '') {
+      addPasswordProtection(gen.cwd, gen.config.get('password'));
+    }
+    addFavicons();
   });
 }
+
+//*************************** Customs ***************************
+function passwordQuestion(gen, done) {
+  gen.prompt({
+    type: "input",
+    name: "password",
+    message: "Choose the password to use for password protection. (leave blank to disable)",
+    default: ""
+  }, function() {
+    if (gen.config.get('password')!=='') {
+      gen.prompt({
+        type: "input",
+        name: "passLocation",
+        message: "Where on the server will your .htpasswd be located?",
+        default: "/var/www"
+      },done);
+    } else {
+      done();
+    }
+  });
+};
+function addFavicons() {
+  var fav = new Favicon(path.join(gen.cwd,'scripts/favicons/faviconDescription.json'), path.join(gen.cwd,'scripts/favicons/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
+  fav.generate(function(){
+    fav.inject(path.join(gen.cwd,'static/index.html'));
+    fs.exists(path.join(gen.cwd,'static/main.php'),function(exists) {
+      if (exists) fav.inject(path.join(gen.cwd,'static/main.php'));
+    });
+  });
+};
