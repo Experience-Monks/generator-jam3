@@ -1,8 +1,8 @@
 {
   "default": {
     "image": "",
-    "title": "",
-    "description": "",
+    "title": "{{repoName}}",
+    "description": "{{description}}",
     "og:site_name": "",
     "twitter:site": "",
     "twitter:creator": ""

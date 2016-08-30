@@ -7,7 +7,8 @@
     "raw": "./raw-assets/",
     "output": "./build/",
     "style": "./src/style/main.{{css}}",
-    "ASSET_PATH": "./assets/"
+    "ASSET_PATH": "./assets/",
+    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
   },
   "production": {
     "entry": "./src/index.js",
@@ -17,7 +18,8 @@
     "raw": "./raw-assets/",
     "output": "./release/",
     "style": "./src/style/main.{{css}}",
-    "ASSET_PATH": "./assets/"
+    "ASSET_PATH": "./assets/",
+    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
   }
 }
 
