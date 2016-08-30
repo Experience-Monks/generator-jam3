@@ -3,6 +3,7 @@ var path = require('path');
 var nyg = require('nyg');
 
 var createSections = require('./lib/createSections');
+var Favicon = require('./templates/scripts/favicons/favicons.js');
 var addPasswordProtection = require('./lib/addPasswordProtection.js');
 
 var prompts = [{
@@ -76,6 +77,7 @@ var globs = [
   { base: 'templates/base/' },
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
+  { base: 'templates/scripts/favicons/', glob: '*', output: 'scripts/favicons/' },
   { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
   { base: 'templates/unsupported/', glob: '*', output: 'static/' },
   { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
@@ -153,11 +155,11 @@ function onPostCopy() {
     if (gen.config.get('password') !== '') {
       addPasswordProtection(gen.cwd, gen.config.get('password'));
     }
+    addFavicons();
   });
 }
 
 //*************************** Customs ***************************
-
 function passwordQuestion(gen, done) {
   gen.prompt({
     type: "input",
@@ -176,4 +178,13 @@ function passwordQuestion(gen, done) {
       done();
     }
   });
-}
+};
+function addFavicons() {
+  var fav = new Favicon(path.join(gen.cwd,'scripts/favicons/faviconDescription.json'), path.join(gen.cwd,'scripts/favicons/faviconData.json'), path.join(gen.cwd,'raw-assets/images/favicons'));
+  fav.generate(function(){
+    fav.inject(path.join(gen.cwd,'static/index.html'));
+    fs.exists(path.join(gen.cwd,'static/main.php'),function(exists) {
+      if (exists) fav.inject(path.join(gen.cwd,'static/main.php'));
+    });
+  });
+};

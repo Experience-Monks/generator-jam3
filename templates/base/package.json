@@ -18,7 +18,8 @@
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production",
     "release-clean": "node scripts/clean.js --env=production",
-    "lowercase": "node scripts/lowercase.js"
+    "lowercase": "node scripts/lowercase.js",
+    "favicons": "node scripts/favicons/favicons.js"
   },
   "license": "ISC",
   "repository": "{{repo}}",
@@ -62,6 +63,7 @@
     "node-sass-glob": "^1.0.4",{{/is}}
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "rfg-api": "^0.1.7",
     "pngquant-bin": "^3.0.0",
     "uglify-js": "^2.6.1",{{#is framework 'bigwheel'}}
     "brfs": "^1.2.0",
