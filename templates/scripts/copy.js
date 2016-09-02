@@ -9,6 +9,8 @@ var pngquant = require('pngquant-bin');
 var render = require("./template");
 var isbinaryfile = require('isbinaryfile');
 
+var blacklist = (config.templateBlacklist || []).map(path.normalize);
+
 function copy(file) {
   if (file) {
     copyFile(path.join(config.output,'assets/'),config.raw,file);
@@ -30,16 +32,25 @@ function copy(file) {
   }
 }
 
+function isBlacklisted(file) {
+  return blacklist.some(function(path) {
+    return file.indexOf(path) >= 0;
+  });
+}
+
 function copyFile(outputDir,srcDir,file) {
-  var output = path.join(outputDir,path.normalize(file).replace(path.normalize(srcDir),''));
+  file = path.normalize(file);
+  var output = path.join(outputDir,file.replace(path.normalize(srcDir),''));
   mkdirp(path.dirname(output),function(err) {
     if (!err) {
       if (config.NODE_ENV==='production' && file.indexOf('.png')>-1){
         execFile(pngquant, ['-o', output, file], function (err) {
           if (err) stream(file,output);
         });
+      } else if(srcDir === config.static && !isBlacklisted(file) && !isbinaryfile.sync(file)) {
+        template(file,output);
       } else {
-        (srcDir === config.static && !isbinaryfile.sync(file)) ? template(file,output) : stream(file,output);
+        stream(file,output);
       }
     } else {
       console.log('\x1b[31m could not create folder:',path.basename(file),'\x1b[0m');
