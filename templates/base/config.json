@@ -1,25 +1,19 @@
 {
-  "development": {
+  "defaults": {
     "entry": "./src/index.js",
     "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},
     "bundle": "bundle.js",
     "static": "./static/",
     "raw": "./raw-assets/",
-    "output": "./build/",
     "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/",
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
   },
+  "development": {
+    "output": "./build/"
+  },
   "production": {
-    "entry": "./src/index.js",
-    "vendor": {{#if vendor}}"vendor.js"{{else}}false{{/if}},
-    "bundle": "bundle.js",
-    "static": "./static/",
-    "raw": "./raw-assets/",
-    "output": "./release/",
-    "style": "./src/style/main.{{css}}",
-    "ASSET_PATH": "./assets/",
-    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
+    "output": "./release/"
   }
 }
 
