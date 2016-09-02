@@ -7,6 +7,7 @@
     "raw": "./raw-assets/",
     "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/",
+    "templateBlacklist": [],
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
   },
   "development": {
