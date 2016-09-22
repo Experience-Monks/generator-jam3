@@ -5,5 +5,5 @@
  * ====================================================================
  */
 {{#is css 'less'}}@ASSET_PATH: './assets/';
-@images: '@{ASSET_PATH}images/';{{/is}}{{#is css 'scss'}}$ASSET_PATH: './assets/';
+@images: '@{ASSET_PATH}images/';{{/is}}{{#is css 'scss'}}$ASSET_PATH: './assets/' !default;
 $images: '#{$ASSET_PATH}images/';{{/is}}

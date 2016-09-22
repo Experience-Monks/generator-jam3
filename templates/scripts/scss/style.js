@@ -19,9 +19,9 @@ var createSass = function (callback) {
     if (!err) {
       mkdirp(path.basename(config.output), function (err) {
         if (!err) {
-          data += createModifyVars({
+          data = createModifyVars({
             ASSET_PATH: config.ASSET_PATH
-          });
+          }) + data;
           sass.render({
             data: data,
             file: config.style,
@@ -62,7 +62,7 @@ function createModifyVars(vars) {
   Object.keys(vars).map(function (cur) {
     str += '$' + cur + ':\'' + vars[cur] + '\';';
   });
-  return (str != '') ? '\n' + str : '';
+  return (str != '') ? str+'\n' : '';
 }
 if (!module.parent) {
   createSass();
