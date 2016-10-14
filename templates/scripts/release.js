@@ -16,11 +16,7 @@ var post = function(file,src) {
   mkdirp(config.output,function(err) {
     if (!err) {
       try {
-        if (config.minify) {
-          var min = uglify.minify(src.toString(),{fromString: true, compress: {drop_console: true}});
-        } else {
-          var min = {code: src.toString()};
-        }
+        var min = uglify.minify(src.toString(),{fromString: true, compress: {drop_console: true}});
       } catch(err) {
         fs.writeFile(path.join(config.output,file),src.toString(),function(e) {
           console.log('\x1b[31m Error at line',err.line+':',err.message+'\x1b[0m');

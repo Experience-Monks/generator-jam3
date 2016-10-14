@@ -14,8 +14,7 @@
     "output": "./build/"
   },
   "production": {
-    "output": "./release/",
-    "minify": true
+    "output": "./release/"
   }
 }
 
