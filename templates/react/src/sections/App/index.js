@@ -1,6 +1,7 @@
 'use strict';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Perf } from 'react/addons';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import {setReady, setProgress} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
@@ -23,6 +24,10 @@ class App extends React.Component {
   componentWillMount() {
     window.addEventListener('resize',this.onResize);
     this.onResize();
+
+    if (CONFIG.NODE_ENV === 'development') {
+      window.React = React;
+    }
   }
   componentWillUnmount() {
     window.removeEventListener('resize',this.onResize);
