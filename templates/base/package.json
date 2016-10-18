@@ -80,10 +80,10 @@
   },
   "browserify": {
     "transform": [
-      "envify",
-      {{#is framework 'bigwheel'}}"browserify-shim",{{/is}}
-      {{#if useES6}}"babelify",{{/if}}
-      {{#is framework 'react'}}["stringify", {"extensions": [".svg"], "minify": true}],{{/is}}
+      "envify",{{#is framework 'bigwheel'}}
+      "browserify-shim",{{/is}}{{#if useES6}}
+      "babelify",{{/if}}{{#is framework 'react'}}
+      ["stringify", {"extensions": [".svg"], "minify": true}],{{/is}}
       "brfs"
     ]
   }{{#is framework 'bigwheel'}},
