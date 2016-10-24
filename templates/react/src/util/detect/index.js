@@ -54,11 +54,10 @@ var checkManufacturer = function() {
   return man.toLowerCase();
 };
 
-var getClassName = function() {
-  var className = (md.mobile()) ? (checkManufacturer() + ' ') : '';
-  className += checkDevice() + ' ' + (utilOS.os()).replace(/\s/g, '_').toLocaleLowerCase() + ' x' + checkDevicePixelRatio() + ' ' + checkBrowser() + ' ' + utilBrowser.checkVersion();
-  console.log('detect: ', className);
-  return ' ' + className;
+var getClasses = function() {
+  var classes = [checkDevice(), 'x' + checkDevicePixelRatio(), checkBrowser(), utilBrowser.checkVersion(), (utilOS.os()).replace(/\s/g, '_').toLocaleLowerCase()];
+  if (md.mobile()) classes.push(checkManufacturer());
+  return classes.filter(function(cur) { return !!cur; });
 };
 
 module.exports = {
@@ -70,7 +69,7 @@ module.exports = {
   browserVersion: utilBrowser.checkVersion(),
   manufacturer: checkManufacturer(),
   devicePixelRatio: checkDevicePixelRatio(),
-  className: getClassName(),
+  classes: getClasses(),
   isMobile: (md.mobile() ? true : false),
   isPhone: (md.phone() ? true : false),
   isTablet: (md.tablet() ? true : false),

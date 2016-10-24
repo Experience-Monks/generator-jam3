@@ -5,7 +5,7 @@ import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{
 import RotateScreen from '../../components/RotateScreen/RotateScreen';
 import {setReady, setProgress} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
-import detect from '../../util/detect';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -23,11 +23,6 @@ class App extends React.Component {
     });
   }
   componentWillMount() {
-    detect.className.split(' ').forEach((className) => {
-      className && document.documentElement.classList.add(className);
-      className && document.body.classList.add(className);
-    });
-
     window.addEventListener('resize',this.onResize);
     this.onResize();
   }

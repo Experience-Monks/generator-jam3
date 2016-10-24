@@ -15,18 +15,18 @@ process.env.ASSET_PATH = config.ASSET_PATH;
 var post = function(file,src) {
   mkdirp(config.output,function(err) {
     if (!err) {
-      try {
-        var min = uglify.minify(src.toString(),{fromString: true, compress: {drop_console: true}});
-      } catch(err) {
-        fs.writeFile(path.join(config.output,file),src.toString(),function(e) {
+      var code = src.toString();
+      if (config.minify) {
+        try {
+          var min = uglify.minify(code,{fromString: true, compress: {drop_console: config.removeLogs===false ? false : true}});
+          code = min.code;
+        } catch(err) {
           console.log('\x1b[31m Error at line',err.line+':',err.message+'\x1b[0m');
-        });
+        }
       }
-      if (min) {
-        fs.writeFile(path.join(config.output,file),min.code,function(err) {
-          console.log((err) ? '\x1b[31m Failed to output '+file+'\x1b[0m' : '\x1b[32m '+file+' created successfully.\x1b[0m');
-        });
-      }
+      fs.writeFile(path.join(config.output,file),code,function(err) {
+        console.log((err) ? '\x1b[31m Failed to output '+file+'\x1b[0m' : '\x1b[32m '+file+' created successfully.\x1b[0m');
+      });
     } else {
       console.log('\x1b[31m Cannot create ouput folder\x1b[0m');
     }
