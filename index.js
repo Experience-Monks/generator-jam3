@@ -134,8 +134,10 @@ function onPostCopy() {
         gen.copy('templates/.babelrc','.babelrc',function() {
           if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
             fs.rename(path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js'), function() {
-              fs.rename(path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js'), function() {
-                createSections(gen,done);
+              fs.rename(path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js'), function() {
+                fs.rename(path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js'), function() {
+                  createSections(gen,done);
+                });
               });
             });
           } else {
