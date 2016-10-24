@@ -1,12 +1,12 @@
 'use strict';
 import React from 'react';
+import Perf from 'react-addons-perf';
 import {render} from 'react-dom';
 import {Router, Route, IndexRoute, IndexRedirect, {{#if pushState}}browserHistory{{else}}hashHistory{{/if}}, Redirect} from 'react-router';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import {Provider} from 'react-redux';
 
 import store from '../store';
-import DevTools from '../components/DevTools';
 import App from '../sections/App{{#if sectionNames}}/App{{/if}}';
 import Landing from '../sections/Landing{{#if sectionNames}}/Landing{{/if}}';
 
@@ -16,17 +16,15 @@ export default function() {
   var container = document.createElement('div');
   container.id = 'container';
   document.body.appendChild(container);
+  if (process.env.NODE_ENV === 'development') window.Perf = Perf;
 
   render((
     <Provider store={store}>
-      <div id="content">
-        <Router history={history}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Landing} />
-          </Route>
-        </Router>
-        <DevTools />
-      </div>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Landing} />
+        </Route>
+      </Router>
     </Provider>
   ),container);
 };

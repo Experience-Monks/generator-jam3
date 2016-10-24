@@ -78,6 +78,8 @@ $ASSET_PATH: 'images/'; // This variable will be changed by a script when pushin
 ```javascript
 var filePath = settings.ASSET_PATH + 'fancy/fancy-graphic.png';
 ```
+{{#is framework 'react'}}
+To debug Redux, use this browser extension: http://zalmoxisus.github.io/redux-devtools-extension/  {{/is}}
 
 ## DEPLOYMENT
 
