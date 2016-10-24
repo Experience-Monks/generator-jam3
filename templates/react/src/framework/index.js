@@ -18,7 +18,7 @@ export default function() {
   container.id = 'container';
   document.body.appendChild(container);
   if (process.env.NODE_ENV === 'development') window.Perf = Perf;
-  document.body.className = merge(document.body.className.split(' '),detect.classes);
+  document.body.className = merge(document.body.className.split(' '),detect.classes).join(' ');
 
   render((
     <Provider store={store}>
