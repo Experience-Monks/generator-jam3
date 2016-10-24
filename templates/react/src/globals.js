@@ -1,1 +1,0 @@
-global.CONFIG = require('../scripts/config');

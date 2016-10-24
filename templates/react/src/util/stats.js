@@ -1,14 +1,11 @@
-module.exports = (function() {
-  var script = document.createElement('script');
-  script.onload = function() {
-    var stats = new Stats();
-    stats.domElement.style.cssText = 'position:fixed;right:0;bottom:100px;z-index:10000';
-    document.body.appendChild(stats.domElement);
-    requestAnimationFrame(function loop() {
-      stats.update();
-      requestAnimationFrame(loop)
-    });
+var Stats = require('stats.js');
+module.exports = function() {
+  var stats = new Stats();
+  stats.domElement.style.cssText = 'position:fixed;right:0;bottom:100px;z-index:10000';
+  document.body.appendChild(stats.domElement);
+  var loop = function() {
+    stats.update();
+    requestAnimationFrame(loop);
   };
-  script.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
-  document.head.appendChild(script);
-})();
+  requestAnimationFrame(loop);
+};
