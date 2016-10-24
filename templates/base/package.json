@@ -78,12 +78,12 @@
     "stringify": "3.2.0"{{/is}}{{/if}}
   },
   "browserify": {
-    "transform": [
-      "envify",{{#is framework 'bigwheel'}}
-      "browserify-shim",{{/is}}{{#if useES6}}
-      "babelify",{{/if}}{{#is framework 'react'}}
-      ["stringify", {"extensions": [".svg"], "minify": true}],{{/is}}
-      "brfs"
+    "transform": [{{#is framework 'bigwheel'}}
+      "browserify-shim",
+      "brfs",{{/is}}{{#if useES6}}
+      "babelify",{{/if}}
+      "envify"{{#is framework 'react'}},
+      ["stringify", {"extensions": [".svg"], "minify": true}]{{/is}}     
     ]
   }{{#is framework 'bigwheel'}},
   "browserify-shim": {

@@ -5,7 +5,7 @@ import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{
 import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
 import {setReady, setProgress} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
-
+import detect from '../../util/detect';
 
 class App extends React.Component {
   constructor(props) {
