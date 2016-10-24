@@ -15,7 +15,8 @@
   },
   "production": {
     "output": "./release/",
-    "minify": true
+    "minify": true,
+    "removeLogs": true
   }
 }
 
