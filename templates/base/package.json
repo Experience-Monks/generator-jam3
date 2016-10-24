@@ -37,6 +37,7 @@
     "react-addons-perf": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-f1": "^8.1.0",
+    "react-svg-inline": "^1.2.0",
     "react-redux": "^4.4.4",
     "react-router": "^2.1.1",
     "react-router-redux": "^4.0.2",
@@ -65,22 +66,24 @@
     "mkdirp": "^0.5.1",
     "rfg-api": "^0.1.7",
     "pngquant-bin": "^3.0.0",
-    "uglify-js": "^2.6.1",{{#is framework 'bigwheel'}}
-    "brfs": "^1.2.0",
+    "uglify-js": "^2.6.1",
+    "brfs": "^1.2.0",{{#is framework 'bigwheel'}}
     "browserify-shim": "^3.8.0",{{/is}}
     "browserify": "^12.0.1"{{#if useES6}},
     "babelify": "^7.2.0",
     "babel-runtime": "^5.8.34",
     "babel-preset-es2015": "^6.3.13"{{#is framework 'react'}},
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0"{{/is}}{{/if}}
+    "babel-preset-stage-1": "^6.5.0",
+    "stringify": "3.2.0"{{/is}}{{/if}}
   },
   "browserify": {
     "transform": [{{#is framework 'bigwheel'}}
       "browserify-shim",
       "brfs",{{/is}}{{#if useES6}}
       "babelify",{{/if}}
-      "envify"
+      "envify"{{#is framework 'react'}},
+      ["stringify", {"extensions": [".svg"], "minify": true}]{{/is}}     
     ]
   }{{#is framework 'bigwheel'}},
   "browserify-shim": {

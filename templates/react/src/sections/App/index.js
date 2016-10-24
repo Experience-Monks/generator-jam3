@@ -2,9 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
+import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
 import {setReady, setProgress} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
-
+import detect from '../../util/detect';
 
 class App extends React.Component {
   constructor(props) {
@@ -42,9 +43,14 @@ class App extends React.Component {
     }
   }
   render() {
-    return <TransitionGroup id="app" component="div" transitionMode="out-in">
-      {this.getContent()}
-    </TransitionGroup>;
+    return (
+      <div id="app">
+        <TransitionGroup id="content" component="div" transitionMode="out-in">
+          {this.getContent()}
+        </TransitionGroup>
+        { detect.isPhone ? <RotateScreen width={this.state.width} height={this.state.height} /> : undefined }
+      </div>
+    )
   }
 };
 
