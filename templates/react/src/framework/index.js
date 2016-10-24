@@ -5,6 +5,7 @@ import {render} from 'react-dom';
 import {Router, Route, IndexRoute, IndexRedirect, {{#if pushState}}browserHistory{{else}}hashHistory{{/if}}, Redirect} from 'react-router';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import {Provider} from 'react-redux';
+import detect from '../util/detect';
 
 import store from '../store';
 import App from '../sections/App{{#if sectionNames}}/App{{/if}}';
@@ -17,6 +18,7 @@ export default function() {
   container.id = 'container';
   document.body.appendChild(container);
   if (process.env.NODE_ENV === 'development') window.Perf = Perf;
+  document.body.className = merge(document.body.className.split(' '),detect.classes);
 
   render((
     <Provider store={store}>
@@ -28,3 +30,16 @@ export default function() {
     </Provider>
   ),container);
 };
+
+
+function merge() {
+  var arr = [];
+  for (var i=0; i<arguments.length; i++) {
+    if (Array.isArray(arguments[i])) {
+      arguments[i].forEach(function(cur) {
+        if (cur && arr.indexOf(cur)<0) arr.push(cur);
+      });
+    }
+  }
+  return arr;
+}
