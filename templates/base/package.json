@@ -19,7 +19,8 @@
     "release-gzip": "node scripts/gzip.js --env=production",
     "release-clean": "node scripts/clean.js --env=production",
     "lowercase": "node scripts/lowercase.js",
-    "favicons": "node scripts/favicons/favicons.js"
+    "favicons": "node scripts/favicons/favicons.js",
+    "facebook": "node scripts/facebook.js"
   },
   "license": "ISC",
   "repository": "{{repo}}",
