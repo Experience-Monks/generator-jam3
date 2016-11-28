@@ -31,9 +31,9 @@ class {{section}} extends React.Component {
       states={states(this.props)}
       transitions={transitions(this.props)}
       style={style}
-    >
-      <div id="{{section}}" data-f1="container"></div>
-    </ReactF1>;
+      id="{{section}}"
+      data-f1="container"
+    />;
   }
 };
 
