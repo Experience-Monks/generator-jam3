@@ -14,3 +14,10 @@ export const setProgress = function(progress) {
     progress
   }
 };
+
+export const setAssets = function(assets) {
+  return {
+    type: keys.SET_ASSETS,
+    assets
+  }
+};
