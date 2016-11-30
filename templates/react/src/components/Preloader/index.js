@@ -1,4 +1,10 @@
+/**
+ * This component is based on 'Preloader' npm module
+ * Refer https://www.npmjs.com/package/preloader for more information
+ */
+
 'use strict';
+
 import React from 'react';
 import ReactF1 from 'react-f1';
 import states from './states';
@@ -63,16 +69,44 @@ class Preloader extends React.Component {
 
   setLoader = () => {
     return new Promise((resolve, reject) => {
-      const loader = preloader({
-        xhrImages: false,
-        loadFullAudio: false,
-        loadFullVideo: false,
-        onProgress: this.onLoadingProgress,
-        onComplete: () => this.onLoadingComplete(resolve)
-      });
-      this.props.assetsList.forEach(file => loader.add(file));
-      loader.load();
+      this.loader = preloader(this.props.options);
+      this.props.assetsList.forEach(file => this.add(file));
+      this.loader.on('progress', this.onLoadingProgress);
+      this.loader.on('complete', () => this.onLoadingComplete(resolve));
+      this.load();
     })
+  };
+
+  /**
+   * Generic asset loader function - determines loader to be used based on file-extension
+   * @param url (String) - URL of asset
+   * @param options (Object) - Custom options to override the global options created at instantiation
+   */
+  add = (url, options = {}) => {
+    this.loader.add(url, options);
+  };
+
+  /**
+   * Retrieve loaded asset from loader
+   * @param url (String) - URL of asset
+   * @returns {*} - Asset instance
+   */
+  get = (url) => {
+    return this.loader.get(url);
+  };
+
+  /**
+   * Begin loading process
+   */
+  load = () => {
+    this.loader.load();
+  };
+
+  /**
+   * Stop loading process
+   */
+  stopLoad = () => {
+    this.loader.stopLoad();
   };
 
   onLoadingProgress = (val) => {
@@ -120,6 +154,7 @@ Preloader.propTypes = {
   windowHeight: React.PropTypes.number,
   style: React.PropTypes.object,
   minDisplayTime: React.PropTypes.number,
+  options: React.PropTypes.object,
 };
 
 Preloader.defaultProps = {
@@ -127,6 +162,13 @@ Preloader.defaultProps = {
   setAssets: f => f,
   style: {},
   minDisplayTime: 1500, // in milliseconds
+  options: {
+    xhrImages: false,
+    loadFullAudio: false,
+    loadFullVideo: false,
+    onProgress: f => f,
+    onComplete: f => f,
+  },
 };
 
 export default Preloader;
