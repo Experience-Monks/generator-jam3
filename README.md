@@ -47,6 +47,7 @@ newly added assets won't affect the preloader list until next node script restar
 - `assetsList` (Required) - an array of assets to be loaded. It automatically determines the loader to be used based on file extension (json, mp4, etc.)
 - `minDisplayTime` - min time (in milliseconds) for the preloader to be shown
 - `options` - an object that contains the following properties:
+
             - `xhrImages` - loads images via XHR and converts to a Blob instead of the image tag. Default: `false`
             - `loadFullAudio` - specifies is audio should be loaded in full instead of just to the point where they can play. Default: `false`
             - `loadFillVideo` - specifies is video should be loaded in full instead of just to the point where they can play. Default: `false`
