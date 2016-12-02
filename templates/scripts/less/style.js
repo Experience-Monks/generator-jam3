@@ -11,6 +11,11 @@ var lessPrefixPlugin = new(require('less-plugin-autoprefix'))({
 
 var running = false;
 var lessOutput = path.basename(config.style).replace('.less','.css');
+
+if (config.NODE_ENV === 'production') {
+  lessOutput = config.addTimestamp(lessOutput);
+}
+
 var createLess = function(callback) {
   if (running) return;
   running = true;

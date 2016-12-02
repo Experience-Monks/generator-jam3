@@ -12,6 +12,10 @@ var running = false;
 var sassOutput = path.basename(config.style).replace('.scss', '.css');
 var srcMapReg = new RegExp('\\/\\*# ?sourceMappingURL.+\\*\\/','g');
 
+if (config.NODE_ENV === 'production') {
+  sassOutput = config.addTimestamp(sassOutput);
+}
+
 var createSass = function (callback) {
   if (running) return;
   running = true;
