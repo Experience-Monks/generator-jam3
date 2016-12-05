@@ -13,7 +13,7 @@ var running = false;
 var lessOutput = path.basename(config.style).replace('.less','.css');
 
 if (config.NODE_ENV === 'production') {
-  lessOutput = config.addTimestamp(lessOutput);
+  lessOutput = config.stylesheet;
 }
 
 var createLess = function(callback) {

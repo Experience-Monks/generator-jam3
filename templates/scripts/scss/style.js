@@ -13,7 +13,7 @@ var sassOutput = path.basename(config.style).replace('.scss', '.css');
 var srcMapReg = new RegExp('\\/\\*# ?sourceMappingURL.+\\*\\/','g');
 
 if (config.NODE_ENV === 'production') {
-  sassOutput = config.addTimestamp(sassOutput);
+  sassOutput = config.stylesheet;
 }
 
 var createSass = function (callback) {

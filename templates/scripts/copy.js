@@ -12,12 +12,13 @@ var isbinaryfile = require('isbinaryfile');
 var blacklist = (config.templateBlacklist || []).map(path.normalize);
 
 function copy(file) {
+  var assets = config.ASSET_PATH;
   if (file) {
-    copyFile(path.join(config.output,'assets/'),config.raw,file);
+    copyFile(path.join(config.output,assets),config.raw,file);
   } else {
     glob(path.join(config.raw,'**/*'),{dot: true, nodir: true},function(err,files) {
       if (!err) {
-        files.forEach(copyFile.bind(null,path.join(config.output,'assets/'),config.raw));
+        files.forEach(copyFile.bind(null,path.join(config.output,assets),config.raw));
       } else {
         console.log(err);
       }
