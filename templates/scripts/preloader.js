@@ -1,9 +1,14 @@
 var fs = require('graceful-fs');
 var path = require('path');
 var junk = require('junk');
+var config = require('../config.json');
 var data = require('../config-preloader.json');
+var argv = require('minimist')(process.argv.slice(2));
 
-var OUTPUT_PATH = path.resolve(__dirname, '..', 'raw-assets/preload-list.json');
+var env = argv.env || process.env.NODE_ENV || 'development';
+var envAssetPath = config[env].ASSET_PATH || config.defaults.ASSET_PATH;
+var root = path.resolve(__dirname, '..');
+var OUTPUT_JSON = path.resolve(root, 'raw-assets/preload-list.json');
 
 var walkSync = function(dir) {
   var files = fs.readdirSync(dir);
@@ -21,7 +26,7 @@ var walkSync = function(dir) {
 
 var filterJunk = function(arr) {
   return arr.filter(function(f) {
-    return junk.not(path.basename(f)) && !(/(^|\/)\.[^\/\.]/g).test(f) // filter hidden files too eg '.gitkeep'
+    return junk.not(path.basename(f)) && !(/(^|\/)\.[^\/\.]/g).test(f); // filter hidden files too eg '.gitkeep'
   });
 };
 
@@ -29,19 +34,14 @@ var getPreloadFileList = (function() {
   var assets = [];
 
   data.forEach(function(currPath) {
-    var assetPath = path.resolve(__dirname, '..', currPath);
-    var isDirectory = false;
+    var assetPath = path.resolve(root, 'raw-assets', currPath);
 
     try {
-      isDirectory = fs.statSync(assetPath).isDirectory();
-    } catch (e) {
-
-    }
-
-    if (isDirectory) {
+      // check if directory
+      fs.statSync(assetPath).isDirectory();
       var files = walkSync(assetPath);
       assets = assets.concat(files);
-    } else {
+    } catch (e) {
       assets.push(assetPath);
     }
   });
@@ -49,14 +49,15 @@ var getPreloadFileList = (function() {
   assets = filterJunk(assets);
 
   assets = assets.map(function(asset) {
-    return '/assets' + asset.split('raw-assets')[1]
+    asset = asset.split('raw-assets')[1];
+    return '.' + path.sep + path.join(envAssetPath + asset);
   });
 
-  fs.writeFile(OUTPUT_PATH, JSON.stringify(assets, null, 2), function(err, data) {
+  fs.writeFile(OUTPUT_JSON, JSON.stringify(assets, null, 2), function(err, data) {
     if (err) {
       return console.log(err);
     } else {
-      console.log('"' + OUTPUT_PATH + '" is written');
+      console.log('Preloader assets:', assets);
     }
   });
 
