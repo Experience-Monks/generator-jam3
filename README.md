@@ -38,10 +38,21 @@ Preloader Rect component is built on the top of [preloader module](https://www.n
 
 #### Setup
 Specify files or folders (to be read recursively) in `config-preloader.json` in the root of the project. 
+Example preloader json file:
+```
+[
+  "videos/test.mp4",
+  "json/",
+  "sound",
+  "images/test.jpg"
+]
+```
+
 On `npm start` the preloader script will be executed and `preloader-list.json` will be created in `raw-assets` folder with the list of files to be loaded, excluding any junk files.
 
-**Note:** 
-newly added assets won't affect the preloader list until next node script restart.
+**Important:** 
+* Do not include `assets` folder in the paths of config file
+* Newly added assets won't affect the preloader list until node script restarted
 
 #### Props
 - `assetsList` (Required) - an array of assets to be loaded. It automatically determines the loader to be used based on file extension (json, mp4, etc.)
