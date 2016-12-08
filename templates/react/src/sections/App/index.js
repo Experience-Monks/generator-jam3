@@ -3,9 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
-import {setReady, setProgress} from './actions';
+import {setReady, setProgress, setAssets} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
 import detect from '../../util/detect';
+const assets = require('../../../raw-assets/preload.json');
 
 class App extends React.Component {
   constructor(props) {
@@ -31,14 +32,19 @@ class App extends React.Component {
   }
   getContent() {
     if (this.props.ready) {
-      return React.cloneElement(this.props.children, { key: this.props.section, width: this.state.width, height: this.state.height});
+      return React.cloneElement(this.props.children, {
+        key: this.props.section,
+        windowWidth: this.state.width,
+        windowHeight: this.state.height
+      });
     } else {
-      return <Preloader 
-        onProgress={this.props.onProgress}
-        onReady={this.props.onReady}
-        assets={this.props.assets}
-        width={this.state.width}
-        height={this.state.height}
+      return <Preloader
+        assetsList={assets}
+        setProgress={this.props.onProgress}
+        setReady={this.props.onReady}
+        setAssets={this.props.onSetAssets}
+        windowWidth={this.state.width}
+        windowHeight={this.state.height}
       />
     }
   }
@@ -52,7 +58,7 @@ class App extends React.Component {
       </div>
     )
   }
-};
+}
 
 const mapStateToProps = (state, ownProps) => {
   let section = ownProps.location.pathname.split('/').filter(Boolean)[0] || 'landing';
@@ -66,12 +72,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onProgress: function(val) {
-      dispatch(setProgress(val));
-    },
-    onReady: function(val) {
-      dispatch(setReady(val));
-    }
+    onProgress: val => dispatch(setProgress(val)),
+    onReady: val => dispatch(setReady(val)),
+    onSetAssets: val => dispatch(setAssets(val))
   }
 };
 
@@ -79,7 +82,7 @@ App.defaultProps = {
   assets: [],
   progress: 0,
   ready: false
-}
+};
 
 export default connect(
   mapStateToProps,
