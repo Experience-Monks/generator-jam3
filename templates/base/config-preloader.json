@@ -1,4 +1,3 @@
 [
-  "videos/test.mp4",
-  "json"
+  "json/**/*"
 ]

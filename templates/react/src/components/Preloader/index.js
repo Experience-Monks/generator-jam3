@@ -16,6 +16,8 @@ import LoaderIcon from '../../../raw-assets/svg/loader.svg';
 class Preloader extends React.Component {
   constructor(props) {
     super(props);
+    this.onProgress = this.onProgress.bind(this);
+    this.setDone = this.setDone.bind(this);
     this.state = {
       state: 'out'
     };
@@ -44,21 +46,21 @@ class Preloader extends React.Component {
     this.animateOut(done);
   }
 
-  animateIn = (done) => {
+  animateIn(done) {
     this.setState({
       state: 'idle',
       onComplete: done
     });
   };
 
-  animateOut = (done) => {
+  animateOut(done) {
     this.setState({
       state: 'out',
       onComplete: done
     })
   };
 
-  setTimer = () => {
+  setTimer() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
@@ -67,12 +69,12 @@ class Preloader extends React.Component {
     })
   };
 
-  setLoader = () => {
+  setLoader() {
     return new Promise((resolve, reject) => {
       this.loader = preloader(this.props.options);
       this.props.assetsList.forEach(file => this.add(file));
-      this.loader.on('progress', this.onLoadingProgress);
-      this.loader.on('complete', () => this.onLoadingComplete(resolve));
+      this.loader.on('progress', this.onProgress);
+      this.loader.on('complete', () => this.onComplete(resolve));
       this.load();
     })
   };
@@ -82,7 +84,7 @@ class Preloader extends React.Component {
    * @param url (String) - URL of asset
    * @param options (Object) - Custom options to override the global options created at instantiation
    */
-  add = (url, options = {}) => {
+  add(url, options = {}) {
     this.loader.add(url, options);
   };
 
@@ -91,36 +93,36 @@ class Preloader extends React.Component {
    * @param url (String) - URL of asset
    * @returns {*} - Asset instance
    */
-  get = (url) => {
+  get(url) {
     return this.loader.get(url);
   };
 
   /**
    * Begin loading process
    */
-  load = () => {
+  load() {
     this.loader.load();
   };
 
   /**
    * Stop loading process
    */
-  stopLoad = () => {
+  stopLoad() {
     this.loader.stopLoad();
   };
 
-  onLoadingProgress = (val) => {
+  onProgress(val) {
     this.props.setProgress(val);
     //console.log('Preloader progress:', val);
   };
 
-  onLoadingComplete = (done) => {
+  onComplete(done) {
     this.props.setProgress(1);
     done();
     //console.log('Preloader: assets are loaded');
   };
 
-  setDone = () => {
+  setDone() {
     this.props.setReady(true);
   };
 
