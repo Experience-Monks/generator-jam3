@@ -10,6 +10,7 @@ var pkg = require('../package.json');
 var deps = Object.keys(pkg.dependencies);
 
 process.env.NODE_ENV = config.NODE_ENV;
+process.env.BASENAME = config.BASENAME;
 process.env.ASSET_PATH = config.ASSET_PATH;
 
 var post = function(file,src) {

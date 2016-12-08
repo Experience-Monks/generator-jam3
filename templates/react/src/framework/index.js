@@ -2,7 +2,8 @@
 import React from 'react';
 import Perf from 'react-addons-perf';
 import {render} from 'react-dom';
-import {Router, Route, IndexRoute, IndexRedirect, {{#if pushState}}browserHistory{{else}}hashHistory{{/if}}, Redirect} from 'react-router';
+import {Router, Route, IndexRoute, IndexRedirect, useRouterHistory, Redirect} from 'react-router';
+import {{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}} from 'history/lib/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import {Provider} from 'react-redux';
 import detect from '../util/detect';
@@ -11,7 +12,7 @@ import store from '../store';
 import App from '../sections/App{{#if sectionNames}}/App{{/if}}';
 import Landing from '../sections/Landing{{#if sectionNames}}/Landing{{/if}}';
 
-{{#if pushState}}const history = syncHistoryWithStore(browserHistory, store);{{else}}const history = syncHistoryWithStore(hashHistory, store);{{/if}}
+const history = syncHistoryWithStore(useRouterHistory({{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}})({ basename: process.env.BASENAME }), store);
 
 export default function() {
   var container = document.createElement('div');
