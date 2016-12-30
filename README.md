@@ -19,25 +19,75 @@ nyg nyg-jam3
 
 You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project. 
 
+## Prompts
+
+`What is your name? (Author)`  
+Default: Jam3  
+A name used in the README.md, package.json and humans.txt.
+
+`What is your email? (Author Email)`  
+Default: td@jam3.com  
+An email used in the package.json and humans.txt.
+
+`Describe the project:`  
+Default: A Jam3 project  
+A brief description of the project that is used at the top of the README.md.
+
+`What is your git repository? (GitHub Repository)`  
+Default: (empty string)  
+The git repository used for the project, used within the package.json.
+
+`What framework will your project use?"`  
+Default: React  
+The framework that this project will be based on, all necessary files and modules will be downloaded to get you up and running with the selected framework. Currently supports React, Bigwheel, or None. In the case of None, source files won't be created, but all the common development scripts will still be setup.
+
+`Would you perfer Landing/Landing.js over Landing/index.js?`  
+Default: false  
+Whether file names will follow the convention of [folder name]/[folder name].js or [folder name]/index.js.
+
+`Use push states?`  
+Default: true  
+Whether to use push states in the application, if false, uses hashbangs. This will setup the proper configuration in the framework and the .htaccess file.
+
+`Would you like to use ES6?`  
+Default: true  
+Whether to use ES6 and babel transpilation. Sets up a .babelrc file and all necessary dependencies.
+
+`What css preprocessor will your project use?`  
+Default: SCSS  
+Which css preprocessor should be setup on the project, defaults to SASS, but LESS is also an option.
+
+`Separate common npm modules into vendor.js?`  
+Default: true  
+Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code. 
+
+`How would you like to implement an unsupported page redirect?`  
+Default: PHP  
+Whether to setup an automatic page redirect for unsupported devices, this will create json file where you can specify which browsers are supported.
+
+`Choose the password to use for password protection. (leave blank to disable)`  
+Default: (empty string)  
+If you want to enable password protection via .htaccess, simply type the password you would like to use and the .htaccess and .htpasswd files will be created.
+
+`Where on the server will your .htpasswd be located?`  
+Default: /var/www  
+If you opted to add password protection, this will need to be set to the location of the .htpasswd file in your production environment.
+
 ## Setup Favicons
 
 #### Default setup
-After generate the scaffolding, you will have already setup the favicons for all the common devices, including those with iOS, Android, Windows Phone and for desktop version.
+After generating the scaffolding, you will have favicons setup for all the common devices (iOS, Android, Windows Phone and Desktop)
 
 #### Customize
 You can change the default configuration by modifying the file `/scripts/favicons/faviconDescription.json`. All the available option are described in (here)[http://realfavicongenerator.net/api/non_interactive_api](http://realfavicongenerator.net/api/non_interactive_api).
 If you want to change the image, you can replace the image located in `/scripts/favicons/favicon_template.png` for your new favicon image. The recommended size for this master image is `500x500`.
 After changing all the things you want, just run `npm run update-favicons` and you will get your new favicons ready.
 
-**Note:** 
-If you run the project on dev you won't see them because `budo` is creating an  own `index.html`. If you run `npm run release` you will see all this properly working.
-
-
 ## Preloader (React component)
 Preloader Rect component is built on the top of [preloader module](https://www.npmjs.com/package/preloader). Please refer to it for more information.
 
 #### Setup
-Specify files or folders (to be read recursively) in `config-preloader.json` in the root of the project. 
+Specify files or folders (to be read recursively) using glob format in `config-preloader.json` in the root of the project. 
 Example preloader json file:
 ```
 [
