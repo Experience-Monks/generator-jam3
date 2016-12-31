@@ -12,6 +12,7 @@
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
     "timestamp": "node scripts/timestamp.js",
+    "preloader": "node scripts/preloader.js",
     "dev": "node scripts/dev.js",
     "release": "npm run timestamp && npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",
     "preloader-release": "node scripts/preloader.js --env=production",
