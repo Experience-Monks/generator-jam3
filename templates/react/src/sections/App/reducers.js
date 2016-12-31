@@ -23,7 +23,7 @@ const list = [];
 export const assets = (state = list, action) => {
   switch (action.type) {
     case keys.SET_ASSETS:
-      return action.assets
+      return action.assets;
     default:
       return state
   }
