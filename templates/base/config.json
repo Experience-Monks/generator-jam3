@@ -15,6 +15,7 @@
     "output": "./build/"
   },
   "production": {
+    "timestamp": true,
     "output": "./release/",
     "minify": true,
     "removeLogs": true
