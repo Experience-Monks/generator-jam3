@@ -11,9 +11,9 @@
     "start": "npm run preloader && npm run copy && npm run style && npm run dev",
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
-    "dev": "node scripts/dev.js",
     "preloader": "node scripts/preloader.js",
-    "release": "npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip",
+    "dev": "node scripts/dev.js",
+    "release": "node scripts/timestamp.js && npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip && node scripts/timestamp.js --delete",
     "preloader-release": "node scripts/preloader.js --env=production",
     "release-style": "node scripts/style.js --env=production",
     "release-browserify": "node scripts/release.js --env=production",
@@ -45,7 +45,7 @@
     "react-redux": "^4.4.4",
     "react-router": "^2.1.1",
     "react-router-redux": "^4.0.2",
-    "react-transition-group-plus": "^0.3.1",
+    "react-transition-group-plus": "^0.4.0",
     "redux": "^3.4.0",
     "stats.js": "0.16.0"{{/is}}
   },
@@ -70,6 +70,7 @@
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "rfg-api": "^0.1.7",
+    "mozjpeg": "^4.1.1",
     "pngquant-bin": "^3.0.0",
     "uglify-js": "^2.6.1",
     "brfs": "^1.2.0",{{#is framework 'bigwheel'}}
@@ -88,7 +89,7 @@
       "brfs",{{/is}}{{#if useES6}}
       "babelify",{{/if}}
       "envify"{{#is framework 'react'}},
-      ["stringify", {"extensions": [".svg"], "minify": true}]{{/is}}     
+      ["stringify", {"extensions": [".svg"], "minify": true}]{{/is}}
     ]
   }{{#is framework 'bigwheel'}},
   "browserify-shim": {

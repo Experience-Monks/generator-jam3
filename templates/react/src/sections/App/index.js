@@ -6,7 +6,6 @@ import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/i
 import {setReady, setProgress, setAssets} from './actions';
 import TransitionGroup from 'react-transition-group-plus';
 import detect from '../../util/detect';
-const assets = require('../../../raw-assets/preload.json');
 
 class App extends React.Component {
   constructor(props) {
@@ -39,10 +38,9 @@ class App extends React.Component {
       });
     } else {
       return <Preloader
-        assetsList={assets}
+        assetsList={this.props.assets}
         setProgress={this.props.onProgress}
         setReady={this.props.onReady}
-        setAssets={this.props.onSetAssets}
         windowWidth={this.state.width}
         windowHeight={this.state.height}
       />

@@ -19,7 +19,7 @@ export const ready = function(state = false, action) {
   }
 };
 
-const list = [];
+const list = require('../../../raw-assets/preload.json');
 export const assets = (state = list, action) => {
   switch (action.type) {
     case keys.SET_ASSETS:
