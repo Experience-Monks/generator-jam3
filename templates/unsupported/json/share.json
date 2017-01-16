@@ -7,7 +7,7 @@
     "twitter:site": "",
     "twitter:creator": ""
   },
-  "/route/subroute": {
+  "route/subroute": {
     "title": "",
     "description": "",
     "keywords": ""
