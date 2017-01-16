@@ -61,6 +61,27 @@ Here is a breakdown of what each properties controls.
 `removeLogs` - Whether to remove console commands from the final build  
 `timestamp` - Whether to add a build signature to assets and compiled javascript / css files. `true` will add a timestamp to the path, a string will simply append that string to the path, and false will not add a build signature  
 
+To add a new environment, simply specify it in the config.json and then create a new entry for the script in the package.json. Here is an example adding a staging environment.
+
+config.json
+```
+{
+  "defaults": {...},
+  "development": {...},
+  "production": {...},
+  "staging": {
+    "timestamp": false,
+    "minify": true,
+    "removeLogs": true
+  }
+}
+```
+
+package.json
+```
+"staging": "npm run preloader-release && npm run release-clean && node scripts/style.js --env=staging && node scripts/release.js --env=staging && npm run release-copy && npm run release-gzip"
+```
+
 <a name="favicons"></a>
 ## Favicons `npm run favicons`
 
