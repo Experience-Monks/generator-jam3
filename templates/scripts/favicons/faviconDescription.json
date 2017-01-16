@@ -1,6 +1,6 @@
 {
   "masterPicture": "favicon_template.png",
-  "iconsPath": "/assets/images/favicons",
+  "iconsPath": "\{{ASSET_PATH}}images/favicons",
   "design": {
     "ios": {
       "pictureAspect": "noChange",

@@ -5,9 +5,6 @@ var budo = require('budo');
 var style = require('./style');
 var copy = require('./copy');
 
-process.env.NODE_ENV = config.NODE_ENV;
-process.env.ASSET_PATH = config.ASSET_PATH;
-
 var b = budo(config.entry, {
   serve: config.bundle,
   open: true,

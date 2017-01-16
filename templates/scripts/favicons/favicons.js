@@ -65,6 +65,9 @@ if (!module.parent) {
     fs.exists(path.join(config.static,'main.php'),function(exists) {
       if (exists) fav.inject(path.join(config.static,'main.php'));
     });
+    fs.exists(path.join(config.static,'unsupported.html'),function(exists) {
+      if (exists) fav.inject(path.join(config.static,'unsupported.html'));
+    });
   });
 } else {
   module.exports = Favicon;

@@ -23,10 +23,6 @@ class Preloader extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.props.setAssets([...this.props.assetsList]);
-  }
-
   componentDidMount() {
     Promise.all([
       this.setTimer(),
@@ -64,7 +60,6 @@ class Preloader extends React.Component {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve();
-        //console.log('Preloader: min time is up')
       }, this.props.minDisplayTime)
     })
   };
@@ -151,7 +146,6 @@ Preloader.propTypes = {
   assetsList: React.PropTypes.array.isRequired,
   setProgress: React.PropTypes.func,
   setReady: React.PropTypes.func.isRequired,
-  setAssets: React.PropTypes.func,
   width: React.PropTypes.number,
   height: React.PropTypes.number,
   style: React.PropTypes.object,
@@ -161,7 +155,6 @@ Preloader.propTypes = {
 
 Preloader.defaultProps = {
   setProgress: f => f,
-  setAssets: f => f,
   style: {},
   minDisplayTime: 1500, // in milliseconds
   options: {
