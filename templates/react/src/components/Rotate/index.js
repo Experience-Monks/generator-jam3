@@ -1,10 +1,9 @@
 import React from 'react';
 import SVGInline from 'react-svg-inline';
+import detect from '../../util/detect';
 import RotateIcon from '../../../raw-assets/svg/rotate.svg';
 
 export default class RotateScreen extends React.Component {
-
-  static propTypes = {};
 
   constructor(props) {
     super(props);
@@ -19,13 +18,14 @@ export default class RotateScreen extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.width !== this.props.width;
+    return this.orientation !== detect.orientation;
   }
 
   render() {
-    const isLandscape = this.props.width > this.props.height;
+    this.orientation = detect.orientation;
+    const visible = (this.props.portrait && this.orientation === 'landscape') || (!this.props.portrait && this.orientation === 'portrait');
     const style = {
-      visibility: isLandscape ? 'visible' : 'hidden'
+      visibility: visible ? 'visible' : 'hidden'
     };
 
     return (
@@ -40,3 +40,11 @@ export default class RotateScreen extends React.Component {
     )
   }
 }
+
+RotateScreen.propTypes = {
+  portrait: React.PropTypes.bool
+};
+
+RotateScreen.defaultProps = {
+  portrait: true
+};

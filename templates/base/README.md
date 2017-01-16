@@ -12,6 +12,8 @@ Note: If the link is broken use http://jam3-license.herokuapp.com/projects/[repo
 
 ## PROJECT DOCUMENTATION
 
+### [Components](COMPONENTS.md)
+### [Scripts](SCRIPTS.md)  
 
 ## GIT
 
