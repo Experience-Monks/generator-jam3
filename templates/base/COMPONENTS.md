@@ -6,7 +6,7 @@
 [Rotate Screen](#rotate)  
 [Device Detection](#device)  
 [Stats](#stats)  
-[Unsupported Page](#unsupported)
+[Unsupported Page](#unsupported)  
 [Meta](#meta)
 
 <a name="preloader"></a>
