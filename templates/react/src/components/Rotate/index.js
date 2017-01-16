@@ -18,11 +18,12 @@ export default class RotateScreen extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.width !== this.props.width;
+    return this.orientation !== detect.orientation;
   }
 
   render() {
-    const visible = (this.props.portrait && detect.orientation === 'landscape') || (!this.props.portrait && detect.orientation === 'portrait');
+    this.orientation = detect.orientation;
+    const visible = (this.props.portrait && this.orientation === 'landscape') || (!this.props.portrait && this.orientation === 'portrait');
     const style = {
       visibility: visible ? 'visible' : 'hidden'
     };
