@@ -25,4 +25,12 @@ if (type==='production' && config.timestamp) {
 }
 
 config.NODE_ENV = type;
+process.env.NODE_ENV = config.NODE_ENV;
+process.env.BASENAME = config.BASENAME;
+process.env.ASSET_PATH = config.ASSET_PATH;
+if (config.env) {
+  Object.keys(config.env).forEach(function(cur) {
+    process.env[cur] = config.env[cur];
+  });
+}
 module.exports = config;

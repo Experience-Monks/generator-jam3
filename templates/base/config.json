@@ -10,7 +10,8 @@
     "BASENAME": "/",
     "JPEG_QUALITY": 80,
     "templateBlacklist": [],
-    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}}
+    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
+    "env": {}
   },
   "development": {
     "output": "./build/"
