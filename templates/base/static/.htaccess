@@ -29,7 +29,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !index
-    RewriteRule (.*) index.html [L,QSA]
+    RewriteRule (.*) index.{{#is backend 'php'}}php?u=$1{{else}}html{{/is}} [L,QSA]
     {{/if}}
 </ifModule>
 
