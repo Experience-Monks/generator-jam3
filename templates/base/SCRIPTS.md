@@ -1,4 +1,4 @@
-[Back](README.md)  
+[Back](README.md) | [Components](COMPONENTS.md)  
 # Scripts
 
 ##### Table of Contents  

@@ -61,9 +61,9 @@ Which css preprocessor should be setup on the project, defaults to SASS, but LES
 Default: true  
 Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code. 
 
-`How would you like to implement an unsupported page redirect?`  
+`What backend language would you like to use?`  
 Default: PHP  
-Whether to setup an automatic page redirect for unsupported devices, this will create json file where you can specify which browsers are supported.
+Whether to copy over backend libraries that aid development such as automatic meta tag generation and unsupported page redirection.
 
 `Choose the password to use for password protection. (leave blank to disable)`  
 Default: (empty string)  

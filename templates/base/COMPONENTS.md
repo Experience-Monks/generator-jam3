@@ -1,4 +1,4 @@
-[Back](README.md)  
+[Back](README.md) | [Scripts](SCRIPTS.md)  
 # Components
 
 ##### Table of Contents  
@@ -92,9 +92,37 @@ A simple utility that tracks browser framerate. The script simply needs to be in
 <a name="unsupported"></a>
 ## Unsupported Page
 
-The unsupported page is automatically redirected to via PHP. This is determined via `device-matrix.json` in the static folder of the project. Specify your minimum browser versions in the json. You can style your page by modifying `unsupported.html` also in the static folder of the project.
+The unsupported page is automatically redirected to via PHP. This is determined via `device-matrix.json` in the static folder of the project. Specify your minimum browser versions in the json. You can style your page by modifying `unsupported.html` also in the static folder of the project. Here is an example of the device-matrix.json:
+
+```
+{
+  "ie": 11,
+  "safari": 8,
+  "chrome": 47,
+  "firefox": 42
+}
+```
+
+This will ensure the browser is at a minimum, Internet Explorer 11, Safari 8, Chrome 47 or Firefox 42, otherwise it will redirect to the unsupported page.  
 
 <a name="meta"></a>
 ## Meta
 
-Meta.php takes care of automatically populating Open Graph and Twitter Card data. Simply specify your routes with the accompanying title, description, and image in the share.json in the static folder and the rest will be taken care of.
+Meta.php takes care of automatically populating Open Graph, Twitter Card data, and regular meta tags. Simply specify your routes with the accompanying title, description, and image in the share.json in the static folder and the rest will be taken care of. title, image, and description will automatically be spread across Open Graph, Twitter Card and regular meta tags. You can add any meta property into the json and it will be parsed and added as a meta tag. Here is an example share.json:
+
+```
+{
+  "default": {
+    "image": "http://www.jam3.com/wp-content/uploads/2014/05/jam3_fb.jpg",
+    "title": "Jam3 | Toronto Digital Design and Development Agency",
+    "description": "Jam3 is one of the world’s top digital production and design agencies. We specialize in creating highly advanced, experiential works in both the advertising and entertainment industries.",
+    "og:site_name": "Jam3.com",
+    "twitter:site": "@Jam3",
+    "twitter:creator": "@Jam3"
+  },
+  "about": {
+    "title": "About - Jam3.com",
+    "description": "“It&#8217;s not wise to violate rules until you know how to observe them.” Keep reading"
+  }
+}
+```

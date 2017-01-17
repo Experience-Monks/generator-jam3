@@ -3,7 +3,7 @@
 <head>
   <?php
     require('./lib/Meta.php');
-    $meta = new Meta('share.json');
+    $meta = new Meta('json/share.json',@$_GET['u']);
     $meta->write();
   ?>
   <meta charset="utf-8">

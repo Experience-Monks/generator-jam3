@@ -28,7 +28,7 @@ class Meta {
     'title'
   );
 
-  function Meta($json=NULL) {
+  function Meta($json=NULL,$path=NULL) {
     $this->ua = strtolower($_SERVER['HTTP_USER_AGENT']);
     if (array_key_exists('HTTP_X_FORWARDED_PROTO',$_SERVER)) {
       $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
@@ -36,16 +36,21 @@ class Meta {
       $protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http' );
     }
     $this->host = $protocol.'://'.$_SERVER['HTTP_HOST'];
-    $this->path = $_SERVER['REQUEST_URI'];
+    $this->path = !empty($path) ? $path : $_SERVER['REQUEST_URI'];
     $this->url = $this->host.$this->path;
     $this->addTag('og:url',$this->url);
 
     if (!empty($json)) {
-      $share = json_decode(file_get_contents($json),true);
-      $data = $share["default"];
-      if (@$share[$this->path]) $data = array_merge($data, $share[$this->path]);
-      $this->addTags($data);
+      $this->share = json_decode(file_get_contents($json),true);
+      $this->setPath($this->path);
     }
+  }
+
+  function setPath($path) {
+    $this->path = $path;
+    $data = $this->share["default"];
+    if (@$share[$path]) $data = array_merge($data, $this->share[$path]);
+    $this->addTags($data);
   }
 
   function addTag($tag, $content) {

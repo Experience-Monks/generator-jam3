@@ -80,8 +80,8 @@ var prompts = [{
   default: true
 },{
   type: "list",
-  message: "How would you like to implement an unsupported page redirect?",
-  name: "unsupported",
+  message: "What backend language would you like to use?",
+  name: "backend",
   choices: [{
     name: "PHP",
     value: "php"
@@ -108,9 +108,10 @@ var globs = [
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
   { base: 'templates/scripts/favicons/', glob: '*', output: 'scripts/favicons/' },
-  { base: 'templates/unsupported/{{unsupported}}', output: 'static/' },
-  { base: 'templates/unsupported/', glob: '*', output: 'static/' },
-  { base: 'templates/unsupported/images/', output: 'raw-assets/images/unsupported/' }
+  { base: 'templates/backend/{{backend}}', output: 'static/' },
+  { base: 'templates/backend/', glob: '*', output: 'static/' },
+  { base: 'templates/backend/json/', glob: '*', output: 'static/json/' },
+  { base: 'templates/backend/images/', output: 'raw-assets/images/unsupported/' }
 ];
 var gen = nyg(prompts,globs)
 .on('postprompt', onPostPrompt)
