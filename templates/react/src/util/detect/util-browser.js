@@ -15,10 +15,10 @@ module.exports.checkIE = function() {
 };
 
 /**
- * This function will return whether this UtilBrowser we're running on is Internet Explorer.
+ * This function will return whether this UtilBrowser we're running on is Firefox.
  *
- * @method checkIE
- * @return {Boolean} If this function returns true we're running on Internet Explorer, false if not.
+ * @method checkFirefox
+ * @return {Boolean} If this function returns true we're running on Firefox, false if not.
  */
 module.exports.checkFirefox = function() {
   return ua.indexOf('firefox') >= 0;
