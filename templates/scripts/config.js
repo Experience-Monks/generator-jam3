@@ -20,7 +20,7 @@ if (type==='production' && config.timestamp) {
     if (config.vendor) config.vendor = path.parse(config.vendor).name.split(delimiter)[0] + stamp + '.js';
     
     var parsed = path.parse(config.ASSET_PATH);
-    config.ASSET_PATH = path.join(parsed.dir, parsed.base+stamp);
+    config.ASSET_PATH = path.join(parsed.dir, parsed.base+stamp)+'/';
   }
 }
 
