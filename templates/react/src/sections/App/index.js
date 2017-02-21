@@ -3,34 +3,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
-import {setReady, setProgress, setAssets} from './actions';
+import { setReady, setProgress, setAssets } from './actions';
 import TransitionGroup from 'react-transition-group-plus';
 import detect from '../../util/detect';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.onResize = this.onResize.bind(this);
     this.state = {
       width: 960,
       height: 570
     };
   }
-  onResize() {
+
+  onResize = () => {
     this.setState({
       width: window.innerWidth,
       height: window.innerHeight
     });
-  }
+  };
+
   componentWillMount() {
-    window.addEventListener('resize',this.onResize);
+    window.addEventListener('resize', this.onResize);
     this.onResize();
   }
+
   componentWillUnmount() {
-    window.removeEventListener('resize',this.onResize);
+    window.removeEventListener('resize', this.onResize);
   }
-  getContent() {
-    if (this.props.ready) {
+
+  getContent(isTestRoute) {
+    if (this.props.ready || isTestRoute) {
       return React.cloneElement(this.props.children, {
         key: this.props.section,
         windowWidth: this.state.width,
@@ -46,13 +49,16 @@ class App extends React.Component {
       />
     }
   }
+
   render() {
+    const isTestRoute = (location.pathname.split('/')[1] === 'test');
+
     return (
       <div id="app">
         <TransitionGroup id="content" component="div" transitionMode="out-in">
-          {this.getContent()}
+          {this.getContent(isTestRoute)}
         </TransitionGroup>
-        { detect.isPhone ? <RotateScreen /> : undefined }
+        { detect.isPhone && <RotateScreen/> }
       </div>
     )
   }
