@@ -10,7 +10,7 @@
 [Meta](#meta)
 
 <a name="preloader"></a>
-## Preloader (components/preloader)
+## Preloader (components/Preloader)
 The preloader component is built on the top of [preloader module](https://www.npmjs.com/package/preloader). Please refer to it for more information.
 
 #### Setup
@@ -18,10 +18,7 @@ Specify files or folders (to be read recursively) using glob format in `config-p
 Example preloader json file:
 ```
 [
-  "videos/test.mp4",
-  "json/",
-  "sound",
-  "images/test.jpg"
+  "json/**/*"
 ]
 ```
 
@@ -51,7 +48,7 @@ Follows [preloader](https://www.npmjs.com/package/preloader) API for the corresp
 - `stopLoad`
 
 <a name="rotate"></a>
-## Rotate Screen (components/rotate)
+## Rotate Screen (components/Rotate)
 
 The rotate screen component simply needs to be included on the page. It determines the device orientation via the detect utility. It will determine if it needs to be shown based the boolean prop.
 
@@ -59,7 +56,7 @@ The rotate screen component simply needs to be included on the page. It determin
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
 
 <a name="device"></a>
-## Device Detection (util/detect/)
+## Device Detection (util/detect)
 
 The device detection utility is a javascript object with numerous properties to help you build conditionals based on the current browser / device. It includes the following properties.
 
