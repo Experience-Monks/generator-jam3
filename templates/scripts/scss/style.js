@@ -21,7 +21,7 @@ var createSass = function (callback) {
   running = true;
   fs.readFile(config.style, 'UTF-8', function (err, data) {
     if (!err) {
-      mkdirp(path.basename(config.output), function (err) {
+      mkdirp(config.output, function (err) {
         if (!err) {
           data = createModifyVars({
             ASSET_PATH: config.ASSET_PATH
