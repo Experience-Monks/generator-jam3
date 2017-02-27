@@ -46,7 +46,7 @@ var prompts = [{
 },{
   type: "confirm",
   name: "sectionNames",
-  message: "Would you perfer Landing/Landing.js over Landing/index.js?",
+  message: "Would you prefer Landing/Landing.js over Landing/index.js?",
   default: false,
   when: function(answers) { return answers.framework!=='none'; }
 },{
@@ -76,7 +76,7 @@ var prompts = [{
 },{
   type: "confirm",
   name: "vendor",
-  message: "Seperate common npm modules into vendor.js?",
+  message: "Separate common npm modules into vendor.js?",
   default: true
 },{
   type: "list",
