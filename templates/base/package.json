@@ -8,15 +8,17 @@
     "url": "https://github.com/Jam3"
   },
   "scripts": {
-    "start": "npm run preloader && npm run copy && npm run style && npm run dev",
+    "start": "npm run preloader && npm run copy && npm run style && {{#is backend "none"}}npm run unsupported && {{/is}}npm run dev",
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
     "preloader": "node scripts/preloader.js",
-    "dev": "node scripts/dev.js",
-    "release": "node scripts/timestamp.js && npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && npm run release-copy && npm run release-gzip && node scripts/timestamp.js --delete",
+    "dev": "node scripts/dev.js",{{#is backend "none"}}
+    "unsupported": "node scripts/release.js --unsupported",{{/is}}
+    "release": "node scripts/timestamp.js && npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && {{#is backend "none"}}npm run release-unsupported && {{/is}}npm run release-copy && npm run release-gzip && node scripts/timestamp.js --delete",
     "preloader-release": "node scripts/preloader.js --env=production",
     "release-style": "node scripts/style.js --env=production",
-    "release-browserify": "node scripts/release.js --env=production",
+    "release-browserify": "node scripts/release.js --env=production",{{#is backend "none"}}
+    "release-unsupported": "node scripts/release.js --env=production --unsupported",{{/is}}
     "release-copy": "node scripts/copy.js --env=production",
     "release-gzip": "node scripts/gzip.js --env=production",
     "release-clean": "node scripts/clean.js --env=production",

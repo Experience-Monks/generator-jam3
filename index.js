@@ -108,9 +108,8 @@ var globs = [
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
   { base: 'templates/scripts/favicons/', glob: '*', output: 'scripts/favicons/' },
-  { base: 'templates/backend/{{backend}}', output: 'static/' },
-  { base: 'templates/backend/', glob: '*', output: 'static/' },
-  { base: 'templates/backend/json/', glob: '*', output: 'static/json/' },
+  { base: 'templates/backend/{{backend}}'},
+  { base: 'templates/backend/default/', glob: '*', output: 'static/' },
   { base: 'templates/backend/images/', output: 'raw-assets/images/unsupported/' }
 ];
 var gen = nyg(prompts,globs)

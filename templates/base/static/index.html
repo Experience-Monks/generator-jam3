@@ -1,6 +1,9 @@
 <!doctype html>
 <html>
-<head>
+<head>{{#is backend "none"}}
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=unsupported.html">
+  </noscript>{{/is}}
   <title>{{repoName}}</title>
   <meta name="description" content="">
   <!--
@@ -28,7 +31,8 @@
   <meta name="twitter:image" content="">
   <meta charset="utf-8">
   {{#if pushState}}<base href="\{{BASENAME}}">{{/if}}
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">{{#is backend "none"}}
+  <script type="text/javascript" src="js/unsupported.js"></script>{{/is}}
   <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
 </head>
   <body>\{{#is NODE_ENV "production"}}\{{#if vendor}}
