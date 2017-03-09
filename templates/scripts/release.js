@@ -32,12 +32,12 @@ var post = function(file,src) {
 };
 
 if (argv.unsupported) {
+  browserify(path.join(path.dirname(config.entry),'unsupported.js')).bundle().pipe(concat(post.bind(undefined,path.join(path.dirname(config.bundle),'unsupported.js'))));
+} else {
   if (config.vendor && typeof config.vendor === 'string') {
     browserify(config.entry).external(deps).bundle().pipe(concat(post.bind(undefined,config.bundle)));
     browserify().require(deps).bundle().pipe(concat(post.bind(undefined,config.vendor)));
   } else {
     browserify(config.entry).bundle().pipe(concat(post.bind(undefined,config.bundle)));
   }
-} else {
-  browserify(path.join(path.dirname(config.entry),'unsupported.js')).bundle().pipe(concat(post.bind(undefined,path.join(path.dirname(config.bundle),'unsupported.js'))));
 }

@@ -46,6 +46,14 @@ class Meta {
     }
   }
 
+  function isBot() {
+    $isBot = false;
+    for ($i=0; $i<count($this->uaList); $i++) {
+      if (strpos($this->ua,$this->uaList[$i])!==false) $isBot = true;
+    }
+    return $isBot;
+  }
+
   function setPath($path) {
     $this->path = $path;
     $data = $this->share["default"];

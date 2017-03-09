@@ -61,6 +61,7 @@ var getClasses = function() {
 };
 
 module.exports = {
+  bot: utilBrowser.checkBot(),
   device: checkDevice(),
   vendor: checkVendor(),
   os: utilOS.os(),
