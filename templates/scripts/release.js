@@ -15,7 +15,7 @@ var post = function(file,src) {
       var code = src.toString();
       if (config.minify) {
         try {
-          var min = uglify.minify(code,{fromString: true, compress: {drop_console: config.removeLogs===false ? false : true}});
+          var min = uglify.minify(code,{fromString: true, compress: {drop_console: config.removeLogs===false ? false : true, dead_code: true, evaluate: false}});
           code = min.code;
         } catch(err) {
           console.log('\x1b[31m Error at line',err.line+':',err.message+'\x1b[0m');

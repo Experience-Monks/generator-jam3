@@ -24,7 +24,7 @@ class {{section}} extends React.Component {
     });
   }
   render() {
-    var style = {width: this.props.width, height: this.props.height};
+    const style = {width: this.props.windowWidth, height: this.props.windowHeight};
     return <ReactF1
       go={this.state.state}
       onComplete={this.state.onComplete}
@@ -38,8 +38,8 @@ class {{section}} extends React.Component {
 };
 
 {{section}}.defaultProps = {
-  width: 960,
-  height: 570
+  windowWidth: 960,
+  windowHeight: 570
 };
 
 export default {{section}};

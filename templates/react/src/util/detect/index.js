@@ -55,7 +55,7 @@ var checkManufacturer = function() {
 };
 
 var getClasses = function() {
-  var classes = [checkDevice(), 'x' + checkDevicePixelRatio(), checkBrowser(), utilBrowser.checkVersion(), (utilOS.os()).replace(/\s/g, '_').toLocaleLowerCase()];
+  var classes = [checkDevice(), 'x' + checkDevicePixelRatio(), checkBrowser(), 'v' + utilBrowser.checkVersion(), (utilOS.os()).replace(/\s/g, '_').toLocaleLowerCase()];
   if (md.mobile()) classes.push(checkManufacturer());
   return classes.filter(function(cur) { return !!cur; });
 };
