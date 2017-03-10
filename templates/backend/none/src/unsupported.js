@@ -7,7 +7,7 @@ let os = device.os().toLocaleLowerCase();
 let osVersion = parseFloat(device.osVersion());
 if (os) os = os.toLowerCase();
 if (osVersion==='Unknown') osVersion = Number.MAX_SAFE_INTEGER || 9999;
-if (browser.checkBot()) {
+if (browser.checkBot() || browser.checkFacebook()) {
   supported = true;
 } else if (os === 'android' || os === 'ios') {
   if (os==='ios' && browser.checkSafari() && osVersion>=matrix.ios) supported = true;
