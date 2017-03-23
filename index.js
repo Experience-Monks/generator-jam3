@@ -122,8 +122,9 @@ var gen = nyg(prompts,globs)
 //*************************** Event Handlers ***************************
 
 function onPostPrompt() {
-  var repo = gen.config.get('repo').match('\/(.*?).git');
-  gen.config.set('repoName', repo && repo[1] ? repo[1] : '');
+  var repo = gen.config.get('repo').split('/');
+  repo = repo[repo.length-1].toLowerCase().replace('.git','');
+  gen.config.set('repoName', repo || '');
   if (gen.config.get('framework')!=='none' && gen.config.get('framework')!=='bigwheel') gen.config.set('useES6',true);
 }
 
