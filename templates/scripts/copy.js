@@ -67,9 +67,14 @@ function copyFile(outputDir,srcDir,file) {
 function template(file,output) {
   fs.readFile(file,'utf8',function(err,data) {
     if (!err) {
-      fs.writeFile(output,render(data,config),function(err) {
-        if (err) console.log('\x1b[31m could not write file:',output,'\x1b[0m');
-      });
+      try {
+        var content = render(data,config);
+        fs.writeFile(output,content,function(err) {
+          if (err) console.log('\x1b[31m could not write file:',output,'\x1b[0m');
+        });
+      } catch(e) {
+        console.log('\x1b[31m could not parse file:',file,'\x1b[0m');
+      }
     } else {
       console.log('\x1b[31m could not read file:',file,'\x1b[0m');
     }
