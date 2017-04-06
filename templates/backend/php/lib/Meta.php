@@ -37,7 +37,7 @@ class Meta {
     }
     $this->host = $protocol.'://'.$_SERVER['HTTP_HOST'];
     $this->path = is_string($path) ? $path : $_SERVER['REQUEST_URI'];
-    $this->url = $this->host.$this->path;
+    $this->url = $this->host."/".$this->path;
     $this->addTag('og:url',$this->url);
 
     if (!empty($json)) {
@@ -49,7 +49,7 @@ class Meta {
   function setPath($path) {
     $this->path = $path;
     $data = $this->share["default"];
-    if (@$share[$path]) $data = array_merge($data, $this->share[$path]);
+    if (@$this->share[$path]) $data = array_merge($data, $this->share[$path]);
     $this->addTags($data);
   }
 
