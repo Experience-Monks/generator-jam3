@@ -11,7 +11,7 @@ config.stylesheet = path.parse(config.style).name + '.css';
 
 if (type==='production' && config.timestamp) {
   var delimiter = '-';
-  var stamp = typeof config.timestamp === 'string' ? config.timestamp : fs.readFileSync('timestamp.txt');
+  var stamp = typeof config.timestamp === 'string' ? config.timestamp : fs.readFileSync(path.join(__dirname,'timestamp.txt'));
   if (stamp) {
     var stamp = delimiter + stamp;
     config.stylesheet = path.parse(config.style).name.split(delimiter)[0] + stamp + '.css';
