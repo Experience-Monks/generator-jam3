@@ -50,7 +50,7 @@ function copyFile(outputDir,srcDir,file) {
           if (err) stream(file,output);
         });
       } else if (config.NODE_ENV==='production' && (config.JPEG_QUALITY!==false && !isNaN(config.JPEG_QUALITY)) && (file.toLowerCase().indexOf('.jpg')>-1 || file.toLowerCase().indexOf('.jpeg')>-1)) {
-        execFile(mozjpeg, ['-quality', config.JPEG_QUALITY, '-outfile', output, file], function (err) {
+        execFile(mozjpeg, ['-quality', config.JPEG_QUALITY, '-progressive', '-outfile', output, file], function (err) {
           if (err) stream(file,output);
         });
       } else if(srcDir === config.static && !isBlacklisted(file) && !isbinaryfile.sync(file)) {

@@ -8,7 +8,7 @@
     "style": "./src/style/main.{{css}}",
     "ASSET_PATH": "./assets/",
     "BASENAME": "/",
-    "JPEG_QUALITY": 80,
+    "JPEG_QUALITY": 90,
     "templateBlacklist": [],
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
     "env": {}
@@ -17,7 +17,7 @@
     "output": "./build/"
   },
   "production": {
-    "timestamp": true,
+    "timestamp": false,
     "output": "./release/",
     "minify": true,
     "removeLogs": true
