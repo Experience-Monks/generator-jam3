@@ -90,6 +90,11 @@ var prompts = [{
     value: "none"
   }]
 },{
+  type: "confirm",
+  name: "unsupported",
+  message: "Would you like to include an unsupported page?",
+  default: true
+},{
   type: "input",
   name: "password",
   message: "Choose the password to use for password protection. (leave blank to disable)",
@@ -108,9 +113,10 @@ var globs = [
   { base: 'templates/style/', output: 'src/style/' },
   { base: 'templates/scripts/{{css}}/', glob: '*', output: 'scripts/' },
   { base: 'templates/scripts/favicons/', glob: '*', output: 'scripts/favicons/' },
-  { base: 'templates/backend/{{backend}}'},
-  { base: 'templates/backend/default/', glob: '*', output: 'static/' },
-  { base: 'templates/backend/images/', output: 'raw-assets/images/unsupported/' }
+  { base: 'templates/backend/{{backend}}/'},
+  { base: 'templates/unsupported/default/', when: function(answers) { return answers.unsupported; }},
+  { base: 'templates/unsupported/{{backend}}/', when: function(answers) { return answers.unsupported; } }
+
 ];
 var gen = nyg(prompts,globs)
 .on('postprompt', onPostPrompt)

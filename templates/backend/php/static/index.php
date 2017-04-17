@@ -1,18 +1,19 @@
-<?php
-require('lib/Browser.php');
-require('lib/Mobile_Detect.php');
+<!doctype html>
+<html>
+<head>
+  <?php
+    require('./lib/Meta.php');
+    $meta = new Meta('json/share.json',isset($_GET['u'])?$_GET['u']:'');
+    $meta->write();
+  ?>
+  <meta charset="utf-8">
+  {{#if pushState}}<base href="\{{BASENAME}}">{{/if}}
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
+</head>
+  <body>\{{#is NODE_ENV "production"}}\{{#if vendor}}
+  <script type="text/javascript" src="\{{vendor}}"></script>\{{/if}}\{{/is}}
+  <script type="text/javascript" src="\{{bundle}}"></script>
+  </body>
+</html>
 
-$browser = new Browser();
-$devices = json_decode(file_get_contents('device-matrix.json'), true);
-
-if (
-  $browser->getBrowser() == Browser::BROWSER_IE && $browser->getVersion() < $devices['ie']
-  || $browser->getBrowser() == Browser::BROWSER_SAFARI && $browser->getVersion() < $devices['safari']
-  || $browser->getBrowser() == Browser::BROWSER_CHROME && $browser->getVersion() < $devices['chrome']
-  || $browser->getBrowser() == Browser::BROWSER_FIREFOX && $browser->getVersion() < $devices['firefox']
-  || ($browser->getBrowser() == Browser::BROWSER_IPHONE || $browser->getBrowser() == Browser::BROWSER_IPAD) && $browser->getVersion() < $devices['safari']
-  ) {
-    header('Location: ' . 'unsupported.html');
-} else {
-  require('main.php');
-}
