@@ -16,9 +16,6 @@ class Preloader extends React.Component {
     super(props);
     this.onProgress = this.onProgress.bind(this);
     this.setDone = this.setDone.bind(this);
-    this.state = {
-      state: 'out'
-    };
   }
 
   componentDidMount() {
@@ -41,11 +38,11 @@ class Preloader extends React.Component {
   }
 
   animateIn(done) {
-    Tween.fromTo(this.container,0.5,{autoAlpha: 0},{autoAlpha: 1, onComplete: done});
+    Tween.to(this.container, 0.5, {autoAlpha: 1, onComplete: done});
   };
 
   animateOut(done) {
-    Tween.to(this.container,0.5,{autoAlpha: 0, onComplete: done});
+    Tween.to(this.container, 0.5, {autoAlpha: 0, onComplete: done});
   };
 
   setTimer() {
