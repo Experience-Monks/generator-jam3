@@ -1,6 +1,6 @@
 {
   "name": "nyg-jam3",
-  "version": "1.12.7",
+  "version": "1.12.8",
   "description": "Jam3 project scaffold generator based on nyg",
   "main": "index.js",
   "license": "MIT",
