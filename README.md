@@ -22,15 +22,15 @@ You will then be prompted with a number of questions, which will define the proj
 ## Prompts
 
 `What is your name? (Author)`  
-Default: Jam3  
+Default: name  
 A name used in the README.md, package.json and humans.txt.
 
 `What is your email? (Author Email)`  
-Default: td@jam3.com  
+Default: my@email.com  
 An email used in the package.json and humans.txt.
 
 `Describe the project:`  
-Default: A Jam3 project  
+Default: project  
 A brief description of the project that is used at the top of the README.md.
 
 `What is your git repository? (GitHub Repository)`  
