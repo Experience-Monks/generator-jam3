@@ -11,17 +11,17 @@ var prompts = [{
   type: "input",
   name: "author",
   message: "What is your name? (Author)",
-  default: "Jam3"
+  default: "name"
 }, {
   type: "input",
   name: "email",
   message: "What is your email? (Author Email)",
-  default: "td@jam3.com"
+  default: "my@email.com"
 }, {
   type: "input",
   name: "description",
   message: "Describe the project:",
-  default: "A Jam3 project"
+  default: "project"
 }, {
   type: "input",
   name: "repo",
