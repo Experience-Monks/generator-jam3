@@ -11,17 +11,17 @@ var prompts = [{
   type: "input",
   name: "author",
   message: "What is your name? (Author)",
-  default: "name"
+  default: ""
 }, {
   type: "input",
   name: "email",
   message: "What is your email? (Author Email)",
-  default: "my@email.com"
+  default: ""
 }, {
   type: "input",
   name: "description",
   message: "Describe the project:",
-  default: "project"
+  default: ""
 }, {
   type: "input",
   name: "repo",
