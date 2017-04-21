@@ -21,7 +21,7 @@ var createLess = function(callback) {
   running = true;
   fs.readFile(config.style,'UTF-8',function(err,data) {
     if (!err) {
-      mkdirp(config.output,function(err) {
+      mkdirp(path.basename(config.output), function (err) {
         if (!err) {
           data += createModifyVars({ASSET_PATH: config.ASSET_PATH});
           less.render(data,{
@@ -38,7 +38,7 @@ var createLess = function(callback) {
               fs.writeFile(path.join(config.output,lessOutput),output.css,function(err) {
                 console.log((err) ? '\x1b[31m cannot write css file.\x1b[0m' : '\x1b[32m successfully wrote css file.\x1b[0m');
                 running = false;
-                if (callback) callback();
+                if (callback) callback(null);
               });
               fs.writeFile(path.join(config.output,lessOutput+'.map'),output.map,function(err) {
                 console.log((err) ? '\x1b[31m cannot write css map file.\x1b[0m' : '\x1b[32m successfully wrote css map file.\x1b[0m');
@@ -46,6 +46,7 @@ var createLess = function(callback) {
             } else {
               console.error(err);
               running = false;
+              if (callback) callback(err);
             }
           });
         }

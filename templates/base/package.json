@@ -50,7 +50,7 @@
     "stats.js": "0.16.0"{{/is}}
   },
   "devDependencies": {
-    "budo": "^9.0.0",
+    "budo": "^10.0.3",
     "rimraf": "^2.5.2",
     "envify": "^3.4.0",
     "concat-stream": "^1.5.1",
