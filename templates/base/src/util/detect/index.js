@@ -83,7 +83,7 @@ module.exports = {
   isEdge: (ua.toLowerCase().indexOf('edge') >= 0),
   isFirefox: (checkBrowser().indexOf('firefox') >= 0),
   isSafari: (checkBrowser().indexOf("safari") >= 0 && checkVendor().indexOf("apple") >= 0),
-  isOpera: (checkBrowser().indexOf("opera") >= 0,
+  isOpera: (checkBrowser().indexOf("opera") >= 0),
   md: md,
   get orientation() {
     if (window.screen) {
