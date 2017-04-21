@@ -1,6 +1,7 @@
 var ua = navigator.userAgent.toLowerCase();
 var appVersion = navigator.appVersion.toLowerCase();
 var vendor = (navigator.vendor) ? navigator.vendor.toLowerCase() : "";
+var bots = ['facebookexternalhit','linkedinbot','google (+https://developers.google.com/+/web/snippet/)','facebot','https://developers.google.com/+/web/snippet/','twitterbot','tumblr','googlebot'];
 
 /**
  * This function will return whether this UtilBrowser we're running on is Internet Explorer.
@@ -12,6 +13,31 @@ module.exports.checkIE = function() {
   var msie = ua.indexOf('msie') >= 0;
   var trident = ua.indexOf('trident/') >= 0;
   return !!(msie || trident);
+};
+
+/**
+ * This function will return whether this UtilBrowser we're running on is a crawler bot.
+ *
+ * @method checkFirefox
+ * @return {Boolean} If this function returns true we're running on Firefox, false if not.
+ */
+module.exports.checkBot = function() {
+  var uaLower = ua.toLowerCase();
+  var isBot = false;
+  bots.map(function(cur) {
+    if (uaLower.indexOf(cur)>-1) isBot = true;
+  });
+  return isBot;
+};
+
+/**
+ * This function will return whether this UtilBrowser we're running on is the facebook in app browser.
+ *
+ * @method checkFirefox
+ * @return {Boolean} If this function returns true we're running on Firefox, false if not.
+ */
+module.exports.checkFacebook = function() {
+  return (ua.indexOf("fban") > -1) || (ua.indexOf("fbav") > -1);
 };
 
 /**

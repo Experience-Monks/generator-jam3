@@ -63,7 +63,11 @@ Whether to separate all npm modules into a separate vender.js file, limiting the
 
 `What backend language would you like to use?`  
 Default: PHP  
-Whether to copy over backend libraries that aid development such as automatic meta tag generation and unsupported page redirection.
+Whether to copy over backend libraries that aid development such as automatic meta tag generation.
+
+`Would you like to include an unsupported page?`  
+Default: true  
+Whether to include automatic unsupported page redirection.
 
 `Choose the password to use for password protection. (leave blank to disable)`  
 Default: (empty string)  

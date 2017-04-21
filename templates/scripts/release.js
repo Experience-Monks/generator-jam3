@@ -1,4 +1,5 @@
 'use strict';
+var argv = require('minimist')(process.argv.slice(2));
 var fs = require('graceful-fs');
 var path = require('path');
 var config = require('./config');
@@ -30,9 +31,13 @@ var post = function(file,src) {
   });
 };
 
-if (config.vendor && typeof config.vendor === 'string') {
-  browserify(config.entry).external(deps).bundle().pipe(concat(post.bind(undefined,config.bundle)));
-  browserify().require(deps).bundle().pipe(concat(post.bind(undefined,config.vendor)));
+if (argv.unsupported) {
+  browserify(path.join(path.dirname(config.entry),'unsupported.js')).bundle().pipe(concat(post.bind(undefined,path.join(path.dirname(config.bundle),'unsupported.js'))));
 } else {
-  browserify(config.entry).bundle().pipe(concat(post.bind(undefined,config.bundle)));
+  if (config.vendor && typeof config.vendor === 'string') {
+    browserify(config.entry).external(deps).bundle().pipe(concat(post.bind(undefined,config.bundle)));
+    browserify().require(deps).bundle().pipe(concat(post.bind(undefined,config.vendor)));
+  } else {
+    browserify(config.entry).bundle().pipe(concat(post.bind(undefined,config.bundle)));
+  }
 }

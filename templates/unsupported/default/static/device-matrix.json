@@ -2,5 +2,7 @@
   "ie": 11,
   "safari": 8,
   "chrome": 47,
-  "firefox": 42
+  "firefox": 42,
+  "ios": 8,
+  "android": 5
 }

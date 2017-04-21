@@ -32,6 +32,8 @@ var checkBrowser = function() {
     browser = 'firefox';
   } else if ((uaLower.indexOf("safari") >= 0 && checkVendor().indexOf("apple") >= 0) || (env.indexOf('dev') >= 0 && uaLower.indexOf("iphone") >= 0 && uaLower.indexOf("chrome") < 0)) {
     browser = 'safari';
+  } else if (uaLower.indexOf("opr") >= 0) {
+    browser = 'opera';
   } else if (uaLower.indexOf("chrome") >= 0 && checkVendor().indexOf("google") >= 0) {
     browser = 'chrome';
   }
@@ -61,6 +63,8 @@ var getClasses = function() {
 };
 
 module.exports = {
+  isBot: utilBrowser.checkBot(),
+  isFacebook: utilBrowser.checkFacebook(),
   device: checkDevice(),
   vendor: checkVendor(),
   os: utilOS.os(),
@@ -79,6 +83,7 @@ module.exports = {
   isEdge: (ua.toLowerCase().indexOf('edge') >= 0),
   isFirefox: (checkBrowser().indexOf('firefox') >= 0),
   isSafari: (checkBrowser().indexOf("safari") >= 0 && checkVendor().indexOf("apple") >= 0),
+  isOpera: (checkBrowser().indexOf("opera") >= 0,
   md: md,
   get orientation() {
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
