@@ -18,8 +18,8 @@ module.exports.checkIE = function() {
 /**
  * This function will return whether this UtilBrowser we're running on is a crawler bot.
  *
- * @method checkFirefox
- * @return {Boolean} If this function returns true we're running on Firefox, false if not.
+ * @method checkBot
+ * @return {Boolean} If this function returns true we're running on a crawler bot, false if not.
  */
 module.exports.checkBot = function() {
   var uaLower = ua.toLowerCase();
@@ -33,8 +33,8 @@ module.exports.checkBot = function() {
 /**
  * This function will return whether this UtilBrowser we're running on is the facebook in app browser.
  *
- * @method checkFirefox
- * @return {Boolean} If this function returns true we're running on Firefox, false if not.
+ * @method checkFacebook
+ * @return {Boolean} If this function returns true we're running on the facebook in app browser, false if not.
  */
 module.exports.checkFacebook = function() {
   return (ua.indexOf("fban") > -1) || (ua.indexOf("fbav") > -1);

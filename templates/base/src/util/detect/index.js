@@ -86,6 +86,12 @@ module.exports = {
   isOpera: (checkBrowser().indexOf("opera") >= 0,
   md: md,
   get orientation() {
+    if (window.screen) {
+      var orientation = window.screen.orientation || window.screen.mozOrientation || window.screen.msOrientation;
+      if (orientation && orientation.type) {
+        return orientation.type.split('-', 1)[0];
+      }
+    }
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var aspectRatio = w / h;
