@@ -44,7 +44,6 @@ var createLess = function(callback) {
                 console.log((err) ? '\x1b[31m cannot write css map file.\x1b[0m' : '\x1b[32m successfully wrote css map file.\x1b[0m');
               });
             } else {
-              console.error(err);
               running = false;
               if (callback) callback(err);
             }

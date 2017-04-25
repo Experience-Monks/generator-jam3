@@ -47,14 +47,12 @@ var createSass = function (callback) {
               },function(err) {
                 console.log('\x1b[31m cannot process css file.\x1b[0m');
                 running = false;
-                console.error(err);
                 if (callback) callback(err);
               });
               fs.writeFile(path.join(config.output, sassOutput + '.map'), output.map, function (err) {
                 console.log((err) ? '\x1b[31m cannot write css map file.\x1b[0m' : '\x1b[32m successfully wrote css map file.\x1b[0m');
               });
             } else {
-              console.error(err.formatted ? err.formatted : err);
               running = false;
               if (callback) callback(err);
             }
