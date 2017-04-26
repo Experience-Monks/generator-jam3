@@ -156,7 +156,7 @@ Preloader.propTypes = {
 Preloader.defaultProps = {
   setProgress: f => f,
   style: {},
-  minDisplayTime: 1500, // in milliseconds
+  minDisplayTime: 0, // in milliseconds
   options: {
     xhrImages: false,
     loadFullAudio: false,
