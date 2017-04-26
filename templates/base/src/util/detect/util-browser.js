@@ -99,7 +99,7 @@ module.exports.checkMac = function() {
 module.exports.checkVersion = function() {
   // http://stackoverflow.com/questions/5916900/detect-version-of-browser
   var tem;
-  var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+  var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/)|fbsv)\/?\s*(\d+)/i) || [];
   if (/trident/i.test(M[1])) {
     tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
     return (tem[1] || '');
@@ -109,6 +109,10 @@ module.exports.checkVersion = function() {
     if (tem != null) {
       return tem[1];
     }
+  }
+  // Facebook in-app browser
+  if (M[1] === 'fbsv') {
+    return M[2];
   }
   M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
   if ((tem = ua.match(/version\/(\d+)/i)) != null) {
