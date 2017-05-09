@@ -36,7 +36,7 @@ class Meta {
       $protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http' );
     }
     $this->host = $protocol.'://'.$_SERVER['HTTP_HOST'];
-    $this->path = is_string($path) ? $path : $_SERVER['REQUEST_URI'];
+    $this->path = htmlspecialchars(is_string($path) ? $path : $_SERVER['REQUEST_URI'], ENT_QUOTES);
     $this->url = $this->host."/".$this->path;
     $this->addTag('og:url',$this->url);
 
