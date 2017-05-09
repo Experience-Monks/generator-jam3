@@ -33,4 +33,6 @@
     {{/if}}
 </ifModule>
 
+Header append X-FRAME-OPTIONS "SAMEORIGIN"
+
 DirectoryIndex index.php index.html
