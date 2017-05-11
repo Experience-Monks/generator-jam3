@@ -10,6 +10,7 @@
     "BASENAME": "/",
     "JPEG_QUALITY": 90,
     "templateBlacklist": [],
+    "liveReloadClient": true,
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
     "env": {}
   },

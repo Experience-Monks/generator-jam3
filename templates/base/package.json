@@ -28,11 +28,11 @@
   },
   "license": "ISC",
   "repository": "{{repo}}",
-  "dependencies": { {{#is framework 'bigwheel'}}
+  "dependencies": {
+    "gsap": "^1.19.1",{{#is framework 'bigwheel'}}
     "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
-    "gsap": "^1.18.2",
     "handlebars": "^2.0.0",
     "domify": "^1.4.0"{{/is}}{{#is framework 'react'}}
     "babel-polyfill": "^6.7.4",
@@ -42,7 +42,6 @@
     "react": "^15.3.2",
     "react-addons-perf": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-f1": "^8.1.0",
     "react-svg-inline": "^1.2.0",
     "react-redux": "^4.4.4",
     "react-router": "^2.1.1",
@@ -52,7 +51,7 @@
     "stats.js": "0.16.0"{{/is}}
   },
   "devDependencies": {
-    "budo": "^9.0.0",
+    "budo": "^10.0.3",
     "rimraf": "^2.5.2",
     "envify": "^3.4.0",
     "concat-stream": "^1.5.1",
@@ -77,7 +76,7 @@
     "uglify-js": "^2.6.1",
     "brfs": "^1.2.0",{{#is framework 'bigwheel'}}
     "browserify-shim": "^3.8.0",{{/is}}
-    "browserify": "^12.0.1"{{#if useES6}},
+    "browserify": "^14.1.0"{{#if useES6}},
     "babelify": "^7.2.0",
     "babel-runtime": "^5.8.34",
     "babel-preset-es2015": "^6.3.13"{{#is framework 'react'}},
