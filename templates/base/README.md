@@ -90,6 +90,22 @@ To debug Redux, use this browser extension: http://zalmoxisus.github.io/redux-de
 $ npm run release
 ```
 
+## BROWSER SUPPORT
+
+[Browserify](https://www.npmjs.com/package/browserify) recently reduced support for older IE browsers (IE10 and below). This is due to the updated `Buffer` module. If you wish to support these browsers and are planning to use the `Buffer` module or use a seperate module that uses it, consider installing this [browser polyfill](https://github.com/inexorabletash/polyfill/blob/master/typedarray.js).
+
+Optionally you can install version 4 of the `Buffer` module by running this command.
+
+`npm install buffer@^4 --save-dev`  
+
+You will also have to update the browserify bundle options using the require flag:
+
+`-r buffer/:buffer`
+
+This will require editing the `release.js` and `dev.js` scripts.
+
+For more information, check out: [https://github.com/substack/node-browserify/pull/1678](https://github.com/substack/node-browserify/pull/1678)
+
 ## RUN TESTS
 
 Use [Budo](http://npmjs.com/budo/) to develop and test your modules independently before integrating into the framework.

@@ -21,7 +21,7 @@ var createSass = function (callback) {
   running = true;
   fs.readFile(config.style, 'UTF-8', function (err, data) {
     if (!err) {
-      mkdirp(config.output, function (err) {
+      mkdirp(path.basename(config.output), function (err) {
         if (!err) {
           data = createModifyVars({
             ASSET_PATH: config.ASSET_PATH
@@ -42,18 +42,19 @@ var createSass = function (callback) {
                 fs.writeFile(path.join(config.output, sassOutput), output.css + ((srcMap && srcMap[0]) ? '\n'+srcMap[0] : ''), function (err) {
                   console.log((err) ? '\x1b[31m cannot write css file.\x1b[0m' : '\x1b[32m successfully wrote css file.\x1b[0m');
                   running = false;
-                  if (callback) callback();
+                  if (callback) callback(null);
                 });
-              },function() {
+              },function(err) {
                 console.log('\x1b[31m cannot process css file.\x1b[0m');
                 running = false;
+                if (callback) callback(err);
               });
               fs.writeFile(path.join(config.output, sassOutput + '.map'), output.map, function (err) {
                 console.log((err) ? '\x1b[31m cannot write css map file.\x1b[0m' : '\x1b[32m successfully wrote css map file.\x1b[0m');
               });
             } else {
-              console.error(err);
               running = false;
+              if (callback) callback(err);
             }
           });
         }
