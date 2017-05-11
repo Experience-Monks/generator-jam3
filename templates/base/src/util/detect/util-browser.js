@@ -37,8 +37,8 @@ module.exports.checkBot = function() {
  * @return {Boolean} If this function returns true we're running on the facebook in app browser, false if not.
  */
 module.exports.checkFacebook = function() {
-  return (ua.indexOf("fban") > -1) || (ua.indexOf("fbav") > -1);
-};
+  return (ua.indexOf('fban') > -1) || (ua.indexOf('fbav') > -1);
+}
 
 /**
  * This function will return whether this UtilBrowser we're running on is Firefox.
@@ -104,10 +104,23 @@ module.exports.checkVersion = function() {
     tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
     return (tem[1] || '');
   }
-  if (M[1] === 'Chrome') {
+  if (M[1] === 'chrome') {
     tem = ua.match(/\bOPR\/(\d+)/);
     if (tem != null) {
       return tem[1];
+    }
+  }
+  // Facebook in-app browser
+  if (checkFacebook()) {
+    // Apple, There is not version, taken from the OS
+    var FBApp = ua.match(/(fbsv)\/?\s*(\d+)/i);
+    if (FBApp && FBApp[1] === 'fbsv') {
+      return FBApp[2];
+    }
+
+    //Android, Take the chrome version
+    if (M[1] === 'chrome') {
+      return M[2];
     }
   }
   M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
