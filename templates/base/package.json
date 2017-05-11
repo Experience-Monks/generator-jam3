@@ -28,11 +28,11 @@
   },
   "license": "ISC",
   "repository": "{{repo}}",
-  "dependencies": { {{#is framework 'bigwheel'}}
+  "dependencies": {
+    "gsap": "^1.19.1",{{#is framework 'bigwheel'}}
     "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
-    "gsap": "^1.18.2",
     "handlebars": "^2.0.0",
     "domify": "^1.4.0"{{/is}}{{#is framework 'react'}}
     "babel-polyfill": "^6.7.4",
@@ -42,7 +42,6 @@
     "react": "^15.3.2",
     "react-addons-perf": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-f1": "^8.1.0",
     "react-svg-inline": "^1.2.0",
     "react-redux": "^4.4.4",
     "react-router": "^2.1.1",
