@@ -35,8 +35,8 @@
   <script type="text/javascript" src="unsupported.js"></script>{{/if}}{{/is}}
   <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
 </head>
-  <body>\{{#is NODE_ENV "production"}}\{{#if vendor}}
-  <script type="text/javascript" src="\{{vendor}}"></script>\{{/if}}\{{/is}}
+  <body>\{{#if vendor}}
+  <script type="text/javascript" src="\{{vendor}}"></script>\{{/if}}
   <script type="text/javascript" src="\{{bundle}}"></script>
   </body>
 </html>

@@ -15,6 +15,7 @@
     "env": {}
   },
   "development": {
+    "vendor": false,
     "output": "./build/"
   },
   "production": {
