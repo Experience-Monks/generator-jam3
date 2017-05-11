@@ -6,9 +6,7 @@
 'use strict';
 
 import React from 'react';
-import ReactF1 from 'react-f1';
-import states from './states';
-import transitions from './transitions';
+import Tween from 'gsap';
 import preloader from 'preloader';
 import SVGInline from 'react-svg-inline';
 import LoaderIcon from '../../../raw-assets/svg/loader.svg';
@@ -18,9 +16,6 @@ class Preloader extends React.Component {
     super(props);
     this.onProgress = this.onProgress.bind(this);
     this.setDone = this.setDone.bind(this);
-    this.state = {
-      state: 'out'
-    };
   }
 
   componentDidMount() {
@@ -43,17 +38,11 @@ class Preloader extends React.Component {
   }
 
   animateIn(done) {
-    this.setState({
-      state: 'idle',
-      onComplete: done
-    });
+    Tween.to(this.container, 0.5, {autoAlpha: 1, onComplete: done});
   };
 
   animateOut(done) {
-    this.setState({
-      state: 'out',
-      onComplete: done
-    })
+    Tween.to(this.container, 0.5, {autoAlpha: 0, onComplete: done});
   };
 
   setTimer() {
@@ -125,19 +114,15 @@ class Preloader extends React.Component {
     const style = Object.assign({}, this.props.style);
 
     return (
-      <ReactF1
+      <div
         id="preloader"
-        data-f1="container"
         style={style}
-        go={this.state.state}
-        onComplete={this.state.onComplete}
-        states={states(this.props)}
-        transitions={transitions(this.props)}
+        ref={(e)=>this.container=e}
       >
         <div className="loader-icon">
           <SVGInline svg={LoaderIcon}/>
         </div>
-      </ReactF1>
+      </div>
     );
   }
 }
@@ -156,7 +141,7 @@ Preloader.propTypes = {
 Preloader.defaultProps = {
   setProgress: f => f,
   style: {},
-  minDisplayTime: 1500, // in milliseconds
+  minDisplayTime: 0, // in milliseconds
   options: {
     xhrImages: false,
     loadFullAudio: false,

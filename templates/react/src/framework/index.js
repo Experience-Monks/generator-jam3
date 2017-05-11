@@ -1,6 +1,5 @@
 'use strict';
 import React from 'react';
-import Perf from 'react-addons-perf';
 import {render} from 'react-dom';
 import {Router, Route, IndexRoute, IndexRedirect, useRouterHistory, Redirect} from 'react-router';
 import {{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}} from 'history/lib/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
@@ -17,6 +16,7 @@ const history = syncHistoryWithStore(useRouterHistory({{#if pushState}}createBro
 let Test;
 let TestRoutes;
 if (process.env.NODE_ENV === 'development') {
+  window.Perf = require('react-addons-perf');
   Test = require('../test/index').default;
   TestRoutes = require('../test/routes').default;
 }
@@ -26,7 +26,6 @@ export default function() {
   container.id = 'container';
   document.body.appendChild(container);
   document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
-  if (process.env.NODE_ENV === 'development') window.Perf = Perf;
 
   render((
     <Provider store={store}>
