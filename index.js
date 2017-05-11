@@ -140,12 +140,17 @@ function onPostCopy() {
       if (gen.config.get('useES6')) {
         gen.copy('templates/.babelrc','.babelrc',function() {
           if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
-            fs.rename(path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js'), function() {
-              fs.rename(path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js'), function() {
-                fs.rename(path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js'), function() {
-                  createSections(gen,done);
-                });
-              });
+            var style = gen.config.get('css');
+            var files = [
+              [path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js')],
+              [path.join(gen.cwd,'src/components/Preloader/style.'+style),path.join(gen.cwd,'src/components/Preloader/Preloader.'+style)],
+              [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
+              [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],
+              [path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js')],
+              [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)]
+            ];
+            renameFiles(files,function() {
+              createSections(gen,done);
             });
           } else {
             createSections(gen,done);
@@ -166,6 +171,18 @@ function onPostCopy() {
     if (gen.config.get('password') !== '') {
       addPasswordProtection(gen.cwd, gen.config.get('password'));
     }
+  });
+}
+
+function renameFiles(arr,cb) {
+  var total = arr.length;
+  var count = 0;
+  var done = function() {
+    count++;
+    if (count>=total) cb();
+  };
+  arr.forEach(function(cur) {
+    fs.rename(cur[0],cur[1],done);
   });
 }
 
