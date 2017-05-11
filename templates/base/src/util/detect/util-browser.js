@@ -36,9 +36,10 @@ module.exports.checkBot = function() {
  * @method checkFacebook
  * @return {Boolean} If this function returns true we're running on the facebook in app browser, false if not.
  */
-module.exports.checkFacebook = function() {
+var checkFacebook = function() {
   return (ua.indexOf('fban') > -1) || (ua.indexOf('fbav') > -1);
 }
+module.exports.checkFacebook = checkFacebook;
 
 /**
  * This function will return whether this UtilBrowser we're running on is Firefox.
