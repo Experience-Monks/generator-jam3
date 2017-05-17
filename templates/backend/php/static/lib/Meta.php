@@ -31,11 +31,11 @@ class Meta {
   function Meta($json=NULL,$path=NULL) {
     $this->ua = strtolower($_SERVER['HTTP_USER_AGENT']);
     if (array_key_exists('HTTP_X_FORWARDED_PROTO',$_SERVER)) {
-      $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+      $protocol = htmlspecialchars($_SERVER['HTTP_X_FORWARDED_PROTO'], ENT_QUOTES);
     } else {
       $protocol = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http' );
     }
-    $this->host = $protocol.'://'.$_SERVER['HTTP_HOST'];
+    $this->host = $protocol.'://'.htmlspecialchars($_SERVER['HTTP_HOST'], ENT_QUOTES);
     $this->path = htmlspecialchars(is_string($path) ? $path : $_SERVER['REQUEST_URI'], ENT_QUOTES);
     $this->url = $this->host."/".$this->path;
     $this->addTag('og:url',$this->url);
