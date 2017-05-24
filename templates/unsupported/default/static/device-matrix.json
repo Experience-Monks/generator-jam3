@@ -1,8 +1,13 @@
 {
-  "ie": 11,
-  "safari": 8,
-  "chrome": 47,
-  "firefox": 42,
-  "ios": 8,
-  "android": 5
+  "unsupported": {
+    "ie": 8
+  },
+  "warning": {
+    "ie": 11,
+    "safari": 8,
+    "chrome": 47,
+    "firefox": 42,
+    "ios": 8,
+    "android": 5
+  }
 }
