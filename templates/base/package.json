@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "npm-run-all preloader copy style {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}dev",
-    "release": "node scripts/timestamp.js && npm run build && node scripts/timestamp.js --delete",
-    "build": "cross-env NODE_ENV=production npm-run-all preloader clean style browserify {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}copy gzip",
+    "build": "node scripts/timestamp.js && npm-run-all preloader clean style browserify {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}copy gzip && node scripts/timestamp.js --delete",
+    "release": "cross-env NODE_ENV=production npm run build",
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
     "preloader": "node scripts/preloader.js",
