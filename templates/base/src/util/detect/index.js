@@ -17,7 +17,7 @@ var checkDevice = function() {
 };
 
 var checkVendor = function() {
-  return (navigator.vendor) ? navigator.vendor.toLowerCase() : "";
+  return (navigator.vendor) ? navigator.vendor.toLowerCase() : '';
 };
 
 var checkBrowser = function() {
@@ -28,13 +28,15 @@ var checkBrowser = function() {
 
   if (msie || trident) {
     browser = 'ie';
+  } else if (ua.toLowerCase().indexOf('edge') >= 0) {
+    browser = 'edge';
   } else if (uaLower.indexOf('firefox') >= 0) {
     browser = 'firefox';
-  } else if ((uaLower.indexOf("safari") >= 0 && checkVendor().indexOf("apple") >= 0) || (env.indexOf('dev') >= 0 && uaLower.indexOf("iphone") >= 0 && uaLower.indexOf("chrome") < 0)) {
+  } else if ((uaLower.indexOf('safari') >= 0 && checkVendor().indexOf('apple') >= 0) || (env.indexOf('dev') >= 0 && uaLower.indexOf('iphone') >= 0 && uaLower.indexOf('chrome') < 0)) {
     browser = 'safari';
-  } else if (uaLower.indexOf("opr") >= 0) {
+  } else if (uaLower.indexOf('opr') >= 0) {
     browser = 'opera';
-  } else if (uaLower.indexOf("chrome") >= 0 && checkVendor().indexOf("google") >= 0) {
+  } else if (uaLower.indexOf('chrome') >= 0 && checkVendor().indexOf('google') >= 0) {
     browser = 'chrome';
   }
   return browser;
@@ -68,22 +70,24 @@ module.exports = {
   device: checkDevice(),
   vendor: checkVendor(),
   os: utilOS.os(),
+  isIOS: utilOS.os() === 'iOS',
+  isAndroid: utilOS.os() === 'Android',
   osVersion: utilOS.osVersion(),
   browser: checkBrowser(),
   browserVersion: utilBrowser.checkVersion(),
   manufacturer: checkManufacturer(),
   devicePixelRatio: checkDevicePixelRatio(),
   classes: getClasses(),
-  isMobile: (md.mobile() ? true : false),
-  isPhone: (md.phone() ? true : false),
-  isTablet: (md.tablet() ? true : false),
-  isDesktop: (md.phone() || md.tablet()) ? false : true,
-  isChrome: (checkBrowser().indexOf("chrome") >= 0 && checkVendor().indexOf("google") >= 0),
-  isIE: !!((ua.toLowerCase().indexOf('msie') >= 0) || (ua.toLowerCase().indexOf('trident/') >= 0)),
+  isMobile: !!md.mobile(),
+  isPhone: !!md.phone(),
+  isTablet: !!md.tablet(),
+  isDesktop: !(md.phone() || md.tablet()),
+  isChrome: (checkBrowser().indexOf('chrome') >= 0 && checkVendor().indexOf('google') >= 0),
+  isIE: ((ua.toLowerCase().indexOf('msie') >= 0) || (ua.toLowerCase().indexOf('trident/') >= 0)),
   isEdge: (ua.toLowerCase().indexOf('edge') >= 0),
   isFirefox: (checkBrowser().indexOf('firefox') >= 0),
-  isSafari: (checkBrowser().indexOf("safari") >= 0 && checkVendor().indexOf("apple") >= 0),
-  isOpera: (checkBrowser().indexOf("opera") >= 0),
+  isSafari: (checkBrowser().indexOf('safari') >= 0 && checkVendor().indexOf('apple') >= 0),
+  isOpera: (checkBrowser().indexOf('opera') >= 0),
   md: md,
   get orientation() {
     if (window.screen) {
@@ -96,9 +100,9 @@ module.exports = {
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var aspectRatio = w / h;
     if (aspectRatio < 1) {
-      return 'portrait'
+      return 'portrait';
     } else {
-      return 'landscape'
+      return 'landscape';
     }
   }
 };
