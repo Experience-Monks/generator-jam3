@@ -1,24 +1,22 @@
-'use strict';
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import BackgroundVideo from 'react-background-video-player';
 import TransitionGroup from 'react-transition-group-plus';
-import animate from 'gsap';
+import animate from '@jam3/gsap-promise';
 import SVGInline from 'react-svg-inline';
 
-import secondsToTime from '../../util/seconds-to-minutes';
-import fullScreen from '../../util/handle-fullscreen';
+import secondsToTime from '../../../util/seconds-to-minutes';
+import fullScreen from '../../../util/handle-fullscreen';
 
-import playIcon from '../../../raw-assets/svg/play.svg';
-import pauseIcon from '../../../raw-assets/svg/pause.svg';
-import mutedIcon from '../../../raw-assets/svg/muted.svg';
-import unMutedIcon from '../../../raw-assets/svg/unmuted.svg';
-import enterFsIcon from '../../../raw-assets/svg/enter-fullscreen.svg';
-import exitFsIcon from '../../../raw-assets/svg/exit-fullscreen.svg';
-import closeIcon from '../../../raw-assets/svg/close.svg';
-import captionsOnIcon from '../../../raw-assets/svg/captions-on.svg';
-import captionsOffIcon from '../../../raw-assets/svg/captions-off.svg';
+import playIcon from './play.svg';
+import pauseIcon from './pause.svg';
+import mutedIcon from './muted.svg';
+import unMutedIcon from './unmuted.svg';
+import enterFsIcon from './enter-fullscreen.svg';
+import exitFsIcon from './exit-fullscreen.svg';
+import closeIcon from './close.svg';
+import captionsOnIcon from './captions-on.svg';
+import captionsOffIcon from './captions-off.svg';
 
 import VideoTimeline from './VideoTimeline';
 import VideoPoster from './VideoPoster';
@@ -56,6 +54,7 @@ export default class VideoPlayer extends PureComponent {
     }
 
     if (this.props.captions) {
+      this.captionsContainer &&
       animate.set(this.captionsContainer, {autoAlpha: Boolean(this.state.isShowingCaptions)});
     }
   }
@@ -92,7 +91,7 @@ export default class VideoPlayer extends PureComponent {
     }
 
     if (prevState.isShowingCaptions !== this.state.isShowingCaptions) {
-      this.captions &&
+      this.captionsContainer &&
       animate.to(this.captionsContainer, 0.1, {autoAlpha: Boolean(this.state.isShowingCaptions)});
     }
   }
@@ -106,13 +105,13 @@ export default class VideoPlayer extends PureComponent {
   }
 
   showControls = (dur = 0.8, ease = Expo.easeOut) => {
-    this.closeButton && animate.to(this.closeButton, dur, {y: '0%', ease});
-    this.controls && animate.to(this.controls, dur, {y: '0%', ease});
+    this.closeButton && animate(this.closeButton, dur, {y: '0%', ease});
+    animate(this.controls, dur, {y: '0%', ease});
   };
 
   hideControls = (dur = 0.8, ease = Expo.easeOut) => {
-    this.closeButton && animate.to(this.closeButton, dur, {y: '-100%', ease});
-    this.controls && animate.to(this.controls, dur, {y: '100%', ease});
+    this.closeButton && animate(this.closeButton, dur, {y: '-100%', ease});
+    animate(this.controls, dur, {y: '100%', ease});
   };
 
   getVideoElement = () => {
@@ -274,29 +273,31 @@ export default class VideoPlayer extends PureComponent {
         ref={r => this.container = r}
         onMouseMove={this._handleOnMouseMove}
       >
-        <BackgroundVideo
-          ref={r => this.video = r}
-          src={props.src}
-          containerWidth={state.containerWidth}
-          containerHeight={state.containerHeight}
-          autoPlay={false}
-          muted={props.muted}
-          loop={props.loop}
-          disableBackgroundCover={props.disableBackgroundCover}
-          preload={props.preload}
-          playsInline={props.playsInline}
-          volume={props.volume}
-          startTime={state.startTime}
-          onReady={this._handleOnReady}
-          onPlay={this._handlePlay}
-          onPause={this._handlePause}
-          onTimeUpdate={this._handleTimeUpdate}
-          onMute={this._handleMute}
-          onUnmute={this._handleUnmute}
-          onEnd={this._handleEnd}
-          onClick={props.togglePlayOnClick ? this.togglePlay : f => f}
-          onKeyPress={this._handleKeyPress}
-        />
+        {
+          <BackgroundVideo
+            ref={r => this.video = r}
+            src={props.src}
+            containerWidth={state.containerWidth}
+            containerHeight={state.containerHeight}
+            autoPlay={false}
+            muted={props.muted}
+            loop={props.loop}
+            disableBackgroundCover={props.disableBackgroundCover}
+            preload={props.preload}
+            playsInline={props.playsInline}
+            volume={props.volume}
+            startTime={state.startTime}
+            onReady={this._handleOnReady}
+            onPlay={this._handlePlay}
+            onPause={this._handlePause}
+            onTimeUpdate={this._handleTimeUpdate}
+            onMute={this._handleMute}
+            onUnmute={this._handleUnmute}
+            onEnd={this._handleEnd}
+            onClick={props.togglePlayOnClick ? this.togglePlay : f => f}
+            onKeyPress={this._handleKeyPress}
+          />
+        }
 
         {
           props.poster &&
@@ -436,7 +437,7 @@ VideoPlayer.defaultProps = {
   loop: false,
   hasControls: true,
   showPosterOnEnd: false,
-  controlsTimeout: 2.5, // in seconds
+  controlsTimeout: 3, // in seconds
   showControlsOnLoad: false,
   disableBackgroundCover: true,
   hasCloseButton: false,

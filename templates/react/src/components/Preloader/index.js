@@ -6,7 +6,7 @@
 'use strict';
 
 import React from 'react';
-import Tween from 'gsap';
+import animate from 'gsap';
 import preloader from 'preloader';
 import SVGInline from 'react-svg-inline';
 import LoaderIcon from '../../../raw-assets/svg/loader.svg';
@@ -38,11 +38,11 @@ class Preloader extends React.Component {
   }
 
   animateIn(done) {
-    Tween.to(this.container, 0.5, {autoAlpha: 1, onComplete: done});
+    animate.to(this.container, 0.5, {autoAlpha: 1, onComplete: done});
   };
 
   animateOut(done) {
-    Tween.to(this.container, 0.5, {autoAlpha: 0, onComplete: done});
+    animate.to(this.container, 0.5, {autoAlpha: 0, onComplete: done});
   };
 
   setTimer() {
@@ -117,7 +117,7 @@ class Preloader extends React.Component {
       <div
         id="preloader"
         style={style}
-        ref={(e)=>this.container=e}
+        ref={r => this.container = r}
       >
         <div className="loader-icon">
           <SVGInline svg={LoaderIcon}/>

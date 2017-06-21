@@ -1,13 +1,15 @@
+'use strict';
+
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 export default class VideoTimeline extends PureComponent {
   constructor(props) {
     super(props);
-    this.isMouseDown = false;
     this.state = {
       currentTime: props.currentTime,
     };
+    this.isMouseDown = false;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,22 +34,28 @@ export default class VideoTimeline extends PureComponent {
   };
 
   render() {
+    const props = this.props;
+
     return (
-      <div className="VideoTimeline">
+      <div
+        className={`VideoTimeline ${props.className}`}
+        style={props.style}
+        ref={r => this.container = r}
+      >
         <div
           className="progress"
-          style={{width: this.state.currentTime / this.props.duration * 100 + '%'}}
+          style=\{{width: this.state.currentTime / this.props.duration * 100 + '%'}}
         />
         <input
           type="range"
-          ref={ input => this.input = input }
+          ref={r => this.input = r}
           min="0"
-          max={ this.props.duration }
-          step="0.00001"
-          onChange={ this.handleChange }
-          onMouseDown={ this.handleMouseDown }
-          onMouseUp={ this.handleMouseUp }
-          value={ this.state.currentTime }
+          max={this.props.duration}
+          step="0.001"
+          onChange={this.handleChange}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+          value={this.state.currentTime}
         />
       </div>
     );
@@ -55,9 +63,14 @@ export default class VideoTimeline extends PureComponent {
 }
 
 VideoTimeline.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
   duration: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
   onTimeChange: PropTypes.func.isRequired,
 };
 
-VideoTimeline.defaultProps = {};
+VideoTimeline.defaultProps = {
+  className: '',
+  style: {},
+};
