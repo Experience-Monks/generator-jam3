@@ -1,4 +1,4 @@
-var userAgentOS = [
+const userAgentOS = [
   {s: 'Windows 10', r: /(Windows 10.0|Windows NT 10.0)/},
   {s: 'Windows 8.1', r: /(Windows 8.1|Windows NT 6.3)/},
   {s: 'Windows 8', r: /(Windows 8|Windows NT 6.2)/},
@@ -24,15 +24,18 @@ var userAgentOS = [
   {s: 'UNIX', r: /UNIX/},
   {s: 'BeOS', r: /BeOS/},
   {s: 'OS/2', r: /OS\/2/},
-  {s: 'Search Bot', r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/}
+  {
+    s: 'Search Bot',
+    r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/
+  }
 ];
 
-var ua = navigator.userAgent;
+const ua = navigator.userAgent;
 
-var os = (function() {
-  var operatingSystem;
-  for (var id in userAgentOS) {
-    var cs = userAgentOS[id];
+let os = (function() {
+  let operatingSystem;
+  for (let id in userAgentOS) {
+    const cs = userAgentOS[id];
     if (cs.r.test(ua)) {
       operatingSystem = cs.s;
       break;
@@ -41,8 +44,8 @@ var os = (function() {
   return operatingSystem;
 })();
 
-var osVersion = (function() {
-  var version = 'Unknown';
+const osVersion = (function() {
+  let version = 'Unknown';
 
   if (/Windows/.test(os)) {
     version = os.replace(/^Windows /, '');
