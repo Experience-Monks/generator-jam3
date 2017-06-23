@@ -1,9 +1,8 @@
 'use strict';
-
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class VideoTimeline extends PureComponent {
+export default class VideoTimeline extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

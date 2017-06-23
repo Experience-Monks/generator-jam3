@@ -1,6 +1,5 @@
 'use strict';
-
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import BackgroundVideo from 'react-background-video-player';
 import TransitionGroup from 'react-transition-group-plus';
@@ -20,10 +19,10 @@ import closeIcon from '../../../raw-assets/svg/close.svg';
 import captionsOnIcon from '../../../raw-assets/svg/captions-on.svg';
 import captionsOffIcon from '../../../raw-assets/svg/captions-off.svg';
 
-import VideoTimeline from './VideoTimeline';
-import VideoPoster from './VideoPoster';
+import VideoTimeline from './VideoTimeline{{#if sectionNames}}/VideoTimeline{{/if}}';
+import VideoPoster from './VideoPoster{{#if sectionNames}}/VideoPoster{{/if}}';
 
-export default class VideoPlayer extends PureComponent {
+export default class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

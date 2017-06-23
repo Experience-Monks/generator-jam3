@@ -2,6 +2,7 @@
  * Components added to the manifest can be accessed in browser under `/test/{componentName}` route
  * or go to `/test` to see the list of test components
  */
+import detect from '../util/detect';
 
 export default {
   Rotate: {
@@ -11,7 +12,10 @@ export default {
     }
   },
   Preloader: {
-    component: require('./Preloader') // example of using a wrapper component connected to the store
+    component: require('./Preloader'), // example of using a wrapper component connected to the store
+    props: {
+      minDisplayTime: 1500,
+    }
   },
   VideoPlayerFullBrowser: {
     component: require('../components/VideoPlayer{{#if sectionNames}}/VideoPlayer{{/if}}'),
@@ -24,6 +28,7 @@ export default {
       hasCloseButton: true,
       hasPlayButton: false,
       showControlsOnLoad: true,
+      togglePlayOnClick: detect.isDesktop,
       captions: {
         kind: 'captions',
         label: 'English',
@@ -53,15 +58,24 @@ export default {
     component: require('../components/VideoPlayer{{#if sectionNames}}/VideoPlayer{{/if}}'),
     props: {
       style: {
-        width: 768,
-        height: 432,
+        width: detect.isDesktop ? 768 : 320,
+        height: detect.isDesktop ? 432 : 180,
+        margin: 'auto'
       },
+      togglePlayOnClick: detect.isDesktop,
+      playsInline: true,
       src: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
       poster: 'http://il6.picdn.net/shutterstock/videos/3548084/thumb/1.jpg',
       hasPlayButton: true,
       showPosterOnEnd: true,
       showControlsOnLoad: false,
       disableBackgroundCover: true,
+    }
+  },
+  MobileFsVideo: {
+    component: require('./MobileFsVideo'),
+    props: {
+      src: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
     }
   },
 };

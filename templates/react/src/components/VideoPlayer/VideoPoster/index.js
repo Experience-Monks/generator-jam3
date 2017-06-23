@@ -1,13 +1,12 @@
 'use strict';
-
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import animate from 'gsap';
 
 import SVGInline from 'react-svg-inline';
 import playIcon from '../../../../raw-assets/svg/play.svg';
 
-export default class VideoPoster extends PureComponent {
+export default class VideoPoster extends React.PureComponent {
   constructor(props) {
     super(props);
   }

@@ -4,21 +4,21 @@
  */
 
 'use strict';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import animate from 'gsap';
 import preloader from 'preloader';
 import SVGInline from 'react-svg-inline';
 import LoaderIcon from '../../../raw-assets/svg/loader.svg';
 
-class Preloader extends React.Component {
+class Preloader extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.onProgress = this.onProgress.bind(this);
-    this.setDone = this.setDone.bind(this);
   }
 
   componentDidMount() {
+    animate.set(this.container, {autoAlpha: 0});
+
     Promise.all([
       this.setTimer(),
       this.setLoader(),
@@ -95,51 +95,50 @@ class Preloader extends React.Component {
     this.loader.stopLoad();
   };
 
-  onProgress(val) {
+  onProgress = (val) => {
     this.props.setProgress(val);
-    //console.log('Preloader progress:', val);
   };
 
-  onComplete(done) {
+  onComplete = (done) => {
     this.props.setProgress(1);
     done();
-    //console.log('Preloader: assets are loaded');
   };
 
-  setDone() {
+  setDone = () => {
     this.props.setReady(true);
   };
 
   render() {
-    const style = Object.assign({}, this.props.style);
+    const props = this.props;
+    const style = Object.assign({}, props.style);
 
     return (
-      <div
-        id="preloader"
+      <section
+        id="Preloader"
         style={style}
         ref={r => this.container = r}
       >
-        <div className="loader-icon">
-          <SVGInline svg={LoaderIcon}/>
-        </div>
-      </div>
+        <SVGInline
+          className="loader-icon"
+          svg={LoaderIcon}
+          component="div"
+        />
+      </section>
     );
   }
 }
 
 Preloader.propTypes = {
-  assetsList: React.PropTypes.array.isRequired,
-  setProgress: React.PropTypes.func,
-  setReady: React.PropTypes.func.isRequired,
-  width: React.PropTypes.number,
-  height: React.PropTypes.number,
-  style: React.PropTypes.object,
-  minDisplayTime: React.PropTypes.number,
-  options: React.PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  assetsList: PropTypes.array.isRequired,
+  setProgress: PropTypes.func,
+  setReady: PropTypes.func.isRequired,
+  minDisplayTime: PropTypes.number,
+  options: PropTypes.object,
 };
 
 Preloader.defaultProps = {
-  setProgress: f => f,
   style: {},
   minDisplayTime: 0, // in milliseconds
   options: {
@@ -149,6 +148,7 @@ Preloader.defaultProps = {
     onProgress: f => f,
     onComplete: f => f,
   },
+  setProgress: f => f,
 };
 
 export default Preloader;

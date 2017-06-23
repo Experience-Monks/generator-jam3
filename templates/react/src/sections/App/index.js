@@ -1,5 +1,6 @@
 'use strict';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/if}}';
