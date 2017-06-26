@@ -1,38 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import detect from '../../util/detect';
+import fullScreen from 'fullscreen-handler';
+
+const isIOS = Boolean(typeof navigator !== 'undefined' && navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/));
 
 class MobileFsVideo extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.isIOS = detect.os.toLocaleLowerCase() === 'ios';
   }
 
   componentDidMount() {
-    if (this.isIOS) {
-      this.video.addEventListener('webkitendfullscreen', this.handleIOSExit);
-    } else {
-      this.video.addEventListener('fullscreenchange', this.handleFullScreenChange);
-      this.video.addEventListener('webkitfullscreenchange', this.handleFullScreenChange);
-    }
+    this.fullScreen = fullScreen(this.video,
+      this._handleFsEnter,
+      this._handleFsExit,
+    );
   }
 
   componentWillUnmount() {
-    if (this.isIOS) {
-      this.video.removeEventListener('webkitendfullscreen', this.handleIOSExit);
-    } else {
-      this.video.removeEventListener('fullscreenchange', this.handleFullScreenChange);
-      this.video.removeEventListener('webkitfullscreenchange', this.handleFullScreenChange);
-    }
+    this.fullScreen.destroy();
   }
 
   play = () => {
-    if (this.isIOS) {
-      this.props.onOpen();
-    }
-
-    process.nextTick(() => { // keep next tick for dynamic source swap
-      this.requestFullScreen();
+    process.nextTick(() => {
+      isIOS && this.props.onOpen();
+      this.fullScreen.enter();
       this.video.play();
     });
   };
@@ -41,67 +32,21 @@ class MobileFsVideo extends React.PureComponent {
     this.video.pause();
   };
 
-  requestFullScreen = () => {
-    const el = this.video;
-    if (el.requestFullscreen) {
-      el.requestFullscreen();
-    } else if (el.mozRequestFullScreen) {
-      el.mozRequestFullScreen();
-    } else if (el.webkitRequestFullscreen) {
-      el.webkitRequestFullscreen();
-    } else if (el.msRequestFullscreen) {
-      el.msRequestFullscreen();
-    } else if (el.webkitEnterFullScreen) {
-      el.webkitEnterFullScreen();
-    }
-  };
-
-  exitFullScreen = () => {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    } else if (this.video.webkitExitFullScreen) {
-      this.video.webkitExitFullScreen();
-    }
-  };
-
-  isFullScreen = () => {
-    if (document.fullscreen !== undefined) {
-      return document.fullscreen;
-    }
-    if (document.mozFullScreen !== undefined) {
-      return document.mozFullScreen;
-    }
-    if (document.webkitIsFullScreen !== undefined) {
-      return document.webkitIsFullScreen;
-    }
-  };
-
   getVideoElement = () => {
     return this.video;
   };
 
-  handleIOSExit = () => {
+  _handleFsEnter = () => {
+    !isIOS && this.props.onOpen();
+  };
+
+  _handleFsExit = () => {
     this.pause();
     this.props.onClose();
   };
 
-  handleFullScreenChange = () => {
-    if (this.isFullScreen()) {
-      this.props.onOpen();
-    } else {
-      this.pause();
-      this.props.onClose();
-    }
-  };
-
   handleEnded = () => {
-    this.exitFullScreen();
+    this.fullScreen.exit();
   };
 
   render() {

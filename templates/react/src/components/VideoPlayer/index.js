@@ -7,7 +7,7 @@ import animate from 'gsap';
 import SVGInline from 'react-svg-inline';
 
 import secondsToTime from '../../util/seconds-to-minutes';
-import fullScreen from '../../util/handle-fullscreen';
+import fullScreen from 'fullscreen-handler';
 
 import playIcon from '../../../raw-assets/svg/play.svg';
 import pauseIcon from '../../../raw-assets/svg/pause.svg';
