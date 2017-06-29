@@ -8,7 +8,7 @@ import TransitionGroup from 'react-transition-group-plus';
 import Preloader from '../../components/Preloader{{#if sectionNames}}/Preloader{{/if}}';
 import { setReady, setProgress } from '../../sections/App/actions';
 
-class Test extends React.Component {
+class Test extends React.PureComponent {
   componentWillUnmount() {
     this.props.setProgress(0);
     this.props.setReady(false);
