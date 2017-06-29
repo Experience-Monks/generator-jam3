@@ -17,7 +17,7 @@ const data = {
   },
 };
 
-export default class VideoTest extends PureComponent {
+export default class VideoTest extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +31,11 @@ export default class VideoTest extends PureComponent {
   componentDidMount() {
     this.ambientSound.load();
     this.ambientSound.fade(0, 0.5, 2000);
+  }
+
+  componentWillUnmount() {
+    this.ambientSound.unload();
+    audio.sounds['thunders'].unload();
   }
 
   handleMuteClick = () => {
@@ -60,10 +65,12 @@ export default class VideoTest extends PureComponent {
       background: '#000',
       border: '1px solid #fff'
     };
+    
     const buttonProps = {
       onMouseEnter: () => audio.play('button-rollover'),
       style: buttonStyles,
     };
+
     return (
       <div>
         <div style={containerStyles}>
