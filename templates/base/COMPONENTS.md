@@ -143,7 +143,7 @@ Example manifest:
     }
   },
   'ambient': {
-    src: '{{path}}/test-noise.mp3',
+    src: '{{path}}/ambient.mp3',
     loop: true,
     autoplay: true
   }
