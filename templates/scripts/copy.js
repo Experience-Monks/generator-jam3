@@ -1,6 +1,7 @@
 'use strict';
 var config = require('./config');
 var fs = require('graceful-fs');
+var url = require('url');
 var path = require('path');
 var glob = require('glob');
 var mkdirp = require('mkdirp');
@@ -13,7 +14,8 @@ var isbinaryfile = require('isbinaryfile');
 var blacklist = (config.templateBlacklist || []).map(path.normalize);
 
 function copy(file) {
-  var assets = config.ASSET_PATH;
+  var parsed = url.parse(config.ASSET_PATH);
+  var assets = parsed.path || config.ASSET_PATH;
   if (file) {
     copyFile(path.join(config.output,assets),config.raw,file);
   } else {
