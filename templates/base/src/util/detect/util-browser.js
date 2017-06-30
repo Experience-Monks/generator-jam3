@@ -36,10 +36,79 @@ module.exports.checkBot = function() {
  * @method checkFacebook
  * @return {Boolean} If this function returns true we're running on the facebook in app browser, false if not.
  */
-var checkFacebook = function() {
+function checkFacebook() {
   return (ua.indexOf('fban') > -1) || (ua.indexOf('fbav') > -1);
 }
 module.exports.checkFacebook = checkFacebook;
+
+/**
+ * This function will return whether this UtilBrowser we're running on is the twitter in app browser.
+ *
+ * @method checkTwitter
+ * @return {Boolean} If this function returns true we're running on the twitter in app browser, false if not.
+ */
+function checkTwitter() {
+  return (ua.indexOf('twitter') > -1);
+}
+module.exports.checkTwitter = checkTwitter;
+
+/**
+ * This function will return whether this UtilBrowser we're running on is the instagram in app browser.
+ *
+ * @method checkInstagram
+ * @return {Boolean} If this function returns true we're running on the instagram in app browser, false if not.
+ */
+function checkInstagram() {
+  return (ua.indexOf('instagram') > -1);
+}
+module.exports.checkInstagram = checkInstagram;
+
+/**
+ * This function will return whether this UtilBrowser we're running on is the pinterest in app browser.
+ *
+ * @method checkPinterest
+ * @return {Boolean} If this function returns true we're running on the instagram in app browser, false if not.
+ */
+function checkPinterest() {
+  return (ua.indexOf('pinterest') > -1);
+}
+module.exports.checkPinterest = checkPinterest;
+
+/**
+ * This function will return whether this UtilBrowser we're running on an in app browser.
+ *
+ * @method checkInAppBrowser
+ * @return {Boolean} If this function returns true we're running on an in app browser, false if not.
+ */
+function checkInAppBrowser() {
+  return checkFacebook() || checkTwitter() || checkInstagram() || checkPinterest();
+}
+module.exports.checkInAppBrowser = checkInAppBrowser;
+
+/**
+ * This function will return the version of an in app browser.
+ * Facebook, Twitter, Pinterest and Instagram has the same behavior.
+ *
+ * @method inAppBrowserVersion
+ * @return {String} This function returns the version of the current in app browser.
+ */
+function inAppBrowserVersion() {
+  // Apple, There is not version, taken from the OS
+  if (ua.indexOf('mac os x') >= 0) {
+    var OSApp = ua.match(/OS \s*(\d+)/i);
+    return OSApp[1];
+  }
+
+  //Android, Take the chrome version
+  var FBApp = ua.match(/(chrome)\/?\s*(\d+)/i);
+  if (FBApp[1] === 'chrome') {
+    return FBApp[2];
+  }
+
+  // Default return, big number to be highly supported
+  return 9999;
+}
+module.exports.inAppBrowserVersion = inAppBrowserVersion;
 
 /**
  * This function will return whether this UtilBrowser we're running on is Firefox.
@@ -106,24 +175,16 @@ module.exports.checkVersion = function() {
     return (tem[1] || '');
   }
   if (M[1] === 'chrome') {
-    tem = ua.match(/\bOPR\/(\d+)/);
+    tem = ua.match(/\bOPR\/(\d+)/i);
     if (tem != null) {
       return tem[1];
     }
   }
-  // Facebook in-app browser
-  if (checkFacebook()) {
-    // Apple, There is not version, taken from the OS
-    var FBApp = ua.match(/(fbsv)\/?\s*(\d+)/i);
-    if (FBApp && FBApp[1] === 'fbsv') {
-      return FBApp[2];
-    }
 
-    //Android, Take the chrome version
-    if (M[1] === 'chrome') {
-      return M[2];
-    }
+  if (checkInAppBrowser()) {
+    return inAppBrowserVersion();
   }
+
   M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
   if ((tem = ua.match(/version\/(\d+)/i)) != null) {
     M.splice(1, 1, tem[1]);
