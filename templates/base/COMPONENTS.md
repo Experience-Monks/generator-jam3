@@ -5,6 +5,7 @@
 [Preloader](#preloader)  
 [Rotate Screen](#rotate)  
 [Video Player](#video-player)
+[Mobile Fullscreen Video](#mobile-fs-video)
 [Device Detection](#device)  
 [Stats](#stats)  
 [Unsupported Page](#unsupported)  
@@ -64,6 +65,7 @@ It is accessible and allows to be controlled using keyboard.
 #### Props
 - `src` - *String* (required) - video source
 - `poster` - *String* -  poster image
+- `id` - - *String* or *Number* - video ID that will be sent back with `onPlay` hook 
 - `preload` - *String* - determines whether video should automatically preload. Valid options are `auto`, `metadata` or `none`
 - `captions` - *Object* - track data refer to https://developer.mozilla.org/en/docs/Web/HTML/Element/track
 - `disableBackgroundCover`- *Boolean* - disable video cover effect
@@ -89,7 +91,6 @@ It is accessible and allows to be controlled using keyboard.
 - `onPause` - *Function* - on video pause hook
 - `onEnd` - *Function* - on video end hook
 - `onClose` - *Function* - on close button click hook
-````
 
 #### API
 - `showControls` - force controls to show
@@ -104,6 +105,20 @@ It is accessible and allows to be controlled using keyboard.
 - `toggleFullScreen`
 - `toggleCaptions` - show/hide captions
 
+<a name="mobile-fs-video"></a>
+## Mobile Fullscreen Video (components/MobilFsVideo)
+Component that triggers video to go fullscreen on Android and play in native browser on iOS
+
+#### Props
+- `src` - *String* - video source
+- `onOpen` *Function* - fullscreen enter (native player open) hook
+- `onClose` *Function* - fullscreen exit (native player close) hook
+
+#### API
+- `play`
+- `pause`
+- `getVideoElement` - access HTML video
+  
 <a name="device"></a>
 ## Device Detection (util/detect)
 

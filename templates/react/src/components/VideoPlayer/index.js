@@ -395,6 +395,7 @@ VideoPlayer.propTypes = {
   poster: PropTypes.string,
   preload: PropTypes.string,
   captions: PropTypes.object,
+  disableBackgroundCover: PropTypes.bool,
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -427,6 +428,7 @@ VideoPlayer.defaultProps = {
   className: '',
   style: {},
   id: '',
+  disableBackgroundCover: PropTypes.bool,
   togglePlayOnClick: true,
   allowKeyboardControl: true,
   autoPlay: false,
