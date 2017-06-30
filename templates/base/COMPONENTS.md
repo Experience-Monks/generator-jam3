@@ -2,14 +2,14 @@
 # Components
 
 ##### Table of Contents  
-[Preloader](#preloader)  
-[Rotate Screen](#rotate)  
-[Video Player](#video-player)
-[Mobile Fullscreen Video](#mobile-fs-video)
-[Device Detection](#device)  
-[Stats](#stats)  
-[Unsupported Page](#unsupported)  
-[Meta](#meta)
+- [Preloader](#preloader)  
+- [Rotate Screen](#rotate)  
+- [Video Player](#video-player)
+- [Mobile Fullscreen Video](#mobile-fs-video)
+- [Device Detection](#device)  
+- [Stats](#stats)  
+- [Unsupported Page](#unsupported)  
+- [Meta](#meta)
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -75,18 +75,18 @@ It is accessible and allows to be controlled using keyboard.
 - `loop` - *Boolean* - determines whether video should loop
 - `togglePlayOnClick` - *Boolean* - allow/disallow toggle play state on video click
 - `showControlsOnLoad` - *Boolean* - determines whether to show video controls on load without mouse interaction
-- `hasCloseButton` - *Boolean* - add close button that is synced with controls
-- `hasPlayButton` - *Boolean* - add play button for video poster
+- `hasCloseButton` - *Boolean* - render close button that is synced with controls
+- `hasPlayButton` - *Boolean* - render play button for video poster
 - `showPosterOnEnd` - *Boolean* - determines whether poster should show up after video has ended
-- `hasControls` - *Boolean* - add controls
+- `hasControls` - *Boolean* - render controls
 - `playsInline` - *Boolean* - determines if video plays inline on iPhone
-- `autoPlayDelay` - *Number* - auto play delay (in seconds). Only works with `autoPlay: true`
-- `controlsTimeout` - *Number* - time (in seconds) after which controls and close button hide if the user was inactive 
+- `autoPlayDelay` - *Number* - auto play delay (in milliseconds). Only works with `autoPlay: true`
+- `controlsTimeout` - *Number* - time (in milliseconds) after which controls and close button hide if the user was inactive 
 - `windowWidth` - *Number* - window width. It is required when for background cover videos - `disableBackgroundCover: false`
 - `windowHeight` - *Number* - window height. It is required when for background cover videos - `disableBackgroundCover: false`
 - `volume` - *Number* - values from 0 to 1
 - `startTime` - *Number* - video start time (in seconds)
-- `posterFadeDuration` - *Number* - 
+- `posterFadeDuration` - *Number* - poster fade out duration (in milliseconds)
 - `onPlay` - *Function* - on video play hook
 - `onPause` - *Function* - on video pause hook
 - `onEnd` - *Function* - on video end hook

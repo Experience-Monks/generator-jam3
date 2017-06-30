@@ -51,7 +51,7 @@ export default class VideoPlayer extends React.PureComponent {
       this.autoPlayTimeout = setTimeout(() => {
         this.play();
         this._clearAutoPlayTimeout();
-      }, this.props.autoPlayDelay * 1000);
+      }, this.props.autoPlayDelay);
     }
 
     if (this.props.captions) {
@@ -187,7 +187,7 @@ export default class VideoPlayer extends React.PureComponent {
     this._clearHideControlsTimeout();
     this.hideControlsTimeout = setTimeout(() => {
       this.state.isPlaying && this.hideControls();
-    }, this.props.controlsTimeout * 1000);
+    }, this.props.controlsTimeout);
   };
 
   _handleOnReady = () => {
@@ -428,16 +428,15 @@ VideoPlayer.defaultProps = {
   className: '',
   style: {},
   id: '',
-  disableBackgroundCover: PropTypes.bool,
   togglePlayOnClick: true,
   allowKeyboardControl: true,
   autoPlay: false,
-  autoPlayDelay: 0, // in seconds
+  autoPlayDelay: 0, // in milliseconds
   muted: false,
   loop: false,
   hasControls: true,
   showPosterOnEnd: false,
-  controlsTimeout: 2.5, // in seconds
+  controlsTimeout: 2500, // in milliseconds
   showControlsOnLoad: false,
   disableBackgroundCover: true,
   hasCloseButton: false,
@@ -445,8 +444,8 @@ VideoPlayer.defaultProps = {
   preload: 'auto',
   playsInline: false,
   volume: 1,
-  startTime: 0,
-  posterFadeDuration: 0,
+  startTime: 0, // in seconds
+  posterFadeDuration: 0, // in milliseconds
   onPlay: f => f,
   onPause: f => f,
   onEnd: f => f,

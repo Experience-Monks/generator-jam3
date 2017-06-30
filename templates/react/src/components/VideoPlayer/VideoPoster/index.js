@@ -25,14 +25,14 @@ export default class VideoPoster extends React.PureComponent {
   }
 
   animateIn = (onComplete) => {
-    animate.fromTo(this.container, this.props.fadeDuration, {autoAlpha: 0}, {
+    animate.fromTo(this.container, (this.props.fadeDuration / 1000), {autoAlpha: 0}, {
       autoAlpha: 1,
       onComplete
     });
   };
 
   animateOut = (onComplete) => {
-    animate.to(this.container, this.props.fadeDuration, {autoAlpha: 0, onComplete});
+    animate.to(this.container, (this.props.fadeDuration / 1000), {autoAlpha: 0, onComplete});
   };
 
   render() {
@@ -60,7 +60,7 @@ export default class VideoPoster extends React.PureComponent {
 VideoPoster.propTypes = {
   hasPlayButton: PropTypes.bool,
   poster: PropTypes.string.isRequired,
-  fadeDuration: PropTypes.number,
+  fadeDuration: PropTypes.number, // in milliseconds
   onClick: PropTypes.func,
 };
 
