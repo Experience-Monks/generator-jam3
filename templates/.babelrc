@@ -1,7 +1,19 @@
 {
   "presets": [
-  	"es2015"{{#is framework 'react'}}, 
-  	"react",
+    "es2015"{{#is framework 'react'}},
+    "react",
     "stage-1"{{/is}}
-  ]
+  ],
+  "plugins": [
+    {{#is framework 'react'}}"transform-decorators-legacy",
+    "transform-object-assign"{{/is}}
+  ],
+  "env": {
+    {{#is framework 'react'}}
+    "production": {
+      "presets": [
+        "react-optimize"
+      ]
+    }{{/is}}
+  }
 }
