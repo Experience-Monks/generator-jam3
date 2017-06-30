@@ -4,7 +4,7 @@ import fullScreen from 'fullscreen-handler';
 
 const isIOS = Boolean(typeof navigator !== 'undefined' && navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/));
 
-class MobileFsVideo extends React.PureComponent {
+class MobileFullscreenVideo extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -58,7 +58,7 @@ class MobileFsVideo extends React.PureComponent {
       left: window.innerWidth / 2,
     }, this.props.style);
 
-    const className = 'MobileFsVideo';
+    const className = 'MobileFullscreenVideo';
 
     return (
       <video
@@ -72,7 +72,7 @@ class MobileFsVideo extends React.PureComponent {
   }
 }
 
-MobileFsVideo.propTypes = {
+MobileFullscreenVideo.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   src: PropTypes.string,
@@ -80,7 +80,7 @@ MobileFsVideo.propTypes = {
   onClose: PropTypes.func,
 };
 
-MobileFsVideo.defaultProps = {
+MobileFullscreenVideo.defaultProps = {
   style: {},
   className: '',
   src: '',
@@ -88,4 +88,4 @@ MobileFsVideo.defaultProps = {
   onClose: f => f,
 };
 
-export default MobileFsVideo;
+export default MobileFullscreenVideo;
