@@ -26,7 +26,6 @@ export default function() {
   container.id = 'container';
   document.body.appendChild(container);
   document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
-  if (detect.isMobile) document.body.classList.add('mobile');
 
   render((
     <Provider store={store}>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MobileFsVideo from '../../components/MobileFsVideo{{#if sectionNames}}/MobileFsVideo{{/if}}';
+import MobileFsVideo from '../../components/MobileFullscreenVideo{{#if sectionNames}}/MobileFullscreenVideo{{/if}}';
 
-class MobileFsVideoTest extends React.PureComponent {
+class MobileFullscreenVideoTest extends React.PureComponent {
 
   handleOnClick = () => {
     this.video.play();
@@ -44,10 +44,10 @@ class MobileFsVideoTest extends React.PureComponent {
   }
 }
 
-MobileFsVideoTest.propTypes = {
+MobileFullscreenVideoTest.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-MobileFsVideoTest.defaultProps = {};
+MobileFullscreenVideoTest.defaultProps = {};
 
-export default MobileFsVideoTest;
+export default MobileFullscreenVideoTest;

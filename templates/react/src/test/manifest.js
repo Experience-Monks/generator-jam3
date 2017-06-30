@@ -72,8 +72,8 @@ export default {
       disableBackgroundCover: true,
     }
   },
-  MobileFsVideo: {
-    component: require('./MobileFsVideo'),
+  MobileFullscreenVideo: {
+    component: require('./MobileFullscreenVideo'),
     props: {
       src: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
     }

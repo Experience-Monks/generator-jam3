@@ -4,7 +4,7 @@ import SVGInline from 'react-svg-inline';
 import detect from '../../util/detect';
 import RotateIcon from '../../../raw-assets/svg/rotate.svg';
 
-export default class RotateScreen extends React.PureComponent {
+export default class RotateScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,13 +42,11 @@ export default class RotateScreen extends React.PureComponent {
     };
 
     return (
-      <div id="Rotate" style={style}>
+      <div id="rotate" style={style}>
         <div className="container">
-          <SVGInline
-            component="div"
-            className="rotate-icon"
-            svg={RotateIcon}
-          />
+          <div className="rotate-icon">
+            <SVGInline svg={RotateIcon}/>
+          </div>
           <p>Please rotate your device<br/>into portrait mode.</p>
         </div>
       </div>

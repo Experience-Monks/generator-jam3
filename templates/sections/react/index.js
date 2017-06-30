@@ -1,61 +1,36 @@
 'use strict';
 import React from 'react';
-import PropTypes from 'prop-types';
-import animate from 'gsap';
+import Tween from 'gsap';
 
-class {{section}} extends React.PureComponent {
+class {{section}} extends React.Component {
   constructor(props) {
     super(props);
+    this.setContainer = this.setContainer.bind(this);
   }
-
-  componentDidMount() {
-    animate.set(this.container, {autoAlpha: 0});
-  }
-
-  componentWillAppear(done) {
-    this.animateIn(done);
-  }
-
   componentWillEnter(done) {
-    this.animateIn(done);
+    Tween.to(this.container, 0.5, {autoAlpha: 1, onComplete: done});
   }
-
   componentWillLeave(done) {
-    this.animateOut(done);
+    Tween.to(this.container, 0.5, {autoAlpha: 0, onComplete: done});
   }
-
-  animateIn = (onComplete) => {
-    animate.to(this.container, 0.5, {autoAlpha: 1, onComplete});
-  };
-
-  animateOut = (onComplete) => {
-    animate.to(this.container, 0.5, {autoAlpha: 0, onComplete});
-  };
-
+  setContainer(e) {
+    this.container = e;
+    Tween.set(this.container, {autoAlpha: 0});
+  }
   render() {
-    const props = this.props;
-    const style = Object.assign({}, props.style);
-
-    return (
-      <main
-        id="{{section}}"
-        style={style}
-        ref={r => this.container = r}
-      >
-        <h1>Landing</h1>
-      </main>
-    );
+    const style = {width: this.props.windowWidth, height: this.props.windowHeight};
+    return <div
+      style={style}
+      id="{{section}}"
+      ref={this.setContainer}
+    >
+    </div>;
   }
-};
-
-{{section}}.propTypes = {
-  style: PropTypes.object,
-  windowWidth: PropTypes.number,
-  windowHeight: PropTypes.number,
 };
 
 {{section}}.defaultProps = {
-  style: {},
+  windowWidth: 960,
+  windowHeight: 570
 };
 
 export default {{section}};

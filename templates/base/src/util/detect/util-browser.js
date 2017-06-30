@@ -1,7 +1,7 @@
-const ua = navigator.userAgent.toLowerCase();
-const appVersion = navigator.appVersion.toLowerCase();
-const vendor = (navigator.vendor) ? navigator.vendor.toLowerCase() : '';
-const bots = ['facebookexternalhit', 'linkedinbot', 'google (+https://developers.google.com/+/web/snippet/)', 'facebot', 'https://developers.google.com/+/web/snippet/', 'twitterbot', 'tumblr', 'googlebot'];
+var ua = navigator.userAgent.toLowerCase();
+var appVersion = navigator.appVersion.toLowerCase();
+var vendor = (navigator.vendor) ? navigator.vendor.toLowerCase() : "";
+var bots = ['facebookexternalhit','linkedinbot','google (+https://developers.google.com/+/web/snippet/)','facebot','https://developers.google.com/+/web/snippet/','twitterbot','tumblr','googlebot'];
 
 /**
  * This function will return whether this UtilBrowser we're running on is Internet Explorer.
@@ -10,9 +10,9 @@ const bots = ['facebookexternalhit', 'linkedinbot', 'google (+https://developers
  * @return {Boolean} If this function returns true we're running on Internet Explorer, false if not.
  */
 module.exports.checkIE = function() {
-  const msie = ua.indexOf('msie') >= 0;
-  const trident = ua.indexOf('trident/') >= 0;
-  return (msie || trident);
+  var msie = ua.indexOf('msie') >= 0;
+  var trident = ua.indexOf('trident/') >= 0;
+  return !!(msie || trident);
 };
 
 /**
@@ -22,10 +22,10 @@ module.exports.checkIE = function() {
  * @return {Boolean} If this function returns true we're running on a crawler bot, false if not.
  */
 module.exports.checkBot = function() {
-  const uaLower = ua.toLowerCase();
-  let isBot = false;
+  var uaLower = ua.toLowerCase();
+  var isBot = false;
   bots.map(function(cur) {
-    if (uaLower.indexOf(cur) > -1) isBot = true;
+    if (uaLower.indexOf(cur)>-1) isBot = true;
   });
   return isBot;
 };
@@ -36,9 +36,9 @@ module.exports.checkBot = function() {
  * @method checkFacebook
  * @return {Boolean} If this function returns true we're running on the facebook in app browser, false if not.
  */
-const checkFacebook = function() {
+var checkFacebook = function() {
   return (ua.indexOf('fban') > -1) || (ua.indexOf('fbav') > -1);
-};
+}
 module.exports.checkFacebook = checkFacebook;
 
 /**
@@ -58,7 +58,7 @@ module.exports.checkFirefox = function() {
  * @return {Boolean} If this function returns true we're running on Safari, false if not.
  */
 module.exports.checkSafari = function() {
-  return (ua.indexOf('safari') >= 0 && vendor.indexOf('apple') >= 0);
+  return (ua.indexOf("safari") >= 0 && vendor.indexOf("apple") >= 0);
 };
 
 /**
@@ -68,7 +68,7 @@ module.exports.checkSafari = function() {
  * @return {Boolean} If this function returns true we're running on Chrome, false if not.
  */
 module.exports.checkChrome = function() {
-  return (ua.indexOf('chrome') >= 0 && vendor.indexOf('google') >= 0)
+  return (ua.indexOf("chrome") >= 0 && vendor.indexOf("google") >= 0)
 };
 
 /**
@@ -78,7 +78,7 @@ module.exports.checkChrome = function() {
  * @return {Boolean} If this function returns true we're running on Windows, false if not.
  */
 module.exports.checkWindows = function() {
-  return appVersion.indexOf('win') >= 0;
+  return appVersion.indexOf("win") >= 0;
 };
 
 /**
@@ -88,7 +88,7 @@ module.exports.checkWindows = function() {
  * @return {Boolean} If this function returns true we're running on Mac, false if not.
  */
 module.exports.checkMac = function() {
-  return appVersion.indexOf('mac os x') >= 0;
+  return appVersion.indexOf("mac os x") >= 0;
 };
 
 /**
@@ -99,22 +99,22 @@ module.exports.checkMac = function() {
  */
 module.exports.checkVersion = function() {
   // http://stackoverflow.com/questions/5916900/detect-version-of-browser
-  let tem;
-  let M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+  var tem;
+  var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
   if (/trident/i.test(M[1])) {
     tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
     return (tem[1] || '');
   }
   if (M[1] === 'chrome') {
     tem = ua.match(/\bOPR\/(\d+)/);
-    if (tem !== null) {
+    if (tem != null) {
       return tem[1];
     }
   }
   // Facebook in-app browser
   if (checkFacebook()) {
     // Apple, There is not version, taken from the OS
-    const FBApp = ua.match(/(fbsv)\/?\s*(\d+)/i);
+    var FBApp = ua.match(/(fbsv)\/?\s*(\d+)/i);
     if (FBApp && FBApp[1] === 'fbsv') {
       return FBApp[2];
     }
@@ -125,7 +125,7 @@ module.exports.checkVersion = function() {
     }
   }
   M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-  if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
+  if ((tem = ua.match(/version\/(\d+)/i)) != null) {
     M.splice(1, 1, tem[1]);
   }
   return M[1];
