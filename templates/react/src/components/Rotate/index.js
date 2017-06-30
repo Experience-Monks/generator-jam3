@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SVGInline from 'react-svg-inline';
 import detect from '../../util/detect';
 import RotateIcon from '../../../raw-assets/svg/rotate.svg';
 
-export default class RotateScreen extends React.Component {
+export default class RotateScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
