@@ -1,9 +1,9 @@
-'use strict';
 import React from 'react';
-import PropTypes from 'prop-types';
 import animate from 'gsap';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
-class {{section}} extends React.PureComponent {
+class Landing extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -38,7 +38,7 @@ class {{section}} extends React.PureComponent {
 
     return (
       <main
-        id="{{section}}"
+        id="Landing"
         style={style}
         ref={r => this.container = r}
       >
@@ -46,16 +46,16 @@ class {{section}} extends React.PureComponent {
       </main>
     );
   }
-};
+}
 
-{{section}}.propTypes = {
+Landing.propTypes = {
   style: PropTypes.object,
   windowWidth: PropTypes.number,
   windowHeight: PropTypes.number,
 };
 
-{{section}}.defaultProps = {
+Landing.defaultProps = {
   style: {},
 };
 
-export default {{section}};
+export default Landing;

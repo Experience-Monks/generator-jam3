@@ -13,7 +13,7 @@ export default {
     }
   },
   Preloader: {
-    component: require('../components/Preloader'),
+    component: require('./components/Preloader'),
     props: {
       minDisplayTime: 1500,
     }

@@ -29,7 +29,8 @@ export default class SoundTest extends React.PureComponent {
       marginRight: 20,
       color: '#fff',
       background: '#000',
-      border: '1px solid #fff'
+      border: '1px solid #fff',
+      fontSize: 18
     };
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MobileFsVideo from '../../components/MobileFsVideo{{#if sectionNames}}/MobileFsVideo{{/if}}';
+import MobileFsVideo from '../../../components/MobileFsVideo{{#if sectionNames}}/MobileFsVideo{{/if}}';
 
 class MobileFsVideoTest extends React.PureComponent {
 
