@@ -21,18 +21,17 @@ function getManifestMenu() {
 
 class Test extends React.Component {
   render() {
-    const props = this.props;
-    const pathname = props.location.pathname;
+    const pathname = this.props.location.pathname;
     const key = pathname.split('/')[1] || 'root';
     const isIndexPage = (key === 'root');
-    const classes = ['test-container', props.className].filter(Boolean);
-    const {windowWidth, windowHeight} = props;
+    const classes = ['test-container', this.props.className].filter(Boolean);
+    const {windowWidth, windowHeight} = this.props;
 
     return (
       <div className={classes.join(' ')}>
         {isIndexPage && getManifestMenu()}
         {
-          (props.children) && React.cloneElement(props.children, {
+          (this.props.children) && React.cloneElement(this.props.children, {
             key,
             windowWidth,
             windowHeight,
