@@ -8,20 +8,17 @@
     "url": "https://github.com/Jam3"
   },
   "scripts": {
-    "start": "npm run preloader && npm run copy && npm run style && {{#is backend "none"}}npm run unsupported && {{/is}}npm run dev",
+    "start": "npm-run-all preloader copy style {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}dev",
+    "build": "node scripts/timestamp.js && npm-run-all preloader clean style browserify {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}copy gzip && node scripts/timestamp.js --delete",
+    "release": "cross-env NODE_ENV=production npm run build",
     "copy": "node scripts/copy.js",
     "style": "node scripts/style.js",
     "preloader": "node scripts/preloader.js",
-    "dev": "node scripts/dev.js",{{#is backend "none"}}
-    "unsupported": "node scripts/release.js --unsupported",{{/is}}
-    "release": "node scripts/timestamp.js && npm run preloader-release && npm run release-clean && npm run release-style && npm run release-browserify && {{#is backend "none"}}npm run release-unsupported && {{/is}}npm run release-copy && npm run release-gzip && node scripts/timestamp.js --delete",
-    "preloader-release": "node scripts/preloader.js --env=production",
-    "release-style": "node scripts/style.js --env=production",
-    "release-browserify": "node scripts/release.js --env=production",{{#is backend "none"}}
-    "release-unsupported": "node scripts/release.js --env=production --unsupported",{{/is}}
-    "release-copy": "node scripts/copy.js --env=production",
-    "release-gzip": "node scripts/gzip.js --env=production",
-    "release-clean": "node scripts/clean.js --env=production",
+    "dev": "node scripts/dev.js",
+    "browserify": "node scripts/release.js",{{#if unsupported}}{{#is backend "none"}}
+    "unsupported": "node scripts/release.js --unsupported",{{/is}}{{/if}}
+    "gzip": "node scripts/gzip.js",
+    "clean": "node scripts/clean.js",
     "lowercase": "node scripts/lowercase.js",
     "favicons": "node scripts/favicons/favicons.js",
     "facebook": "node scripts/facebook.js"
@@ -63,7 +60,9 @@
     "glob": "^6.0.1",
     "junk": "^2.0.0",
     "merge": "^1.2.0",
-    "isbinaryfile": "^3.0.0",{{#is css 'less'}}
+    "isbinaryfile": "^3.0.0",
+    "npm-run-all": "^4.0.0",
+    "cross-env": "^5.0.0",{{#is css 'less'}}
     "less": "^2.5.3",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-glob": "^1.1.1",{{/is}}{{#is css 'scss'}}

@@ -73,6 +73,8 @@ module.exports = {
   device: checkDevice(),
   vendor: checkVendor(),
   os: utilOS.os(),
+  isIOS: utilOS.os() === 'iOS',
+  isAndroid: utilOS.os() === 'Android',
   osVersion: utilOS.osVersion(),
   browser: checkBrowser(),
   browserVersion: utilBrowser.checkVersion(),
@@ -101,9 +103,9 @@ module.exports = {
     const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     const aspectRatio = w / h;
     if (aspectRatio < 1) {
-      return 'portrait'
+      return 'portrait';
     } else {
-      return 'landscape'
+      return 'landscape';
     }
   }
 };
