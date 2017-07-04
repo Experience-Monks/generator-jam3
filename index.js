@@ -142,11 +142,17 @@ function onPostCopy() {
           if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
             var style = gen.config.get('css');
             var files = [
-              [path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js')],
               [path.join(gen.cwd,'src/components/Preloader/style.'+style),path.join(gen.cwd,'src/components/Preloader/Preloader.'+style)],
               [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
               [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],
-              [path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js')],
+              [path.join(gen.cwd,'src/components/MobileFullscreenVideo/index.js'),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.js')],
+              [path.join(gen.cwd,'src/components/MobileFullscreenVideo/style.'+style),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.'+style)],
+              [path.join(gen.cwd,'src/components/VideoPlayer/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.js')],
+              [path.join(gen.cwd,'src/components/VideoPlayer/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.'+style)],
+              [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.js')],
+              [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.'+style)],
+              [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.js')],
+              [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.'+style)],
               [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)]
             ];
             renameFiles(files,function() {
