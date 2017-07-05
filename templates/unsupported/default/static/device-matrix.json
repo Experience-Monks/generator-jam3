@@ -1,9 +1,9 @@
 {
   "unsupported": {
-    "ie": 8
+    "internet explorer": 8
   },
   "warning": {
-    "ie": 11,
+    "internet explorer": 11,
     "safari": 8,
     "chrome": 47,
     "firefox": 42,
