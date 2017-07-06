@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => {
 export default class PreloaderWrapper extends Preloader {
   constructor(props) {
     super(props);
-    this.displayName = 'PreloaderWrapper';
   }
 }
 

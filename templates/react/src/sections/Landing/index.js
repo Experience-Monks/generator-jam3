@@ -21,6 +21,5 @@ const mapDispatchToProps = (dispatch) => {
 export default class LandingWrapper extends Landing {
   constructor(props) {
     super(props);
-    this.displayName = 'LandingWrapper';
   }
 }

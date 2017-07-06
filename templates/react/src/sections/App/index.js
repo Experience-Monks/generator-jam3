@@ -29,6 +29,5 @@ const mapDispatchToProps = (dispatch) => {
 export default class AppWrapper extends App {
   constructor(props) {
     super(props);
-    this.displayName = 'AppWrapper';
   }
 }

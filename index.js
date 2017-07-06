@@ -46,7 +46,7 @@ var prompts = [{
 },{
   type: "confirm",
   name: "sectionNames",
-  message: "Would you prefer Landing/Landing.js over Landing/index.js?",
+  message: "Would you prefer ComponentName/ComponentName.js over ComponentName/index.js?",
   default: false,
   when: function(answers) { return answers.framework!=='none'; }
 },{
