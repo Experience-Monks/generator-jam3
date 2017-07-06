@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import SVGInline from 'react-svg-inline';
 import detect from '../../util/detect';
 import RotateIcon from '../../../raw-assets/svg/rotate.svg';
 
-export default class RotateScreen extends React.Component {
-
+export default class RotateScreen extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      orientation: detect.orientation
+    };
   }
 
   componentDidMount() {
-
+    if (detect.isAndroid) {
+      window.addEventListener('orientationchange', this.handleOrientationChange);
+    } else {
+      window.addEventListener('resize', this.handleOrientationChange);
+    }
   }
 
-  componentWillReceiveProps(newProps) {
-
+  componentWillUnmount() {
+    if (detect.isAndroid) {
+      window.removeEventListener('orientationchange', this.handleOrientationChange);
+    } else {
+      window.removeEventListener('resize', this.handleOrientationChange);
+    }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.orientation !== detect.orientation;
-  }
+  handleOrientationChange = () => {
+    if (detect.orientation !== this.state.orientation) {
+      this.setState({orientation: detect.orientation});
+    }
+  };
 
   render() {
-    this.orientation = detect.orientation;
-    const visible = (this.props.portrait && this.orientation === 'landscape') || (!this.props.portrait && this.orientation === 'portrait');
+    const isPortrait = this.state.orientation === 'portrait';
+    const visible = this.props.portrait && !isPortrait || !this.props.portrait && isPortrait;
     const style = {
       visibility: visible ? 'visible' : 'hidden'
     };
@@ -37,12 +50,12 @@ export default class RotateScreen extends React.Component {
           <p>Please rotate your device<br/>into portrait mode.</p>
         </div>
       </div>
-    )
+    );
   }
 }
 
 RotateScreen.propTypes = {
-  portrait: React.PropTypes.bool
+  portrait: PropTypes.bool
 };
 
 RotateScreen.defaultProps = {
