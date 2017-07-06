@@ -56,12 +56,18 @@ The rotate screen component simply needs to be included on the page. It determin
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
 
 <a name="device"></a>
-## Device Detection (util/detect)
+## Device Detection (util/detect.js)
 
 The device detection utility is a javascript object with numerous properties to help you build conditionals based on the current browser / device. It includes the following properties.
-
-- `device` - String that returns either `phone`, `tablet`, or `desktop`  
-- `vendor` - Vendor name of the browser (i.e. "Google Inc.")  
+- `isBot` - Detect if is a crawler bot,
+- `isFacebook` - Detect if in-app Facebook browser,
+- `isTwitter` - Detect if in-app Twitter browser,
+- `isInstagram` - Detect if in-app Instagram browser,
+- `isPinterest` - Detect if in-app Pinterest browser,
+- `isInAppBrowser` - Detect if browser is in-app,
+- `inAppBrowserVersion` - in-app browser version,
+- `device` - returns either `phone`, `tablet`, or `desktop`  
+- `vendor` - vendor name of the browser (i.e. "google inc.")  
 - `os` - Returns the current operating system  
 - `osVersion` - Returns the version of the current operating system  
 - `browser` - Returns the current browser  
@@ -78,7 +84,9 @@ The device detection utility is a javascript object with numerous properties to 
 - `isEdge` - Boolean that describes if browser is Microsoft Edge  
 - `isFirefox` - Boolean that describes if browser is Firefox  
 - `isSafari` - Boolean that describes if browser is Safari  
+- `isOpera` - Boolean that describes if browser is Opera  
 - `md` - The [mobile-detect](npmjs.com/mobile-detect) object used in the device detection
+- `bowser` - The [bowser](npmjs.com/bowser) object used in the device detection
 - `orientation` - String that returns either `portrait` or `landscape` 
 
 <a name="stats"></a>
