@@ -41,7 +41,7 @@ The git repository used for the project, used within the package.json.
 Default: React  
 The framework that this project will be based on, all necessary files and modules will be downloaded to get you up and running with the selected framework. Currently supports React, Bigwheel, or None. In the case of None, source files won't be created, but all the common development scripts will still be setup.
 
-`Would you perfer Landing/Landing.js over Landing/index.js?`  
+`Would you perfer ComponentName/ComponentName.js over ComponentName/index.js?`  
 Default: false  
 Whether file names will follow the convention of [folder name]/[folder name].js or [folder name]/index.js.
 

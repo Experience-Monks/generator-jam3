@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch) => {
   {withRef: true}
 )
 
-export default class extends Landing {
+export default class LandingWrapper extends Landing {
   constructor(props) {
     super(props);
-    this.displayName = 'Landing';
+    this.displayName = 'LandingWrapper';
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import animate from 'gsap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 class Landing extends React.PureComponent {
   constructor(props) {

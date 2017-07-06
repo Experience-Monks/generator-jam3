@@ -28,10 +28,10 @@ const mapDispatchToProps = (dispatch) => {
   {withRef: true}
 )
 
-export default class extends Preloader {
+export default class PreloaderWrapper extends Preloader {
   constructor(props) {
     super(props);
-    this.displayName = 'Preloader';
+    this.displayName = 'PreloaderWrapper';
   }
 }
 
