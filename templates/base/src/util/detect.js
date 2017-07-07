@@ -46,7 +46,7 @@ function checkInAppBrowserVersion() {
     return FBApp[2];
   }
 
-  return undefined;
+  return 9999;
 }
 
 function checkOS() {
