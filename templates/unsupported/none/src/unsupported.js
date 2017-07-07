@@ -1,20 +1,31 @@
 import matrix from '../static/device-matrix.json';
-import detect from './util/detect';
-
-let supported = false;
+import detect from './util/detect/';
+let unsupported = false;
+let warning = false;
+let browser = detect.browser.toLocaleLowerCase();
+if (browser === 'ie') browser = 'internet explorer';
 let version = parseFloat(detect.browserVersion);
-let osVersion = parseFloat(detect.osVersion);
-
-if (detect.isBot) {
-  supported = true;
-} else if (detect.os === 'android' || detect.os === 'ios') {
-  if (detect.os === 'ios' && (detect.isSafari || detect.isFacebook) && osVersion >= matrix.ios) supported = true;
-  if (detect.os === 'android' && (detect.isChrome || detect.isFacebook) && osVersion >= matrix.android && version >= matrix.chrome) supported = true;
-} else if (detect.isIE && version >= matrix.ie ||
-  detect.isFirefox && version >= matrix.firefox ||
-  detect.isChrome && version >= matrix.chrome ||
-  detect.isSafari && version >= matrix.safari ||
-  detect.isEdge) {
-  supported = true;
+let os = (detect.os || '').toLocaleLowerCase();
+let osVersion = detect.osVersion === 'Unknown' ? Number.MAX_SAFE_INTEGER || 9999 : parseFloat(detect.osVersion);
+let platforms = ['ios', 'android'];
+for (let key in matrix['unsupported']) {
+  key = key.toLocaleLowerCase();
+  if (platforms.indexOf(key) > -1) {
+    if (os === key && osVersion <= matrix['unsupported'][key]) unsupported = true;
+  } else {
+    if (browser === key && version <= matrix['unsupported'][key]) unsupported = true;
+  }
 }
-if (!supported) window.location = 'unsupported.html';
+for (let key in matrix['warning']) {
+  key = key.toLocaleLowerCase();
+  if (platforms.indexOf(key) > -1) {
+    if (os === key && osVersion <= matrix['warning'][key]) warning = true;
+  } else {
+    if (browser === key && version <= matrix['warning'][key]) warning = true;
+  }
+}
+if (unsupported) {
+  window.location = 'unsupported.html';
+} else if (warning) {
+  window._browserWarning = true;
+}
