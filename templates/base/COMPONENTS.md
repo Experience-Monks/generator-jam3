@@ -5,6 +5,7 @@
 [Preloader](#preloader)  
 [Rotate Screen](#rotate)  
 [Device Detection](#device)  
+[Hamburger Button](#hamburger-button) 
 [Stats](#stats)  
 [Unsupported Page](#unsupported)  
 [Meta](#meta)
@@ -55,6 +56,20 @@ The rotate screen component simply needs to be included on the page. It determin
 #### Props
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
 
+<a name="hamburger-button"></a>
+## Hamburger Button (components/HamburgerButton)
+
+#### Props
+- `className` - *String* - additional class name
+- `style` - *Object* - additional styles
+- `tabIndex` - *Number* - container's tab index
+- `state` - *String* - one of the 3 available states: `idle`, `close` or `back`
+- `activeState` - *String* - the active state, `close` or `back`
+- `isMouseOver` - *Boolean* - force mouse over state
+- `onClick` - *Function* - `click` hook
+- `onMouseEnter` - *Function* - `mouseenter` hook
+- `onMouseLeave` - *Function* - `mouseleave` hook
+
 <a name="device"></a>
 ## Device Detection (util/detect)
 
@@ -80,7 +95,7 @@ The device detection utility is a javascript object with numerous properties to 
 - `isSafari` - Boolean that describes if browser is Safari  
 - `md` - The [mobile-detect](npmjs.com/mobile-detect) object used in the device detection
 - `orientation` - String that returns either `portrait` or `landscape` 
-
+  
 <a name="stats"></a>
 ## Stats (util/stats.js)
 

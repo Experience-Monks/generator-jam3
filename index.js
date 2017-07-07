@@ -147,7 +147,9 @@ function onPostCopy() {
               [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
               [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],
               [path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js')],
-              [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)]
+              [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)],
+              [path.join(gen.cwd,'src/components/HamburgerButton/index.js'),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.js')],
+              [path.join(gen.cwd,'src/components/HamburgerButton/style.'+style),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.'+style)]
             ];
             renameFiles(files,function() {
               createSections(gen,done);
