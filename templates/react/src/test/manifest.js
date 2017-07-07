@@ -81,5 +81,9 @@ export default {
   },
   SoundTest: {
     component: require('./components/SoundTest'),
-  }
+  },
+  HamburgerButton: {
+    component: require('./components/HamburgerButton'),
+    props: {}
+  },
 };

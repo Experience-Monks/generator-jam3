@@ -2,6 +2,7 @@
 # Components
 
 ##### Table of Contents  
+<<<<<<< HEAD
 - [Preloader](#preloader)  
 - [Rotate Screen](#rotate)  
 - [Video Player](#video-player)
@@ -11,6 +12,15 @@
 - [Unsupported Page](#unsupported)  
 - [Meta](#meta)
 - [Audio](#audio)
+=======
+[Preloader](#preloader)  
+[Rotate Screen](#rotate)  
+[Device Detection](#device)  
+[Hamburger Button](#hamburger-button) 
+[Stats](#stats)  
+[Unsupported Page](#unsupported)  
+[Meta](#meta)
+>>>>>>> hamburger-button
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -120,6 +130,20 @@ Component that triggers video to go fullscreen on Android and play in native bro
 - `pause`
 - `getVideoElement` - access HTML video
   
+<a name="hamburger-button"></a>
+## Hamburger Button (components/HamburgerButton)
+
+#### Props
+- `className` - *String* - additional class name
+- `style` - *Object* - additional styles
+- `tabIndex` - *Number* - container's tab index
+- `state` - *String* - one of the 3 available states: `idle`, `close` or `back`
+- `activeState` - *String* - the active state, `close` or `back`
+- `isMouseOver` - *Boolean* - force mouse over state
+- `onClick` - *Function* - `click` hook
+- `onMouseEnter` - *Function* - `mouseenter` hook
+- `onMouseLeave` - *Function* - `mouseleave` hook
+
 <a name="device"></a>
 ## Device Detection (util/detect.js)
 
@@ -153,7 +177,7 @@ The device detection utility is a javascript object with numerous properties to 
 - `md` - The [mobile-detect](npmjs.com/mobile-detect) object used in the device detection
 - `bowser` - The [bowser](npmjs.com/bowser) object used in the device detection
 - `orientation` - String that returns either `portrait` or `landscape` 
-
+  
 <a name="stats"></a>
 ## Stats (util/stats.js)
 
