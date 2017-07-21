@@ -1,6 +1,6 @@
 {
   "presets": [
-    "es2015"{{#is framework 'react'}},
+    ["es2015", {"modules": false}]{{#is framework 'react'}},
     "react",
     "stage-1"{{/is}}
   ],
