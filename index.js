@@ -118,7 +118,7 @@ var globs = [
   { base: 'templates/unsupported/{{backend}}/', when: function(answers) { return answers.unsupported; } }
 
 ];
-var gen = nyg(prompts,globs)
+var gen = nyg(prompts,globs,{ignore:[".phar"]})
 .on('postprompt', onPostPrompt)
 .on('postcopy', onPostCopy)
 .on('postinstall', onPostInstall)
