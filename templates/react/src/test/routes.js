@@ -15,7 +15,9 @@ const route = (
             key={componentName}
             path={componentName}
             component={(routeProps) =>
-              <Component {...props} {...routeProps} />
+              <Component {...props} {...routeProps}>
+                { props && props.children }
+              </Component>
             }
           />
         );
