@@ -9,6 +9,7 @@
 [Stats](#stats)  
 [Unsupported Page](#unsupported)  
 [Meta](#meta)
+[Audio](#audio)
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -138,3 +139,49 @@ Meta.php takes care of automatically populating Open Graph, Twitter Card data, a
   }
 }
 ```
+
+<a name="audio"></a>
+## Audio (util/audio.js)
+
+This is a Howler wrapper that reads sounds manifest - `data/sounds.js` and sets `Howl` instances for each manifest entry.
+
+Example manifest:
+```javascript
+{
+  'button-rollover': '{{path}}/rollover.mp3',
+  'button-click': ['{{path}}/click.wav', '{path}/click.mp3']
+  'sprite': {
+    src: '{{path}}/sprite.mp3',
+    sprite: {
+      'chunk-1': [0, 3000],
+      'chunk-1': [3000, 2000]
+    }
+  },
+  'ambient': {
+    src: '{{path}}/ambient.mp3',
+    loop: true,
+    autoplay: true
+  }
+}
+```
+
+if manifest item is type of `String` or `Array`, then it will be used as source(s) and a `Howl` will be set up with it's default options.
+If manifest entry in type of `Object`, its property will be merged with Howler defaults.
+
+This utility is using Singleton pattern, so it will be initialized once upon first `import/require`. 
+Thus, be careful with `preload` and `autoplay` options combination because if both are set to true for a sound, it will start playing on app initialization.
+
+**NOTE**: `preload` option is set to `false` for all sounds by default but can overridden via in manifest for specific sounds.
+You can also use `load` function for dynamic loading control. Refer to [Howler API](https://github.com/goldfire/howler.js#documentation).
+
+#### API
+* `sounds` (getter) -  Get specific sound from the map by ID e.g. `audio.sounds['some-sound'].play()`
+
+* `extraData` (setter) -  Update sound model. It won't replace the original data unless you overwrite existing in manifest keys e.g. `audio.extraData = {noise: '{path}noise.wav'}`
+
+* `play` - play sound or sprite by `ID` e.g. ```audio.play('button-click')``` or ```audio.play('chunk-1')```
+
+#### Example
+Take a look at code example `test/components/SoundTest.js`
+
+See in action in your browser http://localhost:9966/test/SoundTest
