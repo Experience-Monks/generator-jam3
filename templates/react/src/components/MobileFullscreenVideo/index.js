@@ -60,8 +60,6 @@ class MobileFullscreenVideo extends React.PureComponent {
       left: window.innerWidth / 2,
     }, this.props.style);
 
-    const className = 'MobileFullscreenVideo';
-
     return (
       <video
         style={style}
