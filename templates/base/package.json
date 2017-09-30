@@ -26,7 +26,8 @@
   "license": "ISC",
   "repository": "{{repo}}",
   "dependencies": {
-    "gsap": "^1.19.1"{{#is framework 'bigwheel'}},
+    "gsap": "^1.19.1",
+    "howler": "^2.0.4"{{#is framework 'bigwheel'}},
     "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
