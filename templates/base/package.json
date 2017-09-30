@@ -8,16 +8,11 @@
     "url": "https://github.com/Jam3"
   },
   "scripts": {
-    "start": "npm-run-all preloader copy style {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}dev",
-    "build": "node scripts/timestamp.js && npm-run-all preloader clean style browserify {{#if unsupported}}{{#is backend "none"}}unsupported {{/is}}{{/if}}copy gzip && node scripts/timestamp.js --delete",
-    "release": "cross-env NODE_ENV=production npm run build",
-    "copy": "node scripts/copy.js",
-    "style": "node scripts/style.js",
+    "prestart": "npm-run-all preloader",
+    "start": "ODE_ENV=development webpack-dev-server",
+    "prerelease": "npm-run-all clean preloader favicons",
+    "release": "cross-env NODE_ENV=production webpack -p",
     "preloader": "node scripts/preloader.js",
-    "dev": "node scripts/dev.js",
-    "browserify": "node scripts/release.js",{{#if unsupported}}{{#is backend "none"}}
-    "unsupported": "node scripts/release.js --unsupported",{{/is}}{{/if}}
-    "gzip": "node scripts/gzip.js",
     "clean": "node scripts/clean.js",
     "lowercase": "node scripts/lowercase.js",
     "favicons": "node scripts/favicons/favicons.js",
@@ -49,55 +44,49 @@
     "stats.js": "0.16.0"{{/is}}
   },
   "devDependencies": {
-    "budo": "^10.0.3",
-    "rimraf": "^2.5.2",
-    "envify": "^3.4.0",
-    "concat-stream": "^1.5.1",
-    "graceful-fs": "^4.1.3",
-    "handlebars": "^4.0.5",
-    "glob": "^6.0.1",
-    "junk": "^2.0.0",
-    "merge": "^1.2.0",
-    "isbinaryfile": "^3.0.0",
-    "npm-run-all": "^4.0.0",
-    "cross-env": "^5.0.0",{{#is css 'less'}}
-    "less": "^2.5.3",
-    "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-glob": "^1.1.1",{{/is}}{{#is css 'scss'}}
-    "autoprefixer": "^6.2.3",
-    "node-sass": "^3.4.2",
-    "postcss": "^5.0.14",
-    "node-sass-glob": "^1.0.4",{{/is}}
-    "minimist": "^1.2.0",
-    "mkdirp": "^0.5.1",
-    "rfg-api": "^0.1.7",
-    "mozjpeg": "^4.1.1",
-    "pngquant-bin": "^3.0.0",
-    "uglify-js": "^2.6.1",
-    "brfs": "^1.2.0",{{#is framework 'bigwheel'}}
-    "browserify-shim": "^3.8.0",{{/is}}
-    "browserify": "^14.1.0"{{#if useES6}},
-    "babelify": "^7.2.0",
-    "babel-runtime": "^5.8.34",
-    "babel-preset-es2015": "^6.3.13"{{#is framework 'react'}},
+    "autoprefixer": "^6.7.7",{{#if useES6}}
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.3.13",{{#is framework 'react'}}
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-1": "^6.5.0",
-    "stringify": "3.2.0"{{/is}}{{/if}}
+    "babel-runtime": "^5.8.34",{{/is}}{{/if}}
+    "brfs": "^1.2.0",
+    "compression-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.0.0",
+    "css-loader": "^0.28.4",
+    "cssnano": "^3.10.0",
+    "glob": "^6.0.1",
+    "graceful-fs": "^4.1.3",
+    "html-webpack-plugin": "^2.29.0",
+    "isbinaryfile": "^3.0.0",
+    "junk": "^2.0.0",
+    "merge": "^1.2.0",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",{{/is}}{{#is css 'scss'}}
+    "import-glob-loader": "^1.1.0",
+    "sass-loader": "^6.0.6",{{/is}}
+    "npm-run-all": "^4.0.0",
+    "postcss": "^5.0.14",
+    "postcss-loader": "^2.0.6",
+    "rfg-api": "^0.1.7",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.18.2",
+    "svg-inline-loader": "^0.8.0",
+    "svgo-loader": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
   },
-  "browserify": {
-    "transform": [{{#is framework 'bigwheel'}}
-      "browserify-shim",
-      "brfs",{{/is}}{{#if useES6}}
-      "babelify",{{/if}}
-      "envify"{{#is framework 'react'}},
-      ["stringify", {"extensions": [".svg"], "minify": true}]{{/is}}
-    ]
-  }{{#is framework 'bigwheel'}},
-  "browserify-shim": {
-
-  },
-  "browser": {}{{/is}}
+  "browserslist": [
+    "last 2 versions",
+    "Chrome >= 42",
+    "Firefox >= 37",
+    "iOS >= 7",
+    "Safari >= 5",
+    "Explorer >= 9"
+  ]
 }
