@@ -6,60 +6,14 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    width: 2.5rem;
-    height: 2rem;
+    width: 25px;
+    height: 20px;
 
     > .bar {
       width: 100%;
       height: 2px;
       background: #000;
       transform-origin: top left;
-      transition: all 0.2s ease-out;
-    }
-  }
-
-  &.hover:not(.close):not(.back) {
-    .bars-container > .bar {
-      &:nth-child(1),
-      &:nth-child(3) {
-        width: 80%;
-      }
-    }
-  }
-
-  &.close {
-    .bars-container > .bar {
-      &:nth-child(1) {
-        transform: rotate(45deg) translateY(0);
-      }
-
-      &:nth-child(2) {
-        width: 0;
-        opacity: 0;
-      }
-
-      &:nth-child(3) {
-        transform: rotate(-45deg) translateX(-0.1rem) translateY(-0.1rem);
-      }
-    }
-  }
-
-  &.back {
-    .bars-container > .bar {
-      &:nth-child(1) {
-        width: 80%;
-        transform: rotate(-45deg) translateX(-0.8rem) translateY(0.6rem);
-      }
-
-      &:nth-child(2) {
-        width: 0;
-        opacity: 0;
-      }
-
-      &:nth-child(3) {
-        width: 80%;
-        transform: rotate(45deg) translateX(-0.6rem) translateY(-0.6rem);
-      }
     }
   }
 }
