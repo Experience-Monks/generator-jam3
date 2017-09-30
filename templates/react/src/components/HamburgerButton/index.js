@@ -25,18 +25,18 @@ export default class HamburgerButton extends PureComponent {
     }
   }
 
-  _handleClick = (e) => {
+  handleClick = (e) => {
     const buttonState = this.state.buttonState === states.idle ? this.props.activeState : states.idle;
     this.setState({buttonState});
     this.props.onClick(buttonState);
   };
 
-  _handleMouseEnter = (e) => {
+  handleMouseEnter = (e) => {
     this.setState({isMouseOver: true});
     this.props.onMouseEnter();
   };
 
-  _handleMouseLeave = (e) => {
+  handleMouseLeave = (e) => {
     this.setState({isMouseOver: false});
     this.props.onMouseLeave();
   };
@@ -52,11 +52,11 @@ export default class HamburgerButton extends PureComponent {
       <button
         className={buttonClass}
         style={style}
-        onMouseEnter={ this._handleMouseEnter }
-        onMouseLeave={ this._handleMouseLeave }
-        onClick={ this._handleClick }
-        ref={ r => this.container = r }
-        tabIndex={ props.tabIndex}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+        onClick={this.handleClick}
+        ref={r => this.container = r}
+        tabIndex={props.tabIndex}
       >
         <div className="bars-container">
           {
