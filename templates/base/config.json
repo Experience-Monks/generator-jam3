@@ -9,7 +9,7 @@
     "ASSET_PATH": "./assets/",
     "BASENAME": "/",
     "JPEG_QUALITY": 90,
-    "templateBlacklist": [],
+    "templateBlacklist": [{{#if unsupported}}{{#is backend 'php'}}".phar"{{/is}}{{/if}}],
     "liveReloadClient": true,
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
     "env": {}

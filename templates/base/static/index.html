@@ -32,7 +32,8 @@
   <meta charset="utf-8">
   {{#if pushState}}<base href="\{{BASENAME}}">{{/if}}
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">{{#is backend "none"}}{{#if unsupported}}
-  <script type="text/javascript" src="unsupported.js"></script>{{/if}}{{/is}}
+  <script type="text/javascript">window.onerror=function(e) {if (e.indexOf('Expected identifier')==0) window.location = 'unsupported.html';}</script>
+  <script type="text/javascript" src="unsupported.js" onload="window.onerror=undefined;"></script>{{/if}}{{/is}}
   <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
 </head>
   <body>\{{#if vendor}}

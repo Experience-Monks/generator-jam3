@@ -1,22 +1,33 @@
 import matrix from '../static/device-matrix.json';
-import device from './util/detect/util-os';
-import browser from './util/detect/util-browser.js';
-let supported = false;
-let version = parseFloat(browser.checkVersion());
-let os = device.os().toLocaleLowerCase();
-let osVersion = parseFloat(device.osVersion());
-if (os) os = os.toLowerCase();
-if (osVersion==='Unknown') osVersion = Number.MAX_SAFE_INTEGER || 9999;
-if (browser.checkBot()) {
-  supported = true;
-} else if (os === 'android' || os === 'ios') {
-  if (os==='ios' && (browser.checkSafari() || browser.checkFacebook()) && osVersion>=matrix.ios) supported = true;
-  if (os==='android' && (browser.checkChrome() || browser.checkFacebook()) && osVersion>=matrix.android && version>=matrix.chrome) supported = true;
-} else if (browser.checkIE() && version>=matrix.ie ||
-    browser.checkFirefox() && version>=matrix.firefox ||
-    browser.checkChrome() && version>=matrix.chrome ||
-    browser.checkSafari() && version>=matrix.safari ||
-    browser.checkEdge() ) {
-  supported = true;
+import detect from './util/detect';
+
+let version = parseFloat(detect.browserVersion);
+let osVersion = parseFloat(detect.osVersion);
+let browser = (detect.isIE) ? 'internet explorer' : detect.browser;
+let os = detect.os;
+let platforms = ['ios', 'android'];
+
+let unsupported = false;
+let warning = false;
+
+for (let key in matrix['unsupported']) {
+  key = key.toLocaleLowerCase();
+  if (platforms.indexOf(key) > -1) {
+    if (os === key && osVersion <= matrix['unsupported'][key]) unsupported = true;
+  } else {
+    if (browser === key && version <= matrix['unsupported'][key]) unsupported = true;
+  }
 }
-if (!supported) window.location = 'unsupported.html';
+for (let key in matrix['warning']) {
+  key = key.toLocaleLowerCase();
+  if (platforms.indexOf(key) > -1) {
+    if (os === key && osVersion <= matrix['warning'][key]) warning = true;
+  } else {
+    if (browser === key && version <= matrix['warning'][key]) warning = true;
+  }
+}
+if (unsupported && !detect.isBot) {
+  window.location = 'unsupported.html';
+} else if (warning) {
+  window._browserWarning = true;
+}

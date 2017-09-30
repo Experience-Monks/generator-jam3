@@ -1,0 +1,19 @@
+.HamburgerButton {
+  cursor: pointer;
+
+  .bars-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 25px;
+    height: 20px;
+
+    > .bar {
+      width: 100%;
+      height: 2px;
+      background: #000;
+      transform-origin: top left;
+    }
+  }
+}

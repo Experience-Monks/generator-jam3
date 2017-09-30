@@ -9,6 +9,7 @@
   <meta charset="utf-8">
   {{#if pushState}}<base href="\{{BASENAME}}">{{/if}}
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+  <?php if (@$warning) { ?><script type="text/javascript">window._browserWarning=true;</script><?php } ?>
   <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
 </head>
   <body>\{{#if vendor}}

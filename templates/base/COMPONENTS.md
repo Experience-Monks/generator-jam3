@@ -2,6 +2,7 @@
 # Components
 
 ##### Table of Contents  
+<<<<<<< HEAD
 - [Preloader](#preloader)  
 - [Rotate Screen](#rotate)  
 - [Video Player](#video-player)
@@ -10,6 +11,16 @@
 - [Stats](#stats)  
 - [Unsupported Page](#unsupported)  
 - [Meta](#meta)
+=======
+[Preloader](#preloader)  
+[Rotate Screen](#rotate)  
+[Device Detection](#device)  
+[Hamburger Button](#hamburger-button) 
+[Stats](#stats)  
+[Unsupported Page](#unsupported)  
+[Meta](#meta)
+[Audio](#audio)
+>>>>>>> master
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -57,6 +68,7 @@ The rotate screen component simply needs to be included on the page. It determin
 #### Props
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
 
+<<<<<<< HEAD
 <a name="video-player"></a>
 ## Video Player (components/VideoPlayer)
 This is basic video player that includes `VideoTimeline` and `VideoPoster` components.
@@ -119,13 +131,35 @@ Component that triggers video to go fullscreen on Android and play in native bro
 - `pause`
 - `getVideoElement` - access HTML video
   
+=======
+<a name="hamburger-button"></a>
+## Hamburger Button (components/HamburgerButton)
+
+#### Props
+- `className` - *String* - additional class name
+- `style` - *Object* - additional styles
+- `tabIndex` - *Number* - container's tab index
+- `state` - *String* - one of the 3 available states: `idle`, `close` or `back`
+- `activeState` - *String* - the active state, `close` or `back`
+- `isMouseOver` - *Boolean* - force mouse over state
+- `onClick` - *Function* - `click` hook
+- `onMouseEnter` - *Function* - `mouseenter` hook
+- `onMouseLeave` - *Function* - `mouseleave` hook
+
+>>>>>>> master
 <a name="device"></a>
-## Device Detection (util/detect)
+## Device Detection (util/detect.js)
 
 The device detection utility is a javascript object with numerous properties to help you build conditionals based on the current browser / device. It includes the following properties.
-
-- `device` - String that returns either `phone`, `tablet`, or `desktop`  
-- `vendor` - Vendor name of the browser (i.e. "Google Inc.")  
+- `isBot` - Detect if is a crawler bot,
+- `isFacebook` - Detect if in-app Facebook browser,
+- `isTwitter` - Detect if in-app Twitter browser,
+- `isInstagram` - Detect if in-app Instagram browser,
+- `isPinterest` - Detect if in-app Pinterest browser,
+- `isInAppBrowser` - Detect if browser is in-app,
+- `inAppBrowserVersion` - in-app browser version,
+- `device` - returns either `phone`, `tablet`, or `desktop`  
+- `vendor` - vendor name of the browser (i.e. "google inc.")  
 - `os` - Returns the current operating system  
 - `osVersion` - Returns the version of the current operating system  
 - `browser` - Returns the current browser  
@@ -142,9 +176,11 @@ The device detection utility is a javascript object with numerous properties to 
 - `isEdge` - Boolean that describes if browser is Microsoft Edge  
 - `isFirefox` - Boolean that describes if browser is Firefox  
 - `isSafari` - Boolean that describes if browser is Safari  
+- `isOpera` - Boolean that describes if browser is Opera  
 - `md` - The [mobile-detect](npmjs.com/mobile-detect) object used in the device detection
+- `bowser` - The [bowser](npmjs.com/bowser) object used in the device detection
 - `orientation` - String that returns either `portrait` or `landscape` 
-
+  
 <a name="stats"></a>
 ## Stats (util/stats.js)
 
@@ -187,3 +223,49 @@ Meta.php takes care of automatically populating Open Graph, Twitter Card data, a
   }
 }
 ```
+
+<a name="audio"></a>
+## Audio (util/audio.js)
+
+This is a Howler wrapper that reads sounds manifest - `data/sounds.js` and sets `Howl` instances for each manifest entry.
+
+Example manifest:
+```javascript
+{
+  'button-rollover': '{{path}}/rollover.mp3',
+  'button-click': ['{{path}}/click.wav', '{path}/click.mp3']
+  'sprite': {
+    src: '{{path}}/sprite.mp3',
+    sprite: {
+      'chunk-1': [0, 3000],
+      'chunk-1': [3000, 2000]
+    }
+  },
+  'ambient': {
+    src: '{{path}}/ambient.mp3',
+    loop: true,
+    autoplay: true
+  }
+}
+```
+
+if manifest item is type of `String` or `Array`, then it will be used as source(s) and a `Howl` will be set up with it's default options.
+If manifest entry in type of `Object`, its property will be merged with Howler defaults.
+
+This utility is using Singleton pattern, so it will be initialized once upon first `import/require`. 
+Thus, be careful with `preload` and `autoplay` options combination because if both are set to true for a sound, it will start playing on app initialization.
+
+**NOTE**: `preload` option is set to `false` for all sounds by default but can overridden via in manifest for specific sounds.
+You can also use `load` function for dynamic loading control. Refer to [Howler API](https://github.com/goldfire/howler.js#documentation).
+
+#### API
+* `sounds` (getter) -  Get specific sound from the map by ID e.g. `audio.sounds['some-sound'].play()`
+
+* `extraData` (setter) -  Update sound model. It won't replace the original data unless you overwrite existing in manifest keys e.g. `audio.extraData = {noise: '{path}noise.wav'}`
+
+* `play` - play sound or sprite by `ID` e.g. ```audio.play('button-click')``` or ```audio.play('chunk-1')```
+
+#### Example
+Take a look at code example `test/components/SoundTest.js`
+
+See in action in your browser http://localhost:9966/test/SoundTest
