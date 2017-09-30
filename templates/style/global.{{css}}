@@ -17,7 +17,6 @@
   font-size: 62.5%;
 }
 
-<<<<<<< HEAD
 * {
   box-sizing: border-box;
 
@@ -42,18 +41,12 @@ ul {
   list-style: none;
 }
 
-=======
->>>>>>> master
 button {
   border: none;
   outline: none;
   cursor: pointer;
   background: transparent;
   padding: 0;
-<<<<<<< HEAD
-  font-family: akkurat, Helvetica, Arial, sans-serif;
-=======
->>>>>>> master
   text-align: inherit;
   letter-spacing: inherit;
   font-size: inherit;
@@ -78,8 +71,6 @@ button {
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 {{#if unsupported}}.browser-warning {
   position: fixed;
@@ -101,4 +92,3 @@ button {
     color: #000000;
   }
 }{{/if}}
->>>>>>> master

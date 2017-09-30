@@ -2,25 +2,16 @@
 # Components
 
 ##### Table of Contents  
-<<<<<<< HEAD
 - [Preloader](#preloader)  
 - [Rotate Screen](#rotate)  
 - [Video Player](#video-player)
 - [Mobile Fullscreen Video](#mobile-fs-video)
+- [Hamburger Button](#hamburger-button) 
 - [Device Detection](#device)  
 - [Stats](#stats)  
 - [Unsupported Page](#unsupported)  
 - [Meta](#meta)
-=======
-[Preloader](#preloader)  
-[Rotate Screen](#rotate)  
-[Device Detection](#device)  
-[Hamburger Button](#hamburger-button) 
-[Stats](#stats)  
-[Unsupported Page](#unsupported)  
-[Meta](#meta)
-[Audio](#audio)
->>>>>>> master
+- [Audio](#audio)
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -68,7 +59,6 @@ The rotate screen component simply needs to be included on the page. It determin
 #### Props
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
 
-<<<<<<< HEAD
 <a name="video-player"></a>
 ## Video Player (components/VideoPlayer)
 This is basic video player that includes `VideoTimeline` and `VideoPoster` components.
@@ -131,7 +121,7 @@ Component that triggers video to go fullscreen on Android and play in native bro
 - `pause`
 - `getVideoElement` - access HTML video
   
-=======
+
 <a name="hamburger-button"></a>
 ## Hamburger Button (components/HamburgerButton)
 
@@ -146,7 +136,6 @@ Component that triggers video to go fullscreen on Android and play in native bro
 - `onMouseEnter` - *Function* - `mouseenter` hook
 - `onMouseLeave` - *Function* - `mouseleave` hook
 
->>>>>>> master
 <a name="device"></a>
 ## Device Detection (util/detect.js)
 

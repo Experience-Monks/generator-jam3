@@ -12,8 +12,7 @@ export default {
     }
   },
   Preloader: {
-<<<<<<< HEAD
-    component: require('./Preloader'), // example of using a wrapper component connected to the store
+    component: require('./components/Preloader'), // example of using a wrapper component connected to the store
     props: {
       minDisplayTime: 1500,
     }
@@ -79,9 +78,6 @@ export default {
       src: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
     }
   },
-=======
-    component: require('./components/Preloader') // example of using a wrapper component connected to the store
-  },
   HamburgerButton: {
     component: require('./components/HamburgerButton'),
     props: {}
@@ -89,5 +85,4 @@ export default {
   SoundTest: {
     component: require('./components/SoundTest'),
   }
->>>>>>> master
 };

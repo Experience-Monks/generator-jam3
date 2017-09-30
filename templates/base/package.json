@@ -33,12 +33,8 @@
     "bw-analytics": "^1.1.1",
     "handlebars": "^2.0.0",
     "domify": "^1.4.0"{{/is}}{{#is framework 'react'}},
-<<<<<<< HEAD
     "babel-polyfill": "^6.23.0",
-=======
-    "babel-polyfill": "^6.7.4",
     "bowser": "^1.7.0",
->>>>>>> master
     "domready": "^1.0.8",
     "fullscreen-handler": "^0.0.2",
     "mobile-detect": "^1.3.6",
