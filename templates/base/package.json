@@ -26,7 +26,8 @@
   "license": "ISC",
   "repository": "{{repo}}",
   "dependencies": {
-    "gsap": "^1.19.1"{{#is framework 'bigwheel'}},
+    "gsap": "^1.19.1",
+    "howler": "^2.0.4"{{#is framework 'bigwheel'}},
     "bigwheel": "^3.0.0",
     "domready": "^1.0.8",
     "bw-analytics": "^1.1.1",
@@ -70,7 +71,7 @@
     "node-sass-glob": "^1.0.4",{{/is}}
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "rfg-api": "^0.1.7",
+    "rfg-api": "^0.2.0",
     "mozjpeg": "^4.1.1",
     "pngquant-bin": "^3.0.0",
     "uglify-js": "^2.6.1",
