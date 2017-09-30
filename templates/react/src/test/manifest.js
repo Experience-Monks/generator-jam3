@@ -13,7 +13,11 @@ export default {
   Preloader: {
     component: require('./components/Preloader') // example of using a wrapper component connected to the store
   },
-   SoundTest: {
+  HamburgerButton: {
+    component: require('./components/HamburgerButton'),
+    props: {}
+  },
+  SoundTest: {
     component: require('./components/SoundTest'),
   }
 };
