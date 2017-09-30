@@ -5,7 +5,9 @@ import {Router, Route, IndexRoute, IndexRedirect, useRouterHistory, Redirect} fr
 import {{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}} from 'history/lib/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import detect from '../util/detect';
+import detect from '../util/detect';{{#if unsupported}}
+import warning from '../util/warning';
+{{/if}}
 
 import store from '../store';
 import App from '../sections/App{{#if sectionNames}}/App{{/if}}';
@@ -22,7 +24,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default function() {
-  const container = document.createElement('div');
+  {{#if unsupported}}warning();
+  {{/if}}const container = document.createElement('div');
   container.id = 'container';
   document.body.appendChild(container);
   document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
