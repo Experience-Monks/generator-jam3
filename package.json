@@ -21,9 +21,9 @@
     "test": "node test/"
   },
   "keywords": [
-    "jam3,",
-    "project,",
-    "scaffold,",
+    "jam3",
+    "project",
+    "scaffold",
     "generator",
     "nyg"
   ],
