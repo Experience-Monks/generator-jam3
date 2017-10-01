@@ -13,7 +13,7 @@ export default {
     }
   },
   Preloader: {
-    component: require('./components/Preloader'), // example of using a wrapper component connected to the store
+    component: require('./components/Preloader'),
     props: {
       minDisplayTime: 1500,
     }

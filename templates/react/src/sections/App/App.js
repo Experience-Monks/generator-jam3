@@ -51,9 +51,9 @@ class App extends React.Component {
     return (
       <div id="App">
         <TransitionGroup id="content" component="div" transitionMode="out-in">
-          {this.getContent()}
+          { this.getContent() }
         </TransitionGroup>
-        {detect.isPhone && <RotateScreen/>}
+        { detect.isPhone && <RotateScreen/> }
       </div>
     );
   }

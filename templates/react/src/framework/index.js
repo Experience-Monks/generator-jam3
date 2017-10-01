@@ -5,12 +5,9 @@ import {Router, Route, IndexRoute, IndexRedirect, useRouterHistory, Redirect} fr
 import {{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}} from 'history/lib/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Provider } from 'react-redux';
-<<<<<<< HEAD
-=======
 import detect from '../util/detect';{{#if unsupported}}
 import warning from '../util/warning';
 {{/if}}
->>>>>>> master
 
 import detect from '../util/detect';
 import store from '../store';
@@ -30,7 +27,6 @@ export default function() {
   container.id = 'container';
   document.body.appendChild(container);
   document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
-<<<<<<< HEAD
 
   (process.env.NODE_ENV === 'development') && setDevTools();
 
@@ -57,18 +53,3 @@ function setDevTools() {
 }
 
 function handleRouteChange() {}
-=======
-
-  render((
-    <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Landing}/>
-          {TestRoutes && <Route path="/test" component={Test}>{TestRoutes}</Route>}
-          <Redirect path="*" to="/"/>
-        </Route>
-      </Router>
-    </Provider>
-  ), container);
-}
->>>>>>> master
