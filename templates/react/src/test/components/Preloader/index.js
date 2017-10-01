@@ -9,7 +9,7 @@ import Preloader from '../../../components/Preloader/Preloader';
 import { setReady } from '../../../store/actions/app';
 import { setProgress } from '../../../store/actions/preloader';
 
-class Test extends React.Component {
+class Test extends React.PureComponent {
   componentWillUnmount() {
     this.props.setProgress(0);
     this.props.setReady(false);

@@ -8,7 +8,7 @@ import RotateScreen from '../../components/Rotate{{#if sectionNames}}/Rotate{{/i
 
 import detect from '../../util/detect';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

@@ -9,7 +9,6 @@ import detect from '../util/detect';{{#if unsupported}}
 import warning from '../util/warning';
 {{/if}}
 
-import detect from '../util/detect';
 import store from '../store';
 
 import routeKeys from './route-keys';
