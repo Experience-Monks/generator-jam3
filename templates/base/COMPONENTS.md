@@ -2,14 +2,16 @@
 # Components
 
 ##### Table of Contents  
-[Preloader](#preloader)  
-[Rotate Screen](#rotate)  
-[Device Detection](#device)  
-[Hamburger Button](#hamburger-button) 
-[Stats](#stats)  
-[Unsupported Page](#unsupported)  
-[Meta](#meta)
-[Audio](#audio)
+- [Preloader](#preloader)  
+- [Rotate Screen](#rotate)  
+- [Video Player](#video-player)
+- [Mobile Fullscreen Video](#mobile-fs-video)
+- [Hamburger Button](#hamburger-button) 
+- [Device Detection](#device)  
+- [Stats](#stats)  
+- [Unsupported Page](#unsupported)  
+- [Meta](#meta)
+- [Audio](#audio)
 
 <a name="preloader"></a>
 ## Preloader (components/Preloader)
@@ -56,6 +58,69 @@ The rotate screen component simply needs to be included on the page. It determin
 
 #### Props
 - `portrait` - Boolean which determines if the site is locked to portrait or not. If `true`, the rotate screen will display if the device is in landscape mode, otherwise it will display if the device is in portrait mode. Default: true
+
+<a name="video-player"></a>
+## Video Player (components/VideoPlayer)
+This is basic video player that includes `VideoTimeline` and `VideoPoster` components.
+It is accessible and allows to be controlled using keyboard.
+
+#### Props
+- `src` - *String* (required) - video source
+- `poster` - *String* -  poster image
+- `id` - - *String* or *Number* - video ID that will be sent back with `onPlay` hook 
+- `preload` - *String* - determines whether video should automatically preload. Valid options are `auto`, `metadata` or `none`
+- `captions` - *Object* - track data refer to https://developer.mozilla.org/en/docs/Web/HTML/Element/track
+- `disableBackgroundCover`- *Boolean* - disable video cover effect
+- `allowKeyboardControl` - *Boolean* - allow/disallow toggle play state with space bar when video element is focused
+- `autoPlay` - *Boolean* - determines whether video should automatically play on load
+- `muted` - *Boolean* - determines whether video should play sound
+- `loop` - *Boolean* - determines whether video should loop
+- `togglePlayOnClick` - *Boolean* - allow/disallow toggle play state on video click
+- `showControlsOnLoad` - *Boolean* - determines whether to show video controls on load without mouse interaction
+- `hasCloseButton` - *Boolean* - render close button that is synced with controls
+- `hasPlayButton` - *Boolean* - render play button for video poster
+- `showPosterOnEnd` - *Boolean* - determines whether poster should show up after video has ended
+- `hasControls` - *Boolean* - render controls
+- `playsInline` - *Boolean* - determines if video plays inline on iPhone
+- `autoPlayDelay` - *Number* - auto play delay (in milliseconds). Only works with `autoPlay: true`
+- `controlsTimeout` - *Number* - time (in milliseconds) after which controls and close button hide if the user was inactive 
+- `windowWidth` - *Number* - window width. It is required when for background cover videos - `disableBackgroundCover: false`
+- `windowHeight` - *Number* - window height. It is required when for background cover videos - `disableBackgroundCover: false`
+- `volume` - *Number* - values from 0 to 1
+- `startTime` - *Number* - video start time (in seconds)
+- `posterFadeDuration` - *Number* - poster fade out duration (in milliseconds)
+- `onPlay` - *Function* - on video play hook
+- `onPause` - *Function* - on video pause hook
+- `onEnd` - *Function* - on video end hook
+- `onClose` - *Function* - on close button click hook
+
+#### API
+- `showControls` - force controls to show
+- `hideControls`- force controls to hide
+- `getVideoElement` - access HTML video
+- `play`
+- `pause`
+- `mute`
+- `unmute`
+- `togglePlay`
+- `toggleMute`
+- `toggleFullScreen`
+- `toggleCaptions` - show/hide captions
+
+<a name="mobile-fs-video"></a>
+## Mobile Fullscreen Video (components/MobilFsVideo)
+Component that triggers video to go fullscreen on Android and play in native browser on iOS
+
+#### Props
+- `src` - *String* - video source
+- `onOpen` *Function* - fullscreen enter (native player open) hook
+- `onClose` *Function* - fullscreen exit (native player close) hook
+
+#### API
+- `play`
+- `pause`
+- `getVideoElement` - access HTML video
+  
 
 <a name="hamburger-button"></a>
 ## Hamburger Button (components/HamburgerButton)
