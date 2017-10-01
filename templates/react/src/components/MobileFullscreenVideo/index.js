@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fullScreen from 'fullscreen-handler';
 
-import detect from '../../utils/detect';
+import detect from '../../util/detect';
 
 const isIOS = detect.isIOS;
 
