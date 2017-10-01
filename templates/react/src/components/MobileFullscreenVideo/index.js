@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fullScreen from 'fullscreen-handler';
 
-const isIOS = Boolean(typeof navigator !== 'undefined' && navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/));
+import detect from '../../util/detect';
+
+const isIOS = detect.isIOS;
 
 class MobileFullscreenVideo extends React.PureComponent {
   constructor(props) {
@@ -11,8 +13,8 @@ class MobileFullscreenVideo extends React.PureComponent {
 
   componentDidMount() {
     this.fullScreen = fullScreen(this.video,
-      this._handleFsEnter,
-      this._handleFsExit,
+      this.handleFsEnter,
+      this.handleFsExit,
     );
   }
 
@@ -36,11 +38,11 @@ class MobileFullscreenVideo extends React.PureComponent {
     return this.video;
   };
 
-  _handleFsEnter = () => {
+  handleFsEnter = () => {
     !isIOS && this.props.onOpen();
   };
 
-  _handleFsExit = () => {
+  handleFsExit = () => {
     this.pause();
     this.props.onClose();
   };
@@ -58,12 +60,10 @@ class MobileFullscreenVideo extends React.PureComponent {
       left: window.innerWidth / 2,
     }, this.props.style);
 
-    const className = 'MobileFullscreenVideo';
-
     return (
       <video
         style={style}
-        className={`${className} ${this.props.className}`}
+        className={`MobileFullscreenVideo ${this.props.className}`}
         src={this.props.src}
         ref={r => this.video = r}
         onEnded={this.handleEnded}

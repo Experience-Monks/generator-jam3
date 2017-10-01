@@ -41,16 +41,16 @@ export default class VideoPlayer extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.fullScreen = fullScreen(this.container, this._handleEnterFullScreen, this._handleExitFullScreen);
+    this.fullScreen = fullScreen(this.container, this.handleEnterFullScreen, this.handleExitFullScreen);
 
     if (this.props.hasControls) {
-      this.props.showControlsOnLoad ? this._setHideControlsTimeout() : this.hideControls(0);
+      this.props.showControlsOnLoad ? this.setHideControlsTimeout() : this.hideControls(0);
     }
 
     if (this.props.autoPlay) {
       this.autoPlayTimeout = setTimeout(() => {
         this.play();
-        this._clearAutoPlayTimeout();
+        this.clearAutoPlayTimeout();
       }, this.props.autoPlayDelay);
     }
 
@@ -61,7 +61,7 @@ export default class VideoPlayer extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.windowWidth !== this.props.windowWidth || nextProps.windowHeight !== this.props.windowHeight) {
-      this._handleResize({
+      this.handleResize({
         containerWidth: nextProps.windowWidth,
         containerHeight: nextProps.windowHeight
       });
@@ -72,7 +72,7 @@ export default class VideoPlayer extends React.PureComponent {
     }
 
     if (nextProps.captions && (nextProps.captions.src !== this.props.captions.src)) {
-      this._setCaptions(nextProps.captions);
+      this.setCaptions(nextProps.captions);
     }
   }
 
@@ -80,11 +80,11 @@ export default class VideoPlayer extends React.PureComponent {
     if (prevState.isPlaying !== this.state.isPlaying) {
       if (this.state.isPlaying) {
         this.props.onPlay(this.props.id);
-        this.props.hasControls && this._setHideControlsTimeout();
+        this.props.hasControls && this.setHideControlsTimeout();
       } else {
         this.props.onPause(this.props.id);
         if (this.props.hasControls) {
-          this._clearHideControlsTimeout();
+          this.clearHideControlsTimeout();
           this.showControls();
         }
       }
@@ -99,8 +99,8 @@ export default class VideoPlayer extends React.PureComponent {
   componentWillUnmount() {
     this.fullScreen.destroy();
     this.pause();
-    this._clearAutoPlayTimeout();
-    this.props.hasControls && this._clearHideControlsTimeout();
+    this.clearAutoPlayTimeout();
+    this.props.hasControls && this.clearHideControlsTimeout();
     this.captions && this.captions.removeEventListener('cuechange', this.handleTrackChange);
   }
 
@@ -150,11 +150,11 @@ export default class VideoPlayer extends React.PureComponent {
     this.setState({isShowingCaptions: !this.state.isShowingCaptions});
   };
 
-  _setCaptions = (captions = this.props.captions) => {
+  setCaptions = (captions = this.props.captions) => {
     const video = this.video.video;
     if (video.contains(this.captions)) {
       video.removeChild(this.captions);
-      this.captions.removeEventListener('cuechange', this._handleTrackChange);
+      this.captions.removeEventListener('cuechange', this.handleTrackChange);
     }
 
     const track = document.createElement('track');
@@ -169,34 +169,34 @@ export default class VideoPlayer extends React.PureComponent {
     video.appendChild(this.captions);
     video.textTracks[0].mode = 'hidden';
 
-    this.captions.addEventListener('cuechange', this._handleTrackChange);
+    this.captions.addEventListener('cuechange', this.handleTrackChange);
   };
 
-  _clearHideControlsTimeout = () => {
+  clearHideControlsTimeout = () => {
     if (this.hideControlsTimeout) {
       clearTimeout(this.hideControlsTimeout);
       this.hideControlsTimeout = undefined;
     }
   };
 
-  _clearAutoPlayTimeout = () => {
+  clearAutoPlayTimeout = () => {
     this.autoPlayTimeout && clearTimeout(this.autoPlayTimeout);
   };
 
-  _setHideControlsTimeout = () => {
-    this._clearHideControlsTimeout();
+  setHideControlsTimeout = () => {
+    this.clearHideControlsTimeout();
     this.hideControlsTimeout = setTimeout(() => {
       this.state.isPlaying && this.hideControls();
     }, this.props.controlsTimeout);
   };
 
-  _handleOnReady = () => {
+  handleOnReady = () => {
     if (this.props.captions) {
-      this.props.captions.src && this._setCaptions();
+      this.props.captions.src && this.setCaptions();
     }
   };
 
-  _handleTrackChange = () => {
+  handleTrackChange = () => {
     const trackList = this.video.video.textTracks;
     const textTracks = (trackList && trackList.length > 0) ? trackList[0] : null;
     let cue = (textTracks && textTracks.activeCues.length > 0) ? textTracks.activeCues[0] : null;
@@ -204,56 +204,56 @@ export default class VideoPlayer extends React.PureComponent {
     this.setState({currentCaptions: text});
   };
 
-  _handleResize = (newSize) => {
+  handleResize = (newSize) => {
     this.setState(newSize);
   };
 
-  _handleEnterFullScreen = () => {
+  handleEnterFullScreen = () => {
     this.setState({isFullScreen: true});
   };
 
-  _handleExitFullScreen = () => {
+  handleExitFullScreen = () => {
     this.setState({isFullScreen: false});
   };
 
-  _handleTimeChange = (currentTime) => {
+  handleTimeChange = (currentTime) => {
     this.video.setCurrentTime(currentTime);
   };
 
-  _handlePlay = () => {
+  handlePlay = () => {
     this.setState({isPlaying: true});
   };
 
-  _handlePause = () => {
+  handlePause = () => {
     this.setState({isPlaying: false});
   };
 
-  _handleTimeUpdate = (currentTime, progress, duration) => {
+  handleTimeUpdate = (currentTime, progress, duration) => {
     this.setState({currentTime, progress, duration});
   };
 
-  _handleMute = () => {
+  handleMute = () => {
     this.setState({isMuted: true});
   };
 
-  _handleUnmute = () => {
+  handleUnmute = () => {
     this.setState({isMuted: false});
   };
 
-  _handleEnd = () => {
+  handleEnd = () => {
     this.props.onEnd();
     this.fullScreen.isFullScreen() && this.fullScreen.exit();
     this.props.showPosterOnEnd && this.hideControls();
   };
 
-  _handleOnMouseMove = (e) => {
+  handleOnMouseMove = (e) => {
     if (this.state.isPlaying && this.props.hasControls) {
       this.showControls();
-      this._setHideControlsTimeout();
+      this.setHideControlsTimeout();
     }
   };
 
-  _handleKeyPress = (e) => {
+  handleKeyPress = (e) => {
     if (this.props.allowKeyboardControl) {
       const event = e.keyCode || e.which || e.charCode;
       if (event === 32) {
@@ -271,7 +271,7 @@ export default class VideoPlayer extends React.PureComponent {
         className={`VideoPlayer ${props.className}`}
         style={props.style}
         ref={r => this.container = r}
-        onMouseMove={this._handleOnMouseMove}
+        onMouseMove={this.handleOnMouseMove}
       >
         <BackgroundVideo
           ref={r => this.video = r}
@@ -286,15 +286,15 @@ export default class VideoPlayer extends React.PureComponent {
           playsInline={props.playsInline}
           volume={props.volume}
           startTime={state.startTime}
-          onReady={this._handleOnReady}
-          onPlay={this._handlePlay}
-          onPause={this._handlePause}
-          onTimeUpdate={this._handleTimeUpdate}
-          onMute={this._handleMute}
-          onUnmute={this._handleUnmute}
-          onEnd={this._handleEnd}
+          onReady={this.handleOnReady}
+          onPlay={this.handlePlay}
+          onPause={this.handlePause}
+          onTimeUpdate={this.handleTimeUpdate}
+          onMute={this.handleMute}
+          onUnmute={this.handleUnmute}
+          onEnd={this.handleEnd}
           onClick={props.togglePlayOnClick ? this.togglePlay : f => f}
-          onKeyPress={this._handleKeyPress}
+          onKeyPress={this.handleKeyPress}
         />
 
         {
@@ -340,7 +340,7 @@ export default class VideoPlayer extends React.PureComponent {
             <VideoTimeline
               duration={state.duration}
               currentTime={state.currentTime}
-              onTimeChange={this._handleTimeChange}
+              onTimeChange={this.handleTimeChange}
             />
 
             {

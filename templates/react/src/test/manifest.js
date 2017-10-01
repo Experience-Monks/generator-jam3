@@ -13,7 +13,7 @@ export default {
     }
   },
   Preloader: {
-    component: require('./components/Preloader'),
+    component: require('./components/Preloader'), // example of using a wrapper component connected to the store
     props: {
       minDisplayTime: 1500,
     }
@@ -73,11 +73,15 @@ export default {
       disableBackgroundCover: true,
     }
   },
-  MobileFsVideo: {
-    component: require('./components/MobileFullscreenVideo'),
+  MobileFullscreenVideo: {
+    component: require('./MobileFullscreenVideo'),
     props: {
       src: 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4',
     }
+  },
+  HamburgerButton: {
+    component: require('./components/HamburgerButton'),
+    props: {}
   },
   SoundTest: {
     component: require('./components/SoundTest'),
