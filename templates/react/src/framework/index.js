@@ -32,18 +32,17 @@ export default function() {
   render((
     <Provider store={store}>
       <Router
-          history={history}
-          onUpdate={handleRouteChange}
-        >
-          <Route component={App}>
-            <Route path={routeKeys.Landing} component={Landing}/>
-            {TestRoutes && <Route path={routeKeys.Test} component={Test}>{TestRoutes}</Route>}
-            <Redirect path="*" to={routeKeys.Landing}/>
-          </Route>
-        </Router>
-      </Provider>
-    ), container);
-  }
+        history={history}
+        onUpdate={handleRouteChange}>
+        <Route component={App}>
+          <Route path={routeKeys.Landing} component={Landing}/>
+          {TestRoutes && <Route path={routeKeys.Test} component={Test}>{TestRoutes}</Route>}
+          <Redirect path="*" to={routeKeys.Landing}/>
+        </Route>
+      </Router>
+    </Provider>
+  ), container);
+}
 
 function setDevTools() {
   Test = require('../test/index').default;
