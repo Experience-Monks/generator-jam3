@@ -122,7 +122,7 @@ module.exports = {
   isMobile: browser.mobile || browser.tablet,
   isPhone: browser.mobile,
   isTablet: browser.tablet,
-  isDesktop: !browser.mobile,
+  isDesktop: !browser.mobile && !browser.tablet,
   isChrome: browser.chrome,
   isIE: browser.msie,
   isEdge: browser.msedge,
