@@ -42,7 +42,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",
-    "react-background-video-player": "^0.3.0",
+    "react-background-video-player": "^0.3.1",
     "react-dom": "^15.6.1",
     "react-svg-inline": "^2.0.0",
     "react-redux": "^4.4.4",

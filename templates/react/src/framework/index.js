@@ -10,18 +10,15 @@ import warning from '../util/warning';
 {{/if}}
 
 import store from '../store';
-import App from '../sections/App{{#if sectionNames}}/App{{/if}}';
-import Landing from '../sections/Landing{{#if sectionNames}}/Landing{{/if}}';
+
+import routeKeys from './route-keys';
+import App from '../sections/App';
+import Landing from '../sections/Landing';
 
 const history = syncHistoryWithStore(useRouterHistory({{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}})({ basename: process.env.BASENAME }), store);
 
 let Test;
 let TestRoutes;
-if (process.env.NODE_ENV === 'development') {
-  window.Perf = require('react-addons-perf');
-  Test = require('../test/index').default;
-  TestRoutes = require('../test/routes').default;
-}
 
 export default function() {
   {{#if unsupported}}warning();
@@ -30,15 +27,27 @@ export default function() {
   document.body.appendChild(container);
   document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
 
+  (process.env.NODE_ENV === 'development') && setDevTools();
+
   render((
     <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Landing}/>
-          {TestRoutes && <Route path="/test" component={Test}>{TestRoutes}</Route>}
-          <Redirect path="*" to="/"/>
+      <Router
+        history={history}
+        onUpdate={handleRouteChange}>
+        <Route component={App}>
+          <Route path={routeKeys.Landing} component={Landing}/>
+          {TestRoutes && <Route path={routeKeys.Test} component={Test}>{TestRoutes}</Route>}
+          <Redirect path="*" to={routeKeys.Landing}/>
         </Route>
       </Router>
     </Provider>
   ), container);
 }
+
+function setDevTools() {
+  Test = require('../test/index').default;
+  TestRoutes = require('../test/routes').default;
+  window.Perf = require('react-addons-perf');
+}
+
+function handleRouteChange() {}

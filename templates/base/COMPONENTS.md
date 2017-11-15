@@ -219,7 +219,7 @@ Meta.php takes care of automatically populating Open Graph, Twitter Card data, a
 This is a Howler wrapper that reads sounds manifest - `data/sounds.js` and sets `Howl` instances for each manifest entry.
 
 Example manifest:
-```javascript
+```
 {
   'button-rollover': '{{path}}/rollover.mp3',
   'button-click': ['{{path}}/click.wav', '{path}/click.mp3']
@@ -248,11 +248,9 @@ Thus, be careful with `preload` and `autoplay` options combination because if bo
 You can also use `load` function for dynamic loading control. Refer to [Howler API](https://github.com/goldfire/howler.js#documentation).
 
 #### API
-* `sounds` (getter) -  Get specific sound from the map by ID e.g. `audio.sounds['some-sound'].play()`
-
-* `extraData` (setter) -  Update sound model. It won't replace the original data unless you overwrite existing in manifest keys e.g. `audio.extraData = {noise: '{path}noise.wav'}`
-
-* `play` - play sound or sprite by `ID` e.g. ```audio.play('button-click')``` or ```audio.play('chunk-1')```
+- `sounds` (getter) -  Get specific sound from the map by ID e.g. `audio.sounds['some-sound'].play()`
+- `extraData` (setter) -  Update sound model. It won't replace the original data unless you overwrite existing in manifest keys e.g. `audio.extraData = {noise: '{path}noise.wav'}`
+- `play` - play sound or sprite by `ID` e.g. ```audio.play('button-click')``` or ```audio.play('chunk-1')```
 
 #### Example
 Take a look at code example `test/components/SoundTest.js`

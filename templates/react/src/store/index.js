@@ -2,13 +2,15 @@
 import { createStore, combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux';
 
-import * as appReducers from '../sections/App/reducers';
+import * as appReducers from './reducers/app';
+import * as preloaderReducers from './reducers/preloader';
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   ...appReducers,
-  routing: routerReducer
+  ...preloaderReducers,
+  routing: routerReducer,
 });
 
-export default createStore(reducer,
-  process.env.NODE_ENV==='development' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const enhancer = (process.env.NODE_ENV === 'development' && window.devToolsExtension) ? window.devToolsExtension() : f => f;
+
+export default createStore(reducers, enhancer);

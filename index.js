@@ -46,7 +46,7 @@ var prompts = [{
 },{
   type: "confirm",
   name: "sectionNames",
-  message: "Would you prefer Landing/Landing.js over Landing/index.js?",
+  message: "Would you prefer ComponentName/ComponentName.js over ComponentName/index.js?",
   default: false,
   when: function(answers) { return answers.framework!=='none'; }
 },{
@@ -142,7 +142,6 @@ function onPostCopy() {
           if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
             var style = gen.config.get('css');
             var files = [
-              [path.join(gen.cwd,'src/components/Preloader/index.js'),path.join(gen.cwd,'src/components/Preloader/Preloader.js')],
               [path.join(gen.cwd,'src/components/Preloader/style.'+style),path.join(gen.cwd,'src/components/Preloader/Preloader.'+style)],
               [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
               [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],

@@ -2,6 +2,7 @@
  * Components added to the manifest can be accessed in browser under `/test/{componentName}` route
  * or go to `/test` to see the list of test components
  */
+
 import detect from '../util/detect';
 
 export default {
@@ -12,7 +13,7 @@ export default {
     }
   },
   Preloader: {
-    component: require('./components/Preloader'), // example of using a wrapper component connected to the store
+    component: require('./components/Preloader'),
     props: {
       minDisplayTime: 1500,
     }
