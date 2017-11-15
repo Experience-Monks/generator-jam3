@@ -1,53 +1,40 @@
 'use strict';
 import React from 'react';
-import {render} from 'react-dom';
-import {Router, Route, IndexRoute, IndexRedirect, useRouterHistory, Redirect} from 'react-router';
-import {{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}} from 'history/lib/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
+import { render } from 'react-dom';
+import { Route } from 'react-router';
+import { ConnectedRouter } from 'react-router-redux';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import detect from '../util/detect';{{#if unsupported}}
 import warning from '../util/warning';
 {{/if}}
 
-import store from '../store';
-
-import routeKeys from './route-keys';
+import store, { history } from '../store';
 import App from '../sections/App';
-import Landing from '../sections/Landing';
+import routes from '../routes';
 
-const history = syncHistoryWithStore(useRouterHistory({{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}})({ basename: process.env.BASENAME }), store);
-
-let Test;
-let TestRoutes;
+let appRoutes = routes;
 
 export default function() {
-  {{#if unsupported}}warning();
-  {{/if}}const container = document.createElement('div');
+  warning();
+  const container = document.createElement('div');
   container.id = 'container';
   document.body.appendChild(container);
-  document.body.className = [...document.body.className.split(' '), ...detect.classes].join(' ');
+  document.body.className = [
+    ...document.body.className.split(' '),
+    ...detect.classes
+  ].join(' ');
 
-  (process.env.NODE_ENV === 'development') && setDevTools();
+  if (process.env.NODE_ENV === 'development') {
+    appRoutes = routes.concat(require('../test').default);
+  }
 
-  render((
+  render(
     <Provider store={store}>
-      <Router
-        history={history}
-        onUpdate={handleRouteChange}>
-        <Route component={App}>
-          <Route path={routeKeys.Landing} component={Landing}/>
-          {TestRoutes && <Route path={routeKeys.Test} component={Test}>{TestRoutes}</Route>}
-          <Redirect path="*" to={routeKeys.Landing}/>
-        </Route>
-      </Router>
-    </Provider>
-  ), container);
+      <ConnectedRouter history={history}>
+        <Route render={props => <App {...props} routes={appRoutes} />} />
+      </ConnectedRouter>
+    </Provider>,
+    container
+  );
 }
-
-function setDevTools() {
-  Test = require('../test/index').default;
-  TestRoutes = require('../test/routes').default;
-  window.Perf = require('react-addons-perf');
-}
-
-function handleRouteChange() {}

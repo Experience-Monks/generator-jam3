@@ -153,7 +153,6 @@ function onPostCopy() {
               [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.'+style)],
               [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.js')],
               [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.'+style)],
-              [path.join(gen.cwd,'src/sections/App/index.js'),path.join(gen.cwd,'src/sections/App/App.js')],
               [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)],
               [path.join(gen.cwd,'src/components/HamburgerButton/index.js'),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.js')],
               [path.join(gen.cwd,'src/components/HamburgerButton/style.'+style),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.'+style)]

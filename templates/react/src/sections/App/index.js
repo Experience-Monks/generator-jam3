@@ -3,10 +3,7 @@ import App from './App';
 import { setWindowSize } from '../../store/actions/app';
 
 const mapStateToProps = (state, ownProps) => {
-  let section = ownProps.location.pathname.split('/').filter(Boolean)[0] || 'landing';
-
   return {
-    section: section,
     ready: state.ready,
     windowWidth: state.windowSize.width,
     windowHeight: state.windowSize.height,
