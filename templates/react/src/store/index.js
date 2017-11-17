@@ -5,7 +5,7 @@ import createHistory from 'history/{{#if pushState}}createBrowserHistory{{else}}
 
 import * as appReducers from './reducers/app';
 import * as preloaderReducers from './reducers/preloader';
-export const history = createHistory();
+export const history = createHistory({ basename: process.env.BASENAME });
 
 function enableBatchActions(reducers) {
   return function(state, action) {
