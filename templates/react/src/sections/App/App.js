@@ -63,7 +63,7 @@ class App extends React.PureComponent {
       : this.renderPreloader;
 
     return (
-      <div id="app">
+      <div id="App">
         <TransitionGroup id="content" component="div" transitionMode="out-in">
           {renderContent()}
         </TransitionGroup>
