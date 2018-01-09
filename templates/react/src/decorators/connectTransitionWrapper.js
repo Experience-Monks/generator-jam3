@@ -7,15 +7,19 @@ function getDisplayName(Component) {
 
 export default function ConnectTransitionWrapper() {
   return function wrapConnectedComponent(ConnectedComponent) {
-    invariant(ConnectedComponent.WrappedComponent, 'You are trying to wrap a component that is not wrapped in react-redux Connect');
+    invariant(
+      ConnectedComponent.WrappedComponent,
+      'You are trying to wrap a component that is not wrapped in react-redux Connect'
+    );
     class ConnectTransitionWrapper extends Component {
-
-      static displayName = `ConnectTransitionWrapper(${getDisplayName(ConnectedComponent.WrappedComponent)})`;
+      static displayName = `ConnectTransitionWrapper(${getDisplayName(
+        ConnectedComponent.WrappedComponent
+      )})`;
       static WrappedComponent = ConnectedComponent.WrappedComponent;
 
       componentWillAppear(callback) {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance = {} } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
 
         if (wrappedInstance.componentWillAppear) {
           wrappedInstance.componentWillAppear(callback);
@@ -25,8 +29,8 @@ export default function ConnectTransitionWrapper() {
       }
 
       componentDidAppear() {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance = {} } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
 
         if (wrappedInstance.componentDidAppear) {
           wrappedInstance.componentDidAppear();
@@ -34,8 +38,8 @@ export default function ConnectTransitionWrapper() {
       }
 
       componentWillEnter(callback) {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance = {} } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
 
         if (wrappedInstance.componentWillEnter) {
           wrappedInstance.componentWillEnter(callback);
@@ -45,8 +49,8 @@ export default function ConnectTransitionWrapper() {
       }
 
       componentDidEnter() {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance = {} } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
 
         if (wrappedInstance.componentDidEnter) {
           wrappedInstance.componentDidEnter();
@@ -54,8 +58,8 @@ export default function ConnectTransitionWrapper() {
       }
 
       componentWillLeave(callback) {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance = {} } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
 
         if (wrappedInstance.componentWillLeave) {
           wrappedInstance.componentWillLeave(callback);
@@ -65,8 +69,8 @@ export default function ConnectTransitionWrapper() {
       }
 
       componentDidLeave() {
-        const {connectInstance} = this.refs;
-        const {wrappedInstance} = connectInstance.refs;
+        const { connectInstance } = this.refs;
+        const { wrappedInstance = {} } = connectInstance;
         this.isLeaving = false;
         if (wrappedInstance.componentDidLeave) {
           wrappedInstance.componentDidLeave();
@@ -74,7 +78,7 @@ export default function ConnectTransitionWrapper() {
       }
 
       render() {
-        return <ConnectedComponent {...this.props} ref="connectInstance"/>;
+        return <ConnectedComponent {...this.props} ref="connectInstance" />;
       }
     }
 

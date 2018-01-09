@@ -1,6 +1,8 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { matchPath } from 'react-router';
+import { Link } from 'react-router-dom';
 import TransitionGroup from 'react-transition-group-plus';
 
 import Preloader from '../../components/Preloader';
@@ -11,49 +13,61 @@ import detect from '../../util/detect';
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      width: 960,
+      height: 570
+    };
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  handleResize = () => {
-    this.props.setWindowSize({
+  onResize = () => {
+    this.setState({
       width: window.innerWidth,
-      height: window.innerHeight,
+      height: window.innerHeight
     });
   };
 
-  getContent = () => {
-    const isTestRoute = (location.pathname.split('/')[1] === 'test');
+  componentWillMount() {
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+  }
 
-    if (this.props.ready || isTestRoute) {
-      return React.cloneElement(this.props.children, {
-        key: this.props.section,
-        section: this.props.section,
-        windowWidth: this.props.windowWidth,
-        windowHeight: this.props.windowHeight,
-      });
-    } else {
-      return (
-        <Preloader/>
-      );
-    }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  matchPath = path => matchPath({{#if pushState}}location.pathname{{else}}location.hash.replace('#', ''){{/if}}, path);
+
+  renderPreloader = () => {
+    return (
+      <Preloader
+        key="preloader"
+        assetsList={this.props.assets}
+        setProgress={this.props.onProgress}
+        setReady={this.props.onReady}
+        windowWidth={this.state.width}
+        windowHeight={this.state.height}
+      />
+    );
+  };
+
+  renderRoute = () => {
+    return this.props.routes
+      .filter(({ path }) => this.matchPath(path))
+      .map(({ Component, key, props }) => <Component key={key} {...props} />);
   };
 
   render() {
+    const isTestRoute = location.pathname.split('/')[1] === 'test';
+    const renderContent = this.props.ready || isTestRoute
+      ? this.renderRoute
+      : this.renderPreloader;
+
     return (
       <div id="App">
         <TransitionGroup id="content" component="div" transitionMode="out-in">
-          { this.getContent() }
+          {renderContent()}
         </TransitionGroup>
-        { detect.isPhone && <RotateScreen/> }
+        {detect.isPhone && <RotateScreen />}
       </div>
     );
   }
@@ -66,11 +80,11 @@ App.propTypes = {
   section: PropTypes.string,
   windowWidth: PropTypes.number,
   windowHeight: PropTypes.number,
-  setWindowSize: PropTypes.func,
+  setWindowSize: PropTypes.func
 };
 
 App.defaultProps = {
-  ready: false,
+  ready: false
 };
 
 export default App;
