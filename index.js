@@ -56,12 +56,6 @@ var prompts = [{
   default: true,
   when: function(answers) { return answers.framework!=='none'; }
 },{
-  type: "confirm",
-  name: "useES6",
-  message: "Would you like to use ES6?",
-  default: true,
-  when: function(answers) { return answers.framework==='bigwheel' || answers.framework==='none'; }
-},{
   type: "list",
   message: "What css preprocessor will your project use?",
   name: "css",
@@ -130,50 +124,41 @@ function onPostPrompt() {
   var repo = gen.config.get('repo').split('/');
   repo = repo[repo.length-1].toLowerCase().replace('.git','');
   gen.config.set('repoName', repo || '');
-  if (gen.config.get('framework')!=='none' && gen.config.get('framework')!=='bigwheel') gen.config.set('useES6',true);
 }
 
 function onPostCopy() {
   var done = gen.async();
   fs.rename(path.join(gen.cwd,'gitignore'),path.join(gen.cwd,'.gitignore'),function() {
     if (gen.config.get('framework')!=='none') {
-      if (gen.config.get('useES6')) {
-        gen.copy('templates/.babelrc','.babelrc',function() {
-          if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
-            var style = gen.config.get('css');
-            var files = [
-              [path.join(gen.cwd,'src/components/Preloader/style.'+style),path.join(gen.cwd,'src/components/Preloader/Preloader.'+style)],
-              [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
-              [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],
-              [path.join(gen.cwd,'src/components/MobileFullscreenVideo/index.js'),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.js')],
-              [path.join(gen.cwd,'src/components/MobileFullscreenVideo/style.'+style),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.'+style)],
-              [path.join(gen.cwd,'src/components/VideoPlayer/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.js')],
-              [path.join(gen.cwd,'src/components/VideoPlayer/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.'+style)],
-              [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.js')],
-              [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.'+style)],
-              [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.js')],
-              [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.'+style)],
-              [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)],
-              [path.join(gen.cwd,'src/components/HamburgerButton/index.js'),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.js')],
-              [path.join(gen.cwd,'src/components/HamburgerButton/style.'+style),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.'+style)]
-            ];
-            renameFiles(files,function() {
-              createSections(gen,done);
-            });
-          } else {
+      gen.copy('templates/.babelrc','.babelrc',function() {
+        if (gen.config.get('sectionNames') && gen.config.get('framework')==='react') {
+          var style = gen.config.get('css');
+          var files = [
+            [path.join(gen.cwd,'src/components/Preloader/style.'+style),path.join(gen.cwd,'src/components/Preloader/Preloader.'+style)],
+            [path.join(gen.cwd,'src/components/Rotate/index.js'),path.join(gen.cwd,'src/components/Rotate/Rotate.js')],
+            [path.join(gen.cwd,'src/components/Rotate/style.'+style),path.join(gen.cwd,'src/components/Rotate/Rotate.'+style)],
+            [path.join(gen.cwd,'src/components/MobileFullscreenVideo/index.js'),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.js')],
+            [path.join(gen.cwd,'src/components/MobileFullscreenVideo/style.'+style),path.join(gen.cwd,'src/components/MobileFullscreenVideo/MobileFullscreenVideo.'+style)],
+            [path.join(gen.cwd,'src/components/VideoPlayer/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.js')],
+            [path.join(gen.cwd,'src/components/VideoPlayer/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPlayer.'+style)],
+            [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.js')],
+            [path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoPoster/VideoPoster.'+style)],
+            [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/index.js'),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.js')],
+            [path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/style.'+style),path.join(gen.cwd,'src/components/VideoPlayer/VideoTimeline/VideoTimeline.'+style)],
+            [path.join(gen.cwd,'src/sections/App/style.'+style),path.join(gen.cwd,'src/sections/App/App.'+style)],
+            [path.join(gen.cwd,'src/components/HamburgerButton/index.js'),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.js')],
+            [path.join(gen.cwd,'src/components/HamburgerButton/style.'+style),path.join(gen.cwd,'src/components/HamburgerButton/HamburgerButton.'+style)]
+          ];
+          renameFiles(files,function() {
             createSections(gen,done);
-          }
-        });
-      } else {
-        createSections(gen,done);
-      }
+          });
+        } else {
+          createSections(gen,done);
+        }
+      });
     } else {
       fs.writeFile(path.join(gen.cwd,'src/index.js'),'',function() {
-        if (gen.config.get('useES6')) {
-          gen.copy('templates/.babelrc','.babelrc',done);
-        } else {
-          done();
-        }
+        gen.copy('templates/.babelrc','.babelrc',done);
       });
     }
     if (gen.config.get('password') !== '') {

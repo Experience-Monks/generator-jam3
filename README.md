@@ -17,7 +17,7 @@ cd your-project-directory
 nyg nyg-jam3
 ```
 
-You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project. 
+You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project.
 
 ## Prompts
 
@@ -49,17 +49,13 @@ Whether file names will follow the convention of [folder name]/[folder name].js 
 Default: true  
 Whether to use push states in the application, if false, uses hashbangs. This will setup the proper configuration in the framework and the .htaccess file.
 
-`Would you like to use ES6?`  
-Default: true  
-Whether to use ES6 and babel transpilation. Sets up a .babelrc file and all necessary dependencies.
-
 `What css preprocessor will your project use?`  
 Default: SCSS  
 Which css preprocessor should be setup on the project, defaults to SASS, but LESS is also an option.
 
 `Separate common npm modules into vendor.js?`  
 Default: true  
-Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code. 
+Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code.
 
 `What backend language would you like to use?`  
 Default: PHP  
