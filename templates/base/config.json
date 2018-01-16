@@ -11,7 +11,7 @@
     "JPEG_QUALITY": 90,
     "templateBlacklist": [{{#if unsupported}}{{#is backend 'php'}}".phar"{{/is}}{{/if}}],
     "liveReloadClient": true,
-    "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
+    "htpasswd": "{{passLocation}}",
     "env": {}
   },
   "development": {
@@ -25,4 +25,3 @@
     "removeLogs": true
   }
 }
-

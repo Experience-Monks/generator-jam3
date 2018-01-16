@@ -17,7 +17,7 @@ cd your-project-directory
 nyg nyg-jam3
 ```
 
-You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project. 
+You will then be prompted with a number of questions, which will define the project. The appropriate files will then be copied to the current directory and it will install all your needed dependencies. Congratulations, you are now setup with the basis of a Jam3 project.
 
 ## Prompts
 
@@ -59,7 +59,7 @@ Which css preprocessor should be setup on the project, defaults to SASS, but LES
 
 `Separate common npm modules into vendor.js?`  
 Default: true  
-Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code. 
+Whether to separate all npm modules into a separate vender.js file, limiting the bundle.js file to just custom code.
 
 `What backend language would you like to use?`  
 Default: PHP  
@@ -69,9 +69,8 @@ Whether to copy over backend libraries that aid development such as automatic me
 Default: true  
 Whether to include automatic unsupported page redirection.
 
-`Choose the password to use for password protection. (leave blank to disable)`  
-Default: (empty string)  
-If you want to enable password protection via .htaccess, simply type the password you would like to use and the .htaccess and .htpasswd files will be created.
+`Choose the password to use for password protection.`
+Type the password you would like to use and the .htaccess and .htpasswd files will be created.
 
 `Where on the server will your .htpasswd be located?`  
 Default: /var/www  
