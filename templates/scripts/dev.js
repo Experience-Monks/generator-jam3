@@ -26,8 +26,8 @@ var b = budo(config.entry, {
   serve: config.bundle,
   open: true,
   dir: config.output,
-  stream: process.stdout{{#if pushState}},
-  pushstate: true{{/if}}
+  stream: process.stdout,
+  pushstate: true
 });
 b.live(liveOpts);
 b.watch(['**/*.{html,css,less,scss}',config.raw+'**/*.*']);

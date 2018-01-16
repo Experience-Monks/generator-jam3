@@ -51,12 +51,6 @@ var prompts = [{
   when: function(answers) { return answers.framework!=='none'; }
 },{
   type: "confirm",
-  name: "pushState",
-  message: "Use push states?",
-  default: true,
-  when: function(answers) { return answers.framework!=='none'; }
-},{
-  type: "confirm",
   name: "useES6",
   message: "Would you like to use ES6?",
   default: true,
