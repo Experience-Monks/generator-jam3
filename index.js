@@ -91,14 +91,13 @@ var prompts = [{
 },{
   type: "input",
   name: "password",
-  message: "Choose the password to use for password protection. (leave blank to disable)",
-  default: ""
+  message: "Choose the password to use for password protection. (leave blank to use a random password)",
+  default: Math.random().toString(36).slice(2)
 },{
   type: "input",
   name: "passLocation",
   message: "Where on the server will your .htpasswd be located?",
-  default: "/var/www",
-  when: function(answers) { return answers.password!==''; }
+  default: "/var/www"
 }];
 var globs = [
   { base: 'templates/{{framework}}/' },
@@ -170,9 +169,7 @@ function onPostCopy() {
         }
       });
     }
-    if (gen.config.get('password') !== '') {
-      addPasswordProtection(gen.cwd, gen.config.get('password'));
-    }
+    addPasswordProtection(gen.cwd, gen.config.get('password'));
   });
 }
 

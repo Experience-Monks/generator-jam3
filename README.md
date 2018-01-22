@@ -65,9 +65,8 @@ Whether to copy over backend libraries that aid development such as automatic me
 Default: true  
 Whether to include automatic unsupported page redirection.
 
-`Choose the password to use for password protection. (leave blank to disable)`  
-Default: (empty string)  
-If you want to enable password protection via .htaccess, simply type the password you would like to use and the .htaccess and .htpasswd files will be created.
+`Choose the password to use for password protection.`
+Type the password you would like to use and the .htaccess and .htpasswd files will be created.
 
 `Where on the server will your .htpasswd be located?`  
 Default: /var/www  
