@@ -1,7 +1,7 @@
 'use strict';
 import { compose, applyMiddleware, createStore, combineReducers } from 'redux'
 import { routerMiddleware, routerReducer } from 'react-router-redux';
-import createHistory from 'history/{{#if pushState}}createBrowserHistory{{else}}createHashHistory{{/if}}'
+import createHistory from 'history/createBrowserHistory'
 
 import * as appReducers from './reducers/app';
 import * as preloaderReducers from './reducers/preloader';
