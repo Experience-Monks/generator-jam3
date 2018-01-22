@@ -7,7 +7,7 @@
     $meta->write();
   ?>
   <meta charset="utf-8">
-  {{#if pushState}}<base href="\{{BASENAME}}">{{/if}}
+  <base href="\{{BASENAME}}">
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" type="text/css" href="\{{stylesheet}}">
 </head>
@@ -16,4 +16,3 @@
   <script type="text/javascript" src="\{{bundle}}"></script>
   </body>
 </html>
-

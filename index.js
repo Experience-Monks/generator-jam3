@@ -50,12 +50,6 @@ var prompts = [{
   default: false,
   when: function(answers) { return answers.framework!=='none'; }
 },{
-  type: "confirm",
-  name: "pushState",
-  message: "Use push states?",
-  default: true,
-  when: function(answers) { return answers.framework!=='none'; }
-},{
   type: "list",
   message: "What css preprocessor will your project use?",
   name: "css",

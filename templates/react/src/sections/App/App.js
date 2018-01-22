@@ -35,7 +35,7 @@ class App extends React.PureComponent {
     window.removeEventListener('resize', this.onResize);
   }
 
-  matchPath = path => matchPath({{#if pushState}}location.pathname{{else}}location.hash.replace('#', ''){{/if}}, path);
+  matchPath = path => matchPath(location.pathname, path);
 
   renderPreloader = () => {
     return (

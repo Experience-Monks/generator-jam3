@@ -45,10 +45,6 @@ The framework that this project will be based on, all necessary files and module
 Default: false  
 Whether file names will follow the convention of [folder name]/[folder name].js or [folder name]/index.js.
 
-`Use push states?`  
-Default: true  
-Whether to use push states in the application, if false, uses hashbangs. This will setup the proper configuration in the framework and the .htaccess file.
-
 `What css preprocessor will your project use?`  
 Default: SCSS  
 Which css preprocessor should be setup on the project, defaults to SASS, but LESS is also an option.
