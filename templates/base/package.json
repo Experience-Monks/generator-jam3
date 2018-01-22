@@ -70,6 +70,7 @@
     "less-plugin-glob": "^1.1.1",{{/is}}{{#is css 'scss'}}
     "autoprefixer": "^6.2.3",
     "node-sass": "^3.4.2",
+    "sass-lint": "1.10.2",
     "postcss": "^5.0.14",
     "node-sass-glob": "^1.0.4",{{/is}}
     "minimist": "^1.2.0",
