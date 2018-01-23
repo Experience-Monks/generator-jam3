@@ -12,7 +12,18 @@
     "templateBlacklist": [{{#if unsupported}}{{#is backend 'php'}}".phar"{{/is}}{{/if}}],
     "liveReloadClient": true,
     "htpasswd": {{#if password}}"{{passLocation}}"{{else}}false{{/if}},
-    "env": {}
+    "env": {},
+    "minifyHTMLConfig": {
+      "collapseBooleanAttributes": true,
+      "collapseWhitespace": true,
+      "collapseInlineTagWhitespace": true,
+      "keepClosingSlash": true,
+      "minifyCSS": true,
+      "minifyJS": true,
+      "removeComments": true,
+      "removeAttributeQuotes": true,
+      "removeRedundantAttributes": true
+    }
   },
   "development": {
     "vendor": false,
@@ -25,4 +36,3 @@
     "removeLogs": true
   }
 }
-

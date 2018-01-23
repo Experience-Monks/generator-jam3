@@ -89,7 +89,8 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-1": "^6.5.0",
-    "stringify": "3.2.0"{{/is}}{{/if}}
+    "stringify": "3.2.0"{{/is}}{{/if}},
+    "html-minifier": "^3.4.3"
   },
   "browserify": {
     "transform": [{{#is framework 'bigwheel'}}
