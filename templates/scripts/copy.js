@@ -13,6 +13,7 @@ var isbinaryfile = require('isbinaryfile');
 
 var blacklist = (config.templateBlacklist || []).map(path.normalize);
 
+
 function copy(file) {
   var parsed = url.parse(config.ASSET_PATH);
   var assets = parsed.path || config.ASSET_PATH;
@@ -69,9 +70,14 @@ function copyFile(outputDir,srcDir,file) {
 function template(file,output) {
   fs.readFile(file,'utf8',function(err,data) {
     if (!err) {
-      fs.writeFile(output,render(data,config),function(err) {
-        if (err) console.log('\x1b[31m could not write file:',output,'\x1b[0m');
-      });
+      var doMinifyHTML = file.toLowerCase().indexOf('.html') > -1 && config.minify;
+      var rendered = render(data, config);
+      var contents = (doMinifyHTML) ? minifyHTML(rendered, config.minifyHTMLConfig) : contents;
+
+      fs.writeFile(output, contents, function(err) {
+        if (doMinifyHTML) console.log('Copying minified ' + file + ' file...');
+        if (err) console.log('\x1b[31m could not write file:', output, '\x1b[0m');
+      }
     } else {
       console.log('\x1b[31m could not read file:',file,'\x1b[0m');
     }
@@ -87,4 +93,3 @@ if (!module.parent) {
 } else {
   module.exports = copy;
 }
-
